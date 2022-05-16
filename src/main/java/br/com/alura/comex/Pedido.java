@@ -2,6 +2,7 @@ package br.com.alura.comex;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class Pedido {
 
@@ -21,6 +22,16 @@ public class Pedido {
         this.preco = preco;
         this.quantidade = quantidade;
         this.data = data;
+    }
+    public BigDecimal getValorTotal(){
+        return preco.multiply(BigDecimal.valueOf(quantidade));
+    }
+    public boolean isMaisBaratoQue(Pedido outroPedido) {
+        if (outroPedido.preco.compareTo(preco) == 1) return false;
+        return true;}
+    public boolean isMaisCaroQue(Pedido outroPedido) {
+        if (preco.compareTo(outroPedido.preco) ==1 )return false;
+        return true;
     }
 
     public String getCategoria() {
