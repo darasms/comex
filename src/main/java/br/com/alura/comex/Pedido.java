@@ -29,6 +29,7 @@ public class Pedido {
     public boolean isMaisBaratoQue(Pedido outroPedido) {
         if (outroPedido.preco.compareTo(preco) == 1) return false;
         return true;}
+
     public boolean isMaisCaroQue(Pedido outroPedido) {
         if (preco.compareTo(outroPedido.preco) ==1 )return false;
         return true;

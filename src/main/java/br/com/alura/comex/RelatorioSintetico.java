@@ -2,6 +2,7 @@ package br.com.alura.comex;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Function;
 
@@ -9,26 +10,25 @@ public class RelatorioSintetico {
 
     int totalDeProdutosVendidos;
     int totalDePedidosRealizados;
-    BigDecimal montanteDeVendas = BigDecimal.ZERO;
+    int totalDeCategorias;
+    BigDecimal montanteDeVendas;
     Pedido pedidoMaisBarato;
     Pedido pedidoMaisCaro;
+
 
     public RelatorioSintetico(List<Pedido> listaDePedidos){
 
         this.pedidoMaisBarato = listaDePedidos.stream()
-                .min(Comparator.comparing(Pedido::getPreco))
-                .get();
+                .min(Comparator.comparing(Pedido::getValorTotal))
+                .orElseThrow(() -> new IllegalStateException());
+                //.get();
 
         this.pedidoMaisCaro = listaDePedidos.stream()
-                .max(Comparator.comparing(Pedido::getPreco))
-                .get();
-
-        //montanteDeVendas = montanteDeVendas.add(pedidoAtual.getPreco().multiply(new BigDecimal(pedidoAtual.getQuantidade())));
-
-        Function<Pedido, BigDecimal> mapaPedidos = pedido -> pedido.getValorTotal();
+                .max(Comparator.comparing(Pedido::getValorTotal))
+                .orElseThrow(() -> new IllegalStateException());
 
         this.montanteDeVendas = listaDePedidos.stream()
-                .map(mapaPedidos)
+                .map(Pedido::getValorTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         this.totalDeProdutosVendidos = listaDePedidos.stream()
@@ -37,6 +37,13 @@ public class RelatorioSintetico {
 
         this.totalDePedidosRealizados = listaDePedidos.size();
 
+        HashSet<String> categoriasProcessadas = new HashSet<>();
+
+        listaDePedidos.stream()
+                .map(Pedido::getCategoria)
+                .forEach(c -> categoriasProcessadas.add(c));
+
+        this.totalDeCategorias = categoriasProcessadas.size();
     }
 
     public int getTotalDeProdutosVendidos() {
@@ -57,5 +64,9 @@ public class RelatorioSintetico {
 
     public Pedido getPedidoMaisCaro() {
         return pedidoMaisCaro;
+    }
+
+    public int getTotalDeCategorias() {
+        return totalDeCategorias;
     }
 }

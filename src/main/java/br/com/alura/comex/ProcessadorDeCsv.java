@@ -24,8 +24,6 @@ public class ProcessadorDeCsv {
 
             leitorDeLinhas.nextLine();
 
-            int quantidadeDeRegistros = 0;
-
 
             while (leitorDeLinhas.hasNextLine()) {
                 String linha = leitorDeLinhas.nextLine();
@@ -40,8 +38,6 @@ public class ProcessadorDeCsv {
 
                 Pedido pedido = new Pedido(categoria, produto, cliente, preco, quantidade, data);
                 pedidos.add(pedido);
-
-                quantidadeDeRegistros++;
             }
             return pedidos;
         } catch (URISyntaxException e) {
