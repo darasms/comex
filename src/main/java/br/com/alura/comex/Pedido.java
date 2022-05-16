@@ -35,6 +35,11 @@ public class Pedido {
         return true;
     }
 
+    public boolean isMesmoClient(Pedido outroPedido){
+        if (this.cliente.compareTo(outroPedido.getCliente()) ==1) return false;
+        return true;
+    }
+
     public String getCategoria() {
         return categoria;
     }

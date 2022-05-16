@@ -1,10 +1,9 @@
 package br.com.alura.comex;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.function.Function;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RelatorioSintetico {
 
@@ -17,6 +16,8 @@ public class RelatorioSintetico {
 
 
     public RelatorioSintetico(List<Pedido> listaDePedidos){
+
+        if (listaDePedidos == null || listaDePedidos.isEmpty()) throw new IllegalArgumentException("Lista de pedidos nula ou vazia!");
 
         this.pedidoMaisBarato = listaDePedidos.stream()
                 .min(Comparator.comparing(Pedido::getValorTotal))
@@ -44,6 +45,19 @@ public class RelatorioSintetico {
                 .forEach(c -> categoriasProcessadas.add(c));
 
         this.totalDeCategorias = categoriasProcessadas.size();
+
+        Map<String, Integer> clientes = new HashMap<>();
+
+        List<String> listaClient = listaDePedidos.stream()
+                .map(Pedido::getCliente)
+                .collect(Collectors.toList());
+
+        listaClient.stream()
+                        .forEach(p -> clientes.put(p, Collections.frequency(listaClient, p)));
+
+
+        System.out.println("#### RELATÓRIO DE CLIENTES FIÉIS");
+        clientes.forEach((a,b) -> System.out.println("NOME: " + a + "\n" + "Nº DE PEDIDOS: " + b + "\n"));
     }
 
     public int getTotalDeProdutosVendidos() {
@@ -69,4 +83,5 @@ public class RelatorioSintetico {
     public int getTotalDeCategorias() {
         return totalDeCategorias;
     }
+
 }
