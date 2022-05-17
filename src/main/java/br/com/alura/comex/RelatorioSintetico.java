@@ -7,12 +7,16 @@ import java.util.stream.Stream;
 
 public class RelatorioSintetico {
 
-    int totalDeProdutosVendidos;
-    int totalDePedidosRealizados;
-    int totalDeCategorias;
-    BigDecimal montanteDeVendas;
-    Pedido pedidoMaisBarato;
-    Pedido pedidoMaisCaro;
+    private int totalDeProdutosVendidos;
+    private int totalDePedidosRealizados;
+    private int totalDeCategorias;
+    private BigDecimal montanteDeVendas;
+    private Pedido pedidoMaisBarato;
+    private Pedido pedidoMaisCaro;
+    private Map<String, List<Pedido>>pedidosPorCliente;
+
+    private Map<String, Integer> qtdProdutosPorCategoria;
+    private Map<String, BigDecimal> montantePorCategoria;
 
 
     public RelatorioSintetico(List<Pedido> listaDePedidos){
@@ -22,7 +26,6 @@ public class RelatorioSintetico {
         this.pedidoMaisBarato = listaDePedidos.stream()
                 .min(Comparator.comparing(Pedido::getValorTotal))
                 .orElseThrow(() -> new IllegalStateException());
-                //.get();
 
         this.pedidoMaisCaro = listaDePedidos.stream()
                 .max(Comparator.comparing(Pedido::getValorTotal))
@@ -46,18 +49,22 @@ public class RelatorioSintetico {
 
         this.totalDeCategorias = categoriasProcessadas.size();
 
-        Map<String, Integer> clientes = new HashMap<>();
-
-        List<String> listaClient = listaDePedidos.stream()
-                .map(Pedido::getCliente)
-                .collect(Collectors.toList());
-
-        listaClient.stream()
-                        .forEach(p -> clientes.put(p, Collections.frequency(listaClient, p)));
+        this.pedidosPorCliente = new TreeMap();
+        listaDePedidos.stream()
+                .collect(Collectors.groupingBy(Pedido::getCliente)).forEach((cli, prods) -> pedidosPorCliente.put(cli, prods));
 
 
-        System.out.println("#### RELATÓRIO DE CLIENTES FIÉIS");
-        clientes.forEach((a,b) -> System.out.println("NOME: " + a + "\n" + "Nº DE PEDIDOS: " + b + "\n"));
+        this.qtdProdutosPorCategoria = new TreeMap<>();
+
+        listaDePedidos.stream()
+                .collect(Collectors.groupingBy(Pedido::getCategoria))
+                .forEach((a,v) -> qtdProdutosPorCategoria.put(a,v.stream().mapToInt(Pedido::getQuantidade).sum()));
+
+        this.montantePorCategoria = new TreeMap<>();
+        listaDePedidos.stream()
+                .collect(Collectors.groupingBy(Pedido::getCategoria))
+                .forEach((a,v) -> montantePorCategoria.put(a, v.stream().map(Pedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add)));
+
     }
 
     public int getTotalDeProdutosVendidos() {
@@ -84,4 +91,13 @@ public class RelatorioSintetico {
         return totalDeCategorias;
     }
 
+    public Map<String, List<Pedido>> getPedidosPorCliente() { return pedidosPorCliente; }
+
+    public Map<String, Integer> getQtdProdutosPorCategoria() {
+        return qtdProdutosPorCategoria;
+    }
+
+    public Map<String, BigDecimal> getMontantePorCategoria() {
+        return montantePorCategoria;
+    }
 }

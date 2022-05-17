@@ -1,18 +1,10 @@
 package br.com.alura.comex;
 
-import java.io.IOException;
-import java.math.BigDecimal;
+
 import java.math.RoundingMode;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Main {
 
@@ -30,5 +22,8 @@ public class Main {
         System.out.printf("- MONTANTE DE VENDAS: %s\n", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(relatorioSintetico.getMontanteDeVendas().setScale(2, RoundingMode.HALF_DOWN)));
         System.out.printf("- PEDIDO MAIS BARATO: %s (%s)\n", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(relatorioSintetico.getPedidoMaisBarato().getValorTotal().setScale(2, RoundingMode.HALF_DOWN)), relatorioSintetico.getPedidoMaisBarato().getProduto());
         System.out.printf("- PEDIDO MAIS CARO: %s (%s)\n", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(relatorioSintetico.getPedidoMaisCaro().getValorTotal().setScale(2, RoundingMode.HALF_DOWN)), relatorioSintetico.getPedidoMaisCaro().getProduto());
+
+        System.out.println("\n#### RELATÓRIO DE CLIENTES FIÉIS");
+        relatorioSintetico.getPedidosPorCliente().forEach((cliente, produto) -> System.out.printf("\nNOME: %s \nNº DE PEDIDOS: %s\n", cliente, produto.size()));
     }
 }

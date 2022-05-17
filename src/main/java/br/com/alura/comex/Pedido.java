@@ -2,7 +2,8 @@ package br.com.alura.comex;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Comparator;
+import java.util.Map;
+
 
 public class Pedido {
 
@@ -14,6 +15,7 @@ public class Pedido {
     private int quantidade;
 
     private LocalDate data;
+
 
     public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
         this.categoria = categoria;
@@ -39,6 +41,7 @@ public class Pedido {
         if (this.cliente.compareTo(outroPedido.getCliente()) ==1) return false;
         return true;
     }
+
 
     public String getCategoria() {
         return categoria;
