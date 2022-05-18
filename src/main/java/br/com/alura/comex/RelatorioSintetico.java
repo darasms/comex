@@ -13,7 +13,6 @@ public class RelatorioSintetico {
     private BigDecimal montanteDeVendas;
     private Pedido pedidoMaisBarato;
     private Pedido pedidoMaisCaro;
-    private Map<String, List<Pedido>>pedidosPorCliente;
     private Map<String, Integer> qtdProdutosPorCategoria;
     private Map<String, BigDecimal> montantePorCategoria;
     private Map<String, Integer> produtosMaisVendidos;
@@ -26,11 +25,11 @@ public class RelatorioSintetico {
 
         this.pedidoMaisBarato = listaDePedidos.stream()
                 .min(Comparator.comparing(Pedido::getValorTotal))
-                .orElseThrow(() -> new IllegalStateException());
+                .orElseThrow(() -> new IllegalStateException("Lista está vazia"));
 
         this.pedidoMaisCaro = listaDePedidos.stream()
                 .max(Comparator.comparing(Pedido::getValorTotal))
-                .orElseThrow(() -> new IllegalStateException());
+                .orElseThrow(() -> new IllegalStateException("Lista está vazia"));
 
         this.montanteDeVendas = listaDePedidos.stream()
                 .map(Pedido::getValorTotal)
@@ -42,17 +41,11 @@ public class RelatorioSintetico {
 
         this.totalDePedidosRealizados = listaDePedidos.size();
 
-        HashSet<String> categoriasProcessadas = new HashSet<>();
-
         this.totalDeCategorias = listaDePedidos.stream()
                 .map(Pedido::getCategoria)
                 .distinct()
                 .count();
 
-
-        this.pedidosPorCliente = new TreeMap();
-        listaDePedidos.stream()
-                .collect(Collectors.groupingBy(Pedido::getCliente)).forEach((cli, prods) -> pedidosPorCliente.put(cli, prods));
 
         this.qtdProdutosPorCategoria = new TreeMap<>();
 
@@ -105,12 +98,8 @@ public class RelatorioSintetico {
         return pedidoMaisCaro;
     }
 
-    public int getTotalDeCategorias() {
+    public long getTotalDeCategorias() {
         return totalDeCategorias;
-    }
-
-    public Map<String, List<Pedido>> getPedidosPorCliente() {
-        return pedidosPorCliente;
     }
 
     public Map<String, Integer> getQtdProdutosPorCategoria() {

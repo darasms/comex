@@ -33,7 +33,8 @@ public class GerarRelatorioPedidos {
     public void imprimeClientesFieis(){
 
         System.out.println("\n#### RELATÓRIO DE CLIENTES FIÉIS");
-        relatorioSintetico.getPedidosPorCliente().forEach((cliente, produto) -> System.out.printf("\nNOME: %s \nNº DE PEDIDOS: %s\n", cliente, produto.size()));
+        RelatorioClienteFieis relatorioClienteFieis = new RelatorioClienteFieis(listaDePedidos);
+        relatorioClienteFieis.getPedidosPorCliente().forEach((cliente, produto) -> System.out.printf("\nNOME: %s \nNº DE PEDIDOS: %s\n", cliente, produto));
     }
 
     public void imprimeVendasPorCategoria(){

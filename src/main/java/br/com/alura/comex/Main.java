@@ -14,7 +14,8 @@ public class Main {
         GerarRelatorioPedidos relatorio = new GerarRelatorioPedidos(pedidos);
 
         relatorio.imprimeValoresTotais();
-        relatorio.imprimeClientesFieis();
+        RelatorioClienteFieis relatorioClienteFieis = new RelatorioClienteFieis(pedidos);
+        relatorioClienteFieis.printClientesFieis();
         relatorio.imprimeVendasPorCategoria();
         relatorio.imprimeProdutosMaisVendidos();
         relatorio.imprimeProdutoMaisCaroPorCategoria();
