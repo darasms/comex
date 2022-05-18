@@ -28,20 +28,6 @@ public class Pedido {
     public BigDecimal getValorTotal(){
         return preco.multiply(BigDecimal.valueOf(quantidade));
     }
-    public boolean isMaisBaratoQue(Pedido outroPedido) {
-        if (outroPedido.preco.compareTo(preco) == 1) return false;
-        return true;}
-
-    public boolean isMaisCaroQue(Pedido outroPedido) {
-        if (preco.compareTo(outroPedido.preco) ==1 )return false;
-        return true;
-    }
-
-    public boolean isMesmoClient(Pedido outroPedido){
-        if (this.cliente.compareTo(outroPedido.getCliente()) ==1) return false;
-        return true;
-    }
-
 
     public String getCategoria() {
         return categoria;
