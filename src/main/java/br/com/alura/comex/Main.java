@@ -13,10 +13,10 @@ public class Main {
 
         GerarRelatorioPedidos relatorio = new GerarRelatorioPedidos(pedidos);
 
-        relatorio.printValoresTotais();
-        relatorio.printClientesFieis();
-        relatorio.printVendasPorCategoria();
-        relatorio.printProdutosMaisVendidos();
-        relatorio.printProdutoMaisCaroPorCategoria();
+        relatorio.imprimeValoresTotais();
+        relatorio.imprimeClientesFieis();
+        relatorio.imprimeVendasPorCategoria();
+        relatorio.imprimeProdutosMaisVendidos();
+        relatorio.imprimeProdutoMaisCaroPorCategoria();
     }
 }

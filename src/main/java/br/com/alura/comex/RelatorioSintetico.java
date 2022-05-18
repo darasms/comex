@@ -17,9 +17,7 @@ public class RelatorioSintetico {
     private Map<String, Integer> qtdProdutosPorCategoria;
     private Map<String, BigDecimal> montantePorCategoria;
     private Map<String, Integer> produtosMaisVendidos;
-
     private Map<String, String> produtoMaisCaroCategoria;
-
     private Map<String, BigDecimal> maiorPrecoPorCategoria;
 
     public RelatorioSintetico(List<Pedido> listaDePedidos){

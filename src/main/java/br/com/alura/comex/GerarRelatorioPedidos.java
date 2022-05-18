@@ -18,7 +18,7 @@ public class GerarRelatorioPedidos {
         this.relatorioSintetico = new RelatorioSintetico(listaDePedidos);
     }
 
-    public void printValoresTotais(){
+    public void imprimeValoresTotais(){
 
         System.out.println("#### RELATÓRIO DE VALORES TOTAIS");
         System.out.printf("- TOTAL DE PEDIDOS REALIZADOS: %s\n", relatorioSintetico.getTotalDePedidosRealizados());
@@ -30,13 +30,13 @@ public class GerarRelatorioPedidos {
 
     }
 
-    public void printClientesFieis(){
+    public void imprimeClientesFieis(){
 
         System.out.println("\n#### RELATÓRIO DE CLIENTES FIÉIS");
         relatorioSintetico.getPedidosPorCliente().forEach((cliente, produto) -> System.out.printf("\nNOME: %s \nNº DE PEDIDOS: %s\n", cliente, produto.size()));
     }
 
-    public void printVendasPorCategoria(){
+    public void imprimeVendasPorCategoria(){
 
         System.out.println("\n#### RELATÓRIO DE VENDAS POR CATEGORIA");
         relatorioSintetico.getQtdProdutosPorCategoria().forEach((catg, qtd) -> {
@@ -45,7 +45,7 @@ public class GerarRelatorioPedidos {
         });
     }
 
-    public void printProdutosMaisVendidos(){
+    public void imprimeProdutosMaisVendidos(){
 
         System.out.println("\n#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS");
         relatorioSintetico.getProdutosMaisVendidos()
@@ -55,20 +55,12 @@ public class GerarRelatorioPedidos {
                 .forEach(a -> System.out.printf("\nPRODUTO: %s\nQUANTIDADE: %s\n", a.getKey(), a.getValue()));
     }
 
-    public void printProdutoMaisCaroPorCategoria(){
+    public void imprimeProdutoMaisCaroPorCategoria(){
 
         System.out.println("\n#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA");
         relatorioSintetico.getProdutoMaisCaroCategoria().forEach((a, b) -> {
             System.out.printf("\nCATEGORIA: %s\nPRODUTO: %s", a, b);
             System.out.printf("\nPREÇO: %s\n", relatorioSintetico.getMaiorPrecoPorCategoria().get(a));
         });
-    }
-
-    public List<Pedido> getListaDePedidos() {
-        return listaDePedidos;
-    }
-
-    public RelatorioSintetico getRelatorioSintetico() {
-        return relatorioSintetico;
     }
 }
