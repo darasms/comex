@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class ProcessadorDeCsv {
 
     public List<Pedido> getPedidos(String arq_name){
-        ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+        List<Pedido> pedidos = new ArrayList<Pedido>();
 
         try {
             URL recursoCSV = ClassLoader.getSystemResource(arq_name);
