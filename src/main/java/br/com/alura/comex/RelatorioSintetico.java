@@ -14,10 +14,13 @@ public class RelatorioSintetico {
     private Pedido pedidoMaisBarato;
     private Pedido pedidoMaisCaro;
     private Map<String, List<Pedido>>pedidosPorCliente;
-
     private Map<String, Integer> qtdProdutosPorCategoria;
     private Map<String, BigDecimal> montantePorCategoria;
+    private Map<String, Integer> produtosMaisVendidos;
 
+    private Map<String, String> produtoMaisCaroCategoria;
+
+    private Map<String, BigDecimal> maiorPrecoPorCategoria;
 
     public RelatorioSintetico(List<Pedido> listaDePedidos){
 
@@ -53,7 +56,6 @@ public class RelatorioSintetico {
         listaDePedidos.stream()
                 .collect(Collectors.groupingBy(Pedido::getCliente)).forEach((cli, prods) -> pedidosPorCliente.put(cli, prods));
 
-
         this.qtdProdutosPorCategoria = new TreeMap<>();
 
         listaDePedidos.stream()
@@ -64,6 +66,24 @@ public class RelatorioSintetico {
         listaDePedidos.stream()
                 .collect(Collectors.groupingBy(Pedido::getCategoria))
                 .forEach((a,v) -> montantePorCategoria.put(a, v.stream().map(Pedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add)));
+
+        this.produtosMaisVendidos = new TreeMap<>();
+        listaDePedidos.stream()
+                .collect(Collectors.groupingBy(Pedido::getProduto))
+                .forEach((a,v) -> produtosMaisVendidos.put(a,v.stream().mapToInt(Pedido::getQuantidade).sum()));
+
+        /* Essa solução não funciona se a fonte fosse um banco de dados, por exemplo */
+        this.produtoMaisCaroCategoria = new TreeMap<>();
+        listaDePedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria)).forEach((a, b) -> {
+            produtoMaisCaroCategoria.put(a, b.stream().max(Comparator.comparing(Pedido::getPreco))
+                    .orElseThrow(() -> new IllegalStateException("Não foi possível encontrar o produto mais caro da Categoria: " + a)).getProduto());
+        });
+
+        this.maiorPrecoPorCategoria = new TreeMap<>();
+        listaDePedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria)).forEach((a, b) -> {
+            maiorPrecoPorCategoria.put(a, b.stream().max(Comparator.comparing(Pedido::getPreco))
+                    .orElseThrow(() -> new IllegalStateException("Não foi possível encontrar o maior valor Categoria: " + a)).getPreco());
+        });
 
     }
 
@@ -91,7 +111,9 @@ public class RelatorioSintetico {
         return totalDeCategorias;
     }
 
-    public Map<String, List<Pedido>> getPedidosPorCliente() { return pedidosPorCliente; }
+    public Map<String, List<Pedido>> getPedidosPorCliente() {
+        return pedidosPorCliente;
+    }
 
     public Map<String, Integer> getQtdProdutosPorCategoria() {
         return qtdProdutosPorCategoria;
@@ -99,5 +121,17 @@ public class RelatorioSintetico {
 
     public Map<String, BigDecimal> getMontantePorCategoria() {
         return montantePorCategoria;
+    }
+
+    public Map<String, Integer> getProdutosMaisVendidos() {
+        return produtosMaisVendidos;
+    }
+
+    public Map<String, String> getProdutoMaisCaroCategoria() {
+        return produtoMaisCaroCategoria;
+    }
+
+    public Map<String, BigDecimal> getMaiorPrecoPorCategoria() {
+        return maiorPrecoPorCategoria;
     }
 }
