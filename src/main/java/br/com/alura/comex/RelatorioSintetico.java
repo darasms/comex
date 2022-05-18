@@ -9,7 +9,7 @@ public class RelatorioSintetico {
 
     private int totalDeProdutosVendidos;
     private int totalDePedidosRealizados;
-    private int totalDeCategorias;
+    private long totalDeCategorias;
     private BigDecimal montanteDeVendas;
     private Pedido pedidoMaisBarato;
     private Pedido pedidoMaisCaro;
@@ -44,11 +44,11 @@ public class RelatorioSintetico {
 
         HashSet<String> categoriasProcessadas = new HashSet<>();
 
-        listaDePedidos.stream()
+        this.totalDeCategorias = listaDePedidos.stream()
                 .map(Pedido::getCategoria)
-                .forEach(c -> categoriasProcessadas.add(c));
+                .distinct()
+                .count();
 
-        this.totalDeCategorias = categoriasProcessadas.size();
 
         this.pedidosPorCliente = new TreeMap();
         listaDePedidos.stream()
