@@ -26,4 +26,13 @@ public class RelatórioProdutos extends Relatorio{
         return produtosMaisVendidos;
     }
 
+    public void imprimeProdutosMaisVendidos(){
+
+        System.out.println("\n#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS");
+        this.getProdutosMaisVendidos()
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(3)
+                .forEach(a -> System.out.printf("\nPRODUTO: %s\nQUANTIDADE: %s\n", a.getKey(), a.getValue()));
+    }
 }
