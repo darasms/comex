@@ -40,7 +40,7 @@ public class RelatorioCategoria extends Relatorio{
 
     }
 
-    public Map<String, String> produtoMaisCaroCategoria() throws IllegalArgumentException{
+    public Map<String, String> getProdutoMaisCaroCategoria() throws IllegalArgumentException{
         Map<String, String> produtoMaisCaroCategoria = new TreeMap<>();
 
         listaDePedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria)).forEach((a, b) -> {
@@ -50,13 +50,31 @@ public class RelatorioCategoria extends Relatorio{
         return produtoMaisCaroCategoria;
     }
 
-    public Map<String, BigDecimal> maiorPrecoPorCategoria(){
+    public Map<String, BigDecimal> getMaiorPrecoPorCategoria(){
         Map<String, BigDecimal> maiorPrecoPorCategoria = new TreeMap<>();
         listaDePedidos.stream().collect(Collectors.groupingBy(Pedido::getCategoria)).forEach((a, b) -> {
             maiorPrecoPorCategoria.put(a, b.stream().max(Comparator.comparing(Pedido::getPreco))
                     .orElseThrow(() -> new IllegalStateException("Não foi possível encontrar o maior valor Categoria: " + a)).getPreco());
         });
         return maiorPrecoPorCategoria;
+    }
+
+    public void imprimeVendasPorCategoria(){
+
+        System.out.println("\n#### RELATÓRIO DE VENDAS POR CATEGORIA");
+        this.getQtdProdutosPorCategoria().forEach((catg, qtd) -> {
+            System.out.printf("\nCATEGORIA: %s\nQUANTIDADE VENDIDA: %s", catg, qtd);
+            System.out.printf("\nMONTANTE: %s\n",this.getMontantePorCategoria().get(catg));
+        });
+    }
+
+    public void imprimeProdutoMaisCaroPorCategoria(){
+
+        System.out.println("\n#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA");
+        this.getProdutoMaisCaroCategoria().forEach((a, b) -> {
+            System.out.printf("\nCATEGORIA: %s\nPRODUTO: %s", a, b);
+            System.out.printf("\nPREÇO: %s\n", this.getMaiorPrecoPorCategoria().get(a));
+        });
     }
 
 }
