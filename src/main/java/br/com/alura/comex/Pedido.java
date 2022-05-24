@@ -14,14 +14,6 @@ public class Pedido {
 
     private LocalDate data;
 
-    public Pedido(String categoria, String produto, String cliente, BigDecimal preco, int quantidade, LocalDate data) {
-        this.categoria = categoria;
-        this.produto = produto;
-        this.cliente = cliente;
-        this.preco = preco;
-        this.quantidade = quantidade;
-        this.data = data;
-    }
 
     public String getCategoria() {
         return categoria;
