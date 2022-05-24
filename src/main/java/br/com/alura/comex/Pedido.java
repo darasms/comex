@@ -1,19 +1,28 @@
 package br.com.alura.comex;
 
+import com.opencsv.bean.CsvBindByName;
+
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
 
 public class Pedido {
-
+    @CsvBindByName(column = "categoria", required = true)
     private String categoria;
+    @CsvBindByName(column = "produto", required = true)
     private String produto;
+    @CsvBindByName(column = "preco", required = true)
+    private BigDecimal preco;
+    @CsvBindByName(column = "quantidade", required = true)
+    private int quantidade;
+    @CsvBindByName(column = "data", required = true)
+    private String data;
+    @CsvBindByName(column = "cliente", required = true)
     private String cliente;
 
-    private BigDecimal preco;
-    private int quantidade;
 
-    private LocalDate data;
-
+    public BigDecimal getValorTotal() {
+        return preco.multiply(BigDecimal.valueOf(quantidade));
+    }
 
     public String getCategoria() {
         return categoria;
@@ -35,7 +44,7 @@ public class Pedido {
         return quantidade;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
