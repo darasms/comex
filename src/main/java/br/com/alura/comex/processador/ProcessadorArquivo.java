@@ -1,6 +1,6 @@
-package br.com.alura.comex.processadorarquivo;
+package br.com.alura.comex.processador;
 
-import br.com.alura.comex.Pedido;
+import br.com.alura.comex.model.Pedido;
 
 import java.io.IOException;
 import java.util.List;

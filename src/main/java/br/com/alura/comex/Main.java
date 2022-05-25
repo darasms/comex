@@ -1,11 +1,16 @@
 package br.com.alura.comex;
 
 
-import br.com.alura.comex.processadorarquivo.ProcessadorJSON;
-import br.com.alura.comex.processadorarquivo.ProcessadorXML;
+import br.com.alura.comex.exception.DomainException;
+import br.com.alura.comex.menu.GerarMenu;
+import br.com.alura.comex.menu.OpcoesEscolha;
+import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.processador.ProcessadorXML;
+import br.com.alura.comex.relatorio.GeradorRelatorio;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
@@ -16,23 +21,15 @@ public class Main {
         List<Pedido> pedidos = new ProcessadorXML().getPedidos(xmlPedido);
 
 
-        RelatorioClientesLucrativos relatorioClientesLucrativos = new RelatorioClientesLucrativos(pedidos);
-        relatorioClientesLucrativos.imprimeClientesLucrativos(2);
+        GerarMenu menu = new GerarMenu();
+        int tipoRelatorioEscolhido = menu.opcoesRelatorio();
 
-        RelatorioClienteFieis relatorioClienteFieis = new RelatorioClienteFieis(pedidos);
-        relatorioClienteFieis.imprimeClientesFieis();
+        Map<Integer, GeradorRelatorio> opcoes = OpcoesEscolha.getOpcoesEscolha();
 
-        RelatorioCategoria relatorioCategoria = new RelatorioCategoria(pedidos);
-        relatorioCategoria.imprimeVendasPorCategoria();
-
-        RelatórioProdutos relatorioProdutos = new RelatórioProdutos(pedidos);
-        relatorioProdutos.imprimeProdutosMaisVendidos();
-
-        relatorioCategoria.imprimeProdutoMaisCaroPorCategoria();
-
-        RelatorioSintetico relatorioSintetico = new RelatorioSintetico(pedidos);
-        relatorioSintetico.imprimeValoresTotais();
+        if (tipoRelatorioEscolhido > opcoes.size()) throw new DomainException("Opção invválida");
+        menu.imprimeRelatorio(opcoes.get(tipoRelatorioEscolhido), pedidos);
 
 
     }
+
 }
