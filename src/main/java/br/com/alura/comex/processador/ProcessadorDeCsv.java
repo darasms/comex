@@ -7,11 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-public class ProcessadorDeCsv implements ProcessadorArquivo {
-    @Override
-    public List<Pedido> getPedidos(String caminho_arquivo) throws FileNotFoundException {
+public class ProcessadorDeCsv {
+    private final String caminhoArquivo = "pedidos.csv";
 
-        return new CsvToBeanBuilder<Pedido>(new FileReader(caminho_arquivo))
+    public List<Pedido> getPedidos() throws FileNotFoundException {
+
+        return new CsvToBeanBuilder<Pedido>(new FileReader(caminhoArquivo))
                 .withType(Pedido.class)
                 .withSeparator(',')
                 .build()
