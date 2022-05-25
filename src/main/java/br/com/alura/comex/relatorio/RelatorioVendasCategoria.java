@@ -1,7 +1,7 @@
 package br.com.alura.comex.relatorio;
 
-import br.com.alura.comex.utils.FormatosImpressao;
 import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.utils.FormatosImpressao;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -46,4 +46,5 @@ public class RelatorioVendasCategoria extends GeradorRelatorio{
         });
         return conteudo.toString();
     }
+
 }

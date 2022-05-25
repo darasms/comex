@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class RelatorioSintetico extends GeradorRelatorio{
+
     @Override
     protected String gerarCabecalho() {
         return "\n#### RELATÓRIO DE VALORES TOTAIS";
@@ -28,6 +29,7 @@ public class RelatorioSintetico extends GeradorRelatorio{
 
         return conteudo.toString();
     }
+
 
     public BigDecimal getMontanteDeVendas(List<Pedido> listaDePedidos){
         return listaDePedidos.stream()

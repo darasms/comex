@@ -5,9 +5,9 @@ import br.com.alura.comex.relatorio.*;
 import java.util.Map;
 import java.util.TreeMap;
 
-public final class OpcoesEscolha {
+public class OpcoesEscolha {
 
-    private Map<Integer, GeradorRelatorio>  opcoesEscolha;
+    private static Map<Integer, GeradorRelatorio>  opcoesEscolha;
     public static Map<Integer, GeradorRelatorio> getOpcoesEscolha(){
         Map<Integer, GeradorRelatorio> opcoesEscolha = new TreeMap<>();
         opcoesEscolha.put(1, new RelatorioSintetico());
@@ -20,8 +20,8 @@ public final class OpcoesEscolha {
         return opcoesEscolha;
     }
 
-    public void adicionar(Map<Integer, GeradorRelatorio> opcoesEscolha) {
-        this.opcoesEscolha = opcoesEscolha;
+    public static void adicionar(Integer chaveAcesso, GeradorRelatorio novoRelatorio) {
+        opcoesEscolha.put(chaveAcesso, novoRelatorio);
     }
 
 }

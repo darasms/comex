@@ -19,5 +19,4 @@ public abstract class GeradorRelatorio {
         System.out.println(conteudo);
     };
 
-
 }

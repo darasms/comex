@@ -1,7 +1,7 @@
 package br.com.alura.comex.relatorio;
 
-import br.com.alura.comex.utils.FormatosImpressao;
 import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.utils.FormatosImpressao;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,24 +9,25 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class RelatorioClientesLucrativos extends GeradorRelatorio{
+public class RelatorioClientesLucrativos extends GeradorRelatorio {
 
-    private Map<String, BigDecimal> getClientesLucrativos(List<Pedido> listaDePedidos){
-        Map<String, BigDecimal>  clientesLucrativos = new TreeMap<>();
+    private Map<String, BigDecimal> getClientesLucrativos(List<Pedido> listaDePedidos) {
+        Map<String, BigDecimal> clientesLucrativos = new TreeMap<>();
         listaDePedidos.stream()
                 .collect(Collectors.groupingBy(Pedido::getCliente))
-                .forEach((a,v) -> {
+                .forEach((a, v) -> {
                     clientesLucrativos.put(a, v.stream().map(Pedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add));
                 });
 
         return clientesLucrativos;
     }
 
-    private Map<String, Long> quantidadePedidoClienteMaisLucrativo(List<Pedido> listaDePedidos){
+    private Map<String, Long> quantidadePedidoClienteMaisLucrativo(List<Pedido> listaDePedidos) {
 
         return listaDePedidos.stream()
                 .collect(Collectors.groupingBy(Pedido::getCliente, TreeMap::new, Collectors.counting()));
     }
+
     @Override
     protected String gerarCabecalho() {
         return "\n#### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS";
@@ -49,4 +50,5 @@ public class RelatorioClientesLucrativos extends GeradorRelatorio{
 
         return conteudo.toString();
     }
+
 }
