@@ -24,6 +24,7 @@ public class RelatorioClientesLucrativos extends GeradorRelatorio {
 
     private Map<String, Long> quantidadePedidoClienteMaisLucrativo(List<Pedido> listaDePedidos) {
 
+
         return listaDePedidos.stream()
                 .collect(Collectors.groupingBy(Pedido::getCliente, TreeMap::new, Collectors.counting()));
     }
