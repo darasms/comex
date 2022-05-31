@@ -15,11 +15,11 @@ public class Main {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-//        Processador arquivo = new ProcessadorDeJSON();
-//        List<Pedido> pedidos = arquivo.getPedidos();
-//
-//        GerarMenu menu = new GerarMenu();
-//        menu.imprimeRelatorio(pedidos);
+        Processador arquivo = new ProcessadorDeJSON();
+        List<Pedido> pedidos = arquivo.getPedidos();
+
+        GerarMenu menu = new GerarMenu();
+        menu.imprimeRelatorio(pedidos);
 
     }
 
