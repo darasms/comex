@@ -13,12 +13,12 @@ public class RelaotrioSinteticoRefactor extends GeradorRelatorio {
 
 
     @Override
-    protected String gerarCabecalho() {
+    public String gerarCabecalho() {
         return null;
     }
 
     @Override
-    protected String gerarConteudo(List<Pedido> listaDePedidos) {
+    public String gerarConteudo(List<Pedido> listaDePedidos) {
         return null;
     }
 }

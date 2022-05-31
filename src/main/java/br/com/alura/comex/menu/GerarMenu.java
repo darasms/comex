@@ -35,12 +35,14 @@ public class GerarMenu {
         System.out.println("[0] Sair");
     }
 
-    public int opcoesRelatorio() {
+    private int opcoesRelatorio() {
         return new Scanner(System.in).nextInt();
     }
 
-    public void executa(GeradorRelatorio tipoRelatorio, List<Pedido> pedidos) {
+
+    private void executa(GeradorRelatorio tipoRelatorio, List<Pedido> pedidos) {
         if (tipoRelatorio == null) System.exit(0);
-        tipoRelatorio.gerarRelatorio(pedidos);
+        System.out.println(tipoRelatorio.gerarCabecalho());
+        System.out.println(tipoRelatorio.gerarConteudo(pedidos));
     }
 }

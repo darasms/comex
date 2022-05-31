@@ -1,21 +1,20 @@
 package br.com.alura.comex.relatorio;
 
-import br.com.alura.comex.menu.OpcoesEscolha;
 import br.com.alura.comex.model.Pedido;
 
 import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class RelatorioClientesFieis extends GeradorRelatorio{
+public class RelatorioClientesFieis extends GeradorRelatorio {
 
     @Override
-    protected String gerarCabecalho() {
+    public String gerarCabecalho() {
         return "\n#### RELATÓRIO DE CLIENTES FIÉIS";
     }
 
     @Override
-    protected String gerarConteudo(List<Pedido> listaDePedidos) {
+    public String gerarConteudo(List<Pedido> listaDePedidos) {
         StringBuilder conteudo = new StringBuilder();
 
         listaDePedidos.stream()

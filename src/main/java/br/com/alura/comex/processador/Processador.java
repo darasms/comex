@@ -20,7 +20,8 @@ public abstract class Processador {
         FileReader reader = new FileReader(recurso.toURI().getPath());
         ObjectMapper objectMapper = this.getMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        return getMapper().readValue(reader, new TypeReference<List<Pedido>>(){});
+        return getMapper().readValue(reader, new TypeReference<>() {
+        });
 
     }
 

@@ -29,12 +29,12 @@ public class RelatorioClientesLucrativos extends GeradorRelatorio {
     }
 
     @Override
-    protected String gerarCabecalho() {
+    public String gerarCabecalho() {
         return "\n#### RELATÓRIO DE CLIENTES MAIS LUCRATIVOS";
     }
 
     @Override
-    protected String gerarConteudo(List<Pedido> listaDePedidos) {
+    public String gerarConteudo(List<Pedido> listaDePedidos) {
 
         StringBuilder conteudo = new StringBuilder();
 

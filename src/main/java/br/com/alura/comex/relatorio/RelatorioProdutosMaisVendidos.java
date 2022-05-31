@@ -7,22 +7,23 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class RelatorioProdutosMaisVendidos extends GeradorRelatorio{
+public class RelatorioProdutosMaisVendidos extends GeradorRelatorio {
 
-    private Map<String, Integer> getProdutosMaisVendidos(List<Pedido> listaDePedidos){
-        Map<String, Integer>  produtosMaisVendidos = new TreeMap<>();
+    private Map<String, Integer> getProdutosMaisVendidos(List<Pedido> listaDePedidos) {
+        Map<String, Integer> produtosMaisVendidos = new TreeMap<>();
         listaDePedidos.stream()
                 .collect(Collectors.groupingBy(Pedido::getProduto))
-                .forEach((a,v) -> produtosMaisVendidos.put(a,v.stream().mapToInt(Pedido::getQuantidade).sum()));
+                .forEach((a, v) -> produtosMaisVendidos.put(a, v.stream().mapToInt(Pedido::getQuantidade).sum()));
         return produtosMaisVendidos;
     }
+
     @Override
-    protected String gerarCabecalho() {
+    public String gerarCabecalho() {
         return "\n#### RELATÓRIO DE PRODUTOS MAIS VENDIDOS";
     }
 
     @Override
-    protected String gerarConteudo(List<Pedido> listaDePedidos) {
+    public String gerarConteudo(List<Pedido> listaDePedidos) {
 
         StringBuilder conteudo = new StringBuilder();
 

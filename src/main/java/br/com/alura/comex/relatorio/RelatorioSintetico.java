@@ -8,15 +8,15 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
-public class RelatorioSintetico extends GeradorRelatorio{
+public class RelatorioSintetico extends GeradorRelatorio {
 
     @Override
-    protected String gerarCabecalho() {
+    public String gerarCabecalho() {
         return "\n#### RELATÓRIO DE VALORES TOTAIS";
     }
 
     @Override
-    protected String gerarConteudo(List<Pedido> listaDePedidos) {
+    public String gerarConteudo(List<Pedido> listaDePedidos) {
 
         StringBuilder conteudo = new StringBuilder();
 
@@ -31,35 +31,35 @@ public class RelatorioSintetico extends GeradorRelatorio{
     }
 
 
-    public BigDecimal getMontanteDeVendas(List<Pedido> listaDePedidos){
+    public BigDecimal getMontanteDeVendas(List<Pedido> listaDePedidos) {
         return listaDePedidos.stream()
                 .map(Pedido::getValorTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public Pedido getPedidoMaisBarato(List<Pedido> listaDePedidos){
+    public Pedido getPedidoMaisBarato(List<Pedido> listaDePedidos) {
         return listaDePedidos.stream()
                 .min(Comparator.comparing(Pedido::getValorTotal))
                 .orElseThrow(() -> new IllegalStateException("Sem valores para comparação"));
     }
 
-    public Pedido getPedidoMaisCaro(List<Pedido> listaDePedidos){
+    public Pedido getPedidoMaisCaro(List<Pedido> listaDePedidos) {
         return listaDePedidos.stream()
                 .max(Comparator.comparing(Pedido::getValorTotal))
                 .orElseThrow(() -> new IllegalStateException("Sem valores para comparação"));
     }
 
-    public int getTotalDePedidosRealizados(List<Pedido> listaDePedidos){
+    public int getTotalDePedidosRealizados(List<Pedido> listaDePedidos) {
         return listaDePedidos.size();
     }
 
-    public int getTotalDeProdutosVendidos(List<Pedido> listaDePedidos){
+    public int getTotalDeProdutosVendidos(List<Pedido> listaDePedidos) {
         return listaDePedidos.stream()
                 .mapToInt(Pedido::getQuantidade)
                 .sum();
     }
 
-    public int getTotalDeCategorias(List<Pedido> listaDePedidos){
+    public int getTotalDeCategorias(List<Pedido> listaDePedidos) {
         HashSet<String> categoriasProcessadas = new HashSet<>();
 
         listaDePedidos.stream()

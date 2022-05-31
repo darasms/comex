@@ -31,12 +31,13 @@ public class RelatorioVendasCategoria extends GeradorRelatorio{
 
     }
     @Override
-    protected String gerarCabecalho() {
+    public String gerarCabecalho() {
         return "\n#### RELATÓRIO DE VENDAS POR CATEGORIA";
     }
 
     @Override
-    protected String gerarConteudo(List<Pedido> listaDePedidos) {
+    public String gerarConteudo(List<Pedido> listaDePedidos) {
+        if ( listaDePedidos.isEmpty() || listaDePedidos == null) throw new IllegalArgumentException("Lista de pedidos vazia!");
 
         StringBuilder conteudo  = new StringBuilder();
 
