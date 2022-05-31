@@ -2,7 +2,6 @@ package br.com.alura.comex.relatorio;
 
 import br.com.alura.comex.model.Pedido;
 import br.com.alura.comex.model.PedidoBuilder;
-import br.com.alura.comex.utils.FormatosImpressao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -12,9 +11,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RelatorioProdutosMaisVendidosTest {
 
@@ -22,8 +18,9 @@ class RelatorioProdutosMaisVendidosTest {
     private static List<Pedido> listaPedidos;
 
     @BeforeAll
-    public static void setup(){
-        relatorio = new RelatorioProdutosMaisVendidos();;
+    public static void setup() {
+        relatorio = new RelatorioProdutosMaisVendidos();
+        ;
         listaPedidos = new ArrayList<>();
     }
 
@@ -37,15 +34,15 @@ class RelatorioProdutosMaisVendidosTest {
     }
 
     @Test
-    public void relatorioDeUmUnicoPedido(){
+    public void relatorioDeUmUnicoPedido() {
 
         listaPedidos.add(geraListaComUmPedido());
 
         Assertions.assertEquals(relatorio.gerarConteudo(listaPedidos), this.conteudoEsperadoUmUnicoPedido());
     }
 
-    private String conteudoEsperadoUmUnicoPedido(){
-        StringBuilder conteudo  = new StringBuilder();
+    private String conteudoEsperadoUmUnicoPedido() {
+        StringBuilder conteudo = new StringBuilder();
 
         conteudo.append("\nPRODUTO: " + "IMPRESSORA" + "\nQUANTIDADE: " + 1 + "\n");
 

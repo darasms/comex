@@ -39,6 +39,7 @@ public class RelatorioProdutoMaisCaroCategoria extends GeradorRelatorio {
     @Override
     public String gerarConteudo(List<Pedido> listaDePedidos) {
 
+        if ( listaDePedidos.isEmpty() || listaDePedidos == null) throw new IllegalArgumentException("Lista de pedidos vazia!");
         StringBuilder conteudo = new StringBuilder();
 
         this.getProdutoMaisCaroCategoria(listaDePedidos).forEach((a, b) -> {

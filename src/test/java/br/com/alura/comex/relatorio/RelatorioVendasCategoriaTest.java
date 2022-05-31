@@ -20,7 +20,7 @@ public class RelatorioVendasCategoriaTest {
     private static List<Pedido> listaPedidos;
 
     @BeforeAll
-    public static void setup(){
+    public static void setup() {
         relatorio = new RelatorioVendasCategoria();
         listaPedidos = new ArrayList<>();
     }
@@ -36,17 +36,17 @@ public class RelatorioVendasCategoriaTest {
     }
 
     @Test
-    public void relatorioDeUmUnicoPedido(){
+    public void relatorioDeUmUnicoPedido() {
 
         listaPedidos.add(geraListaComUmPedido());
         Assertions.assertEquals(relatorio.gerarConteudo(listaPedidos), this.conteudoEsperadoUmUnicoPedido());
     }
 
-    private String conteudoEsperadoUmUnicoPedido(){
+    private String conteudoEsperadoUmUnicoPedido() {
 
-        StringBuilder conteudo  = new StringBuilder();
+        StringBuilder conteudo = new StringBuilder();
         conteudo.append("\nCATEGORIA: " + "INFORMATICA" + "\nQUANTIDADE VENDIDA: " + 1);
-        conteudo.append("\nMONTANTE: " +  FormatosImpressao.getRealFormat(new BigDecimal(300)) + "\n");
+        conteudo.append("\nMONTANTE: " + FormatosImpressao.getRealFormat(new BigDecimal(300)) + "\n");
 
         return conteudo.toString();
     }
