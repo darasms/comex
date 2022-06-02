@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class RelatorioClientesLucrativos extends GeradorRelatorio {
+public class RelatorioClientesLucrativos implements GeradorRelatorio {
 
     private Map<String, BigDecimal> getClientesLucrativos(List<Pedido> listaDePedidos) {
         Map<String, BigDecimal> clientesLucrativos = new TreeMap<>();

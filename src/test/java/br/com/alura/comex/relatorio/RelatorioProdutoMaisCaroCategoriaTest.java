@@ -1,68 +1,150 @@
 package br.com.alura.comex.relatorio;
 
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.model.PedidoBuilder;
+import br.com.alura.comex.model.builder.PedidoBuilder;
 import br.com.alura.comex.utils.FormatosImpressao;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class RelatorioProdutoMaisCaroCategoriaTest {
 
-    private static GeradorRelatorio relatorio;
-    private static List<Pedido> listaPedidos;
+    private GeradorRelatorio relatorio;
+    private List<Pedido> listaPedidos;
 
-    @BeforeAll
-    public static void setup() {
-        relatorio = new RelatorioProdutoMaisCaroCategoria();
+    @BeforeEach
+    public void inicio() {
         listaPedidos = new ArrayList<>();
+        relatorio = new RelatorioProdutoMaisCaroCategoria();
     }
 
     @Test
-    @DisplayName("Teste Relatório ProdutoMais Caro Por Categoria - sem lista de pedidos")
+    @DisplayName("Teste Relatório Produto Mais Caro Por Categoria - sem lista de pedidos")
     public void relatorioSemListaDePedidos() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            relatorio.gerarConteudo(listaPedidos);
+            relatorio.gerarConteudo(new ArrayList<>());
         });
 
     }
 
     @Test
+    @DisplayName("Teste Relatório Produto Mais Caro Por Categoria - com um pedido")
     public void relatorioDeUmUnicoPedido() {
-
-        listaPedidos.add(geraListaComUmPedido());
-        Assertions.assertEquals(relatorio.gerarConteudo(listaPedidos), this.conteudoEsperadoUmUnicoPedido());
+        geraListaComUmPedido();
+        Assertions.assertEquals(this.conteudoEsperadoUmUnicoPedido(), relatorio.gerarConteudo(listaPedidos));
     }
 
-    private String conteudoEsperadoUmUnicoPedido() {
-
-        StringBuilder conteudo = new StringBuilder();
-        conteudo.append("\nCATEGORIA: " + "INFORMATICA" + "\nPRODUTO: " + "IMPRESSORA");
-        conteudo.append("\nPREÇO: " + FormatosImpressao.getRealFormat(new BigDecimal(300)) + "\n");
-
-        return conteudo.toString();
+    @Test
+    @DisplayName("Teste Relatório Produto Mais Caro Por Categoria - mais de um produto")
+    public void relatorioDeMisDeUmProdutoCaro() {
+        Assertions.assertEquals(this.conteudoEsperadoMultiplosPedido(), relatorio.gerarConteudo(geraListaPedidosComMultiplosProdutosCaros()));
     }
 
-    private Pedido geraListaComUmPedido() {
+
+    @Test
+    @DisplayName("Teste Relatório Produto Mais Caro Por Categoria - cabeçalho")
+    public void cabecalhoRelatorioProdutoMaisCaroCategoria() {
+        assertEquals("\n#### RELATÓRIO DE PRODUTOS MAIS CAROS DE CADA CATEGORIA", relatorio.gerarCabecalho());
+    }
+
+    private List<Pedido> geraListaPedidosComMultiplosProdutosCaros() {
         int year = 2022;
         int month = 4;
         int day = 29;
 
-        return new PedidoBuilder().
+        List<Pedido> listaDePedidos = new ArrayList<>();
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("INFORMATICA").
+                produto("Impressora").
+                preco(new BigDecimal(300)).
+                quantidade(6).
+                data(LocalDate.of(year, month, day)).
+                cliente("Bela").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("INFORMATICA").
+                produto("Notebook Samsung").
+                preco(new BigDecimal(100)).
+                quantidade(1).
+                data(LocalDate.of(year, month, day)).
+                cliente("CAIO").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("AUTOMOTIVA").
+                produto("Central multimidia").
+                preco(new BigDecimal("711.18")).
+                quantidade(6).
+                data(LocalDate.of(year, month, day)).
+                cliente("Bela").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("LIVROS").
+                produto("Building Microservices").
+                preco(new BigDecimal("300.28")).
+                quantidade(2).
+                data(LocalDate.of(year, month, day)).
+                cliente("CAIO").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("LIVROS").
+                produto("Building Microservices").
+                preco(new BigDecimal("300.28")).
+                quantidade(2).
+                data(LocalDate.of(year, month, day)).
+                cliente("CAIO").
+                build());
+
+        return listaDePedidos;
+    }
+
+    private String conteudoEsperadoUmUnicoPedido() {
+        return """
+                \nCATEGORIA: INFORMATICA
+                PRODUTO: IMPRESSORA
+                PREÇO: %s
+                """.formatted(FormatosImpressao.getRealFormat(new BigDecimal(300)));
+    }
+
+    private String conteudoEsperadoMultiplosPedido() {
+        return """
+                \nCATEGORIA: AUTOMOTIVA
+                PRODUTO: Central multimidia
+                PREÇO: %s
+                \nCATEGORIA: INFORMATICA
+                PRODUTO: Impressora
+                PREÇO: %s
+                \nCATEGORIA: LIVROS
+                PRODUTO: Building Microservices
+                PREÇO: %s
+                """.formatted(FormatosImpressao.getRealFormat(new BigDecimal("711.18")),
+                              FormatosImpressao.getRealFormat(new BigDecimal(300)),
+                              FormatosImpressao.getRealFormat(new BigDecimal("300.28")));
+    }
+
+    private void geraListaComUmPedido() {
+        int year = 2022;
+        int month = 4;
+        int day = 29;
+
+        listaPedidos.add(new PedidoBuilder().
                 categoria("INFORMATICA").
                 produto("IMPRESSORA").
                 preco(new BigDecimal(300)).
                 quantidade(1).
                 data(LocalDate.of(year, month, day)).
                 cliente("Bela").
-                build();
+                build());
     }
 
 

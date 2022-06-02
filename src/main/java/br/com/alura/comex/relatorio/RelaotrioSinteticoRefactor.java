@@ -5,7 +5,7 @@ import br.com.alura.comex.relatorio.indicadores.Indicador;
 
 import java.util.List;
 
-public class RelaotrioSinteticoRefactor extends GeradorRelatorio {
+public class RelaotrioSinteticoRefactor implements GeradorRelatorio {
 
     private static final List<Indicador> INDICADORS = List.of(
 

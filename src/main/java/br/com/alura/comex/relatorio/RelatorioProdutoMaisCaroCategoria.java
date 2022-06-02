@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class RelatorioProdutoMaisCaroCategoria extends GeradorRelatorio {
+public class RelatorioProdutoMaisCaroCategoria implements GeradorRelatorio {
     public Map<String, String> getProdutoMaisCaroCategoria(List<Pedido> listaDePedidos) throws IllegalArgumentException {
         Map<String, String> produtoMaisCaroCategoria = new TreeMap<>();
 

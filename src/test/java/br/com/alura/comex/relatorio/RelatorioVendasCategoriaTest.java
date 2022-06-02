@@ -1,28 +1,27 @@
 package br.com.alura.comex.relatorio;
 
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.model.PedidoBuilder;
+import br.com.alura.comex.model.builder.PedidoBuilder;
 import br.com.alura.comex.utils.FormatosImpressao;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class RelatorioVendasCategoriaTest {
 
-    private static GeradorRelatorio relatorio;
-    private static List<Pedido> listaPedidos;
+    private GeradorRelatorio relatorio;
+    private List<Pedido> listaPedidos;
 
-    @BeforeAll
-    public static void setup() {
+
+    @BeforeEach
+    public void setup() {
         relatorio = new RelatorioVendasCategoria();
-        listaPedidos = new ArrayList<>();
     }
 
     @Test
@@ -30,25 +29,100 @@ public class RelatorioVendasCategoriaTest {
     public void relatorioSemListaDePedidos() {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            relatorio.gerarConteudo(listaPedidos);
+            relatorio.gerarConteudo(new ArrayList<>());
         });
 
     }
 
     @Test
+    @DisplayName("Teste Relatório Vendas por Categoria - com um pedido ( uma categoria)")
     public void relatorioDeUmUnicoPedido() {
 
+        listaPedidos = new ArrayList<>();
         listaPedidos.add(geraListaComUmPedido());
-        Assertions.assertEquals(relatorio.gerarConteudo(listaPedidos), this.conteudoEsperadoUmUnicoPedido());
+        assertEquals(relatorio.gerarConteudo(listaPedidos), this.conteudoEsperadoUmUnicoPedido());
     }
 
+    @Test
+    @DisplayName("Teste Relatório Vendas por Categoria - Pedidos com produtos de varias categorias")
+    public void relatorioComMaisDeUmaCategoria() {
+        assertEquals(relatorio.gerarConteudo(geraListaPedidosComMaisDeUmaCategorias()), conteudoEsperadoMaisDeUmaCategoria());
+    }
+    @Test
+    @DisplayName("Teste Relatório Vendas por Categoria - cabeçalho")
+    public void cabecalho() {
+        assertEquals("\n#### RELATÓRIO DE VENDAS POR CATEGORIA", relatorio.gerarCabecalho());
+    }
+
+    private List<Pedido> geraListaPedidosComMaisDeUmaCategorias() {
+        int year = 2022;
+        int month = 4;
+        int day = 29;
+
+        List<Pedido> listaDePedidos = new ArrayList<>();
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("INFORMATICA").
+                produto("IMPRESSORA").
+                preco(new BigDecimal(300)).
+                quantidade(6).
+                data(LocalDate.of(year, month, day)).
+                cliente("Bela").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("AUTOMOTIVA").
+                produto("entral multimidia").
+                preco(new BigDecimal("711.18")).
+                quantidade(1).
+                data(LocalDate.of(year, month, day)).
+                cliente("Bela").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("INFORMATICA").
+                produto("Notebook Samsung").
+                preco(new BigDecimal(100)).
+                quantidade(1).
+                data(LocalDate.of(year, month, day)).
+                cliente("CAIO").
+                build());
+
+        listaDePedidos.add(new PedidoBuilder().
+                categoria("LIVROS").
+                produto("Building Microservices").
+                preco(new BigDecimal("300.28")).
+                quantidade(2).
+                data(LocalDate.of(year, month, day)).
+                cliente("CAIO").
+                build());
+
+        return listaDePedidos;
+    }
+
+    private String conteudoEsperadoMaisDeUmaCategoria() {
+        return """
+                \nCATEGORIA: AUTOMOTIVA
+                QUANTIDADE VENDIDA: 1
+                MONTANTE: %s
+                \nCATEGORIA: INFORMATICA
+                QUANTIDADE VENDIDA: 7
+                MONTANTE: %s
+                \nCATEGORIA: LIVROS
+                QUANTIDADE VENDIDA: 2
+                MONTANTE: %s
+                """.formatted(FormatosImpressao.getRealFormat(new BigDecimal("711.18")),
+                              FormatosImpressao.getRealFormat(new BigDecimal(1900)),
+                              FormatosImpressao.getRealFormat(new BigDecimal("600.56")));
+    }
+
+
     private String conteudoEsperadoUmUnicoPedido() {
-
-        StringBuilder conteudo = new StringBuilder();
-        conteudo.append("\nCATEGORIA: " + "INFORMATICA" + "\nQUANTIDADE VENDIDA: " + 1);
-        conteudo.append("\nMONTANTE: " + FormatosImpressao.getRealFormat(new BigDecimal(300)) + "\n");
-
-        return conteudo.toString();
+        return """
+                \nCATEGORIA: INFORMATICA
+                QUANTIDADE VENDIDA: 1
+                MONTANTE: %s
+                """.formatted(FormatosImpressao.getRealFormat(new BigDecimal(300)));
     }
 
     private Pedido geraListaComUmPedido() {

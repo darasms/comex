@@ -2,12 +2,9 @@ package br.com.alura.comex.relatorio;
 
 
 import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.model.PedidoBuilder;
+import br.com.alura.comex.model.builder.PedidoBuilder;
 import br.com.alura.comex.utils.FormatosImpressao;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,21 +13,19 @@ import java.util.List;
 
 class RelatorioClientesLucrativosTest {
 
-    private static GeradorRelatorio relatorio;
-    private static List<Pedido> listaPedidos;
-
-    @BeforeAll
-    public static void setup() {
-        relatorio = new RelatorioClientesLucrativos();
+    private GeradorRelatorio relatorio;
+    private List<Pedido> listaPedidos;
+    @BeforeEach
+    public void inicio() {
         listaPedidos = new ArrayList<>();
+        relatorio = new RelatorioClientesLucrativos();
     }
 
     @Test
     @DisplayName("Teste Relatório Clientes mais lucrativos - sem lista de pedidos")
     public void relatorioSemListaDePedidos() {
-        List<Pedido> listaPedidosVazia = new ArrayList<>();;
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            relatorio.gerarConteudo(listaPedidosVazia);
+            relatorio.gerarConteudo(new ArrayList<>());
         });
 
     }
@@ -64,14 +59,11 @@ class RelatorioClientesLucrativosTest {
     }
 
     private String conteudoEsperadoUmUnicoPedido() {
-
-        StringBuilder conteudo = new StringBuilder();
-
-        conteudo.append("\nCLIENTE: " + "Bela");
-        conteudo.append("\nNº PEDIDOS: " + 1);
-        conteudo.append("\nMONTANTE GASTO: " + FormatosImpressao.getRealFormat(new BigDecimal(300)) + "\n");
-
-        return conteudo.toString();
+        return """
+              \nCLIENTE: Bela
+              Nº PEDIDOS: 1
+              MONTANTE GASTO: %s
+              """.formatted(FormatosImpressao.getRealFormat(new BigDecimal(300)));
     }
 
     private Pedido geraListaComUmPedido() {
@@ -94,9 +86,7 @@ class RelatorioClientesLucrativosTest {
         int month = 4;
         int day = 29;
 
-        List<Pedido> listaDePedidos = new ArrayList<>();
-
-        listaDePedidos.add(new PedidoBuilder().
+        listaPedidos.add(new PedidoBuilder().
                 categoria("INFORMATICA").
                 produto("IMPRESSORA").
                 preco(new BigDecimal(300)).
@@ -105,7 +95,7 @@ class RelatorioClientesLucrativosTest {
                 cliente("Bela").
                 build());
 
-        listaDePedidos.add(new PedidoBuilder().
+        listaPedidos.add(new PedidoBuilder().
                 categoria("INFORMATICA").
                 produto("IMPRESSORA").
                 preco(new BigDecimal(100)).
@@ -114,7 +104,7 @@ class RelatorioClientesLucrativosTest {
                 cliente("Rafa").
                 build());
 
-        listaDePedidos.add(new PedidoBuilder().
+        listaPedidos.add(new PedidoBuilder().
                 categoria("INFORMATICA").
                 produto("IMPRESSORA").
                 preco(new BigDecimal(50)).
@@ -123,7 +113,7 @@ class RelatorioClientesLucrativosTest {
                 cliente("Bela").
                 build());
 
-        listaDePedidos.add(new PedidoBuilder().
+        listaPedidos.add(new PedidoBuilder().
                 categoria("ALIMENTO").
                 produto("MELANCIA").
                 preco(new BigDecimal("2.5")).
@@ -132,21 +122,17 @@ class RelatorioClientesLucrativosTest {
                 cliente("José").
                 build());
 
-        return listaDePedidos;
+        return listaPedidos;
     }
 
     private String conteudoEsperadoMaisDoisClientesLucrativos() {
-        StringBuilder conteudo = new StringBuilder();
-
-        conteudo.append("\nCLIENTE: " + "Bela");
-        conteudo.append("\nNº PEDIDOS: " + 2);
-        conteudo.append("\nMONTANTE GASTO: " + FormatosImpressao.getRealFormat(new BigDecimal(2300)) + "\n");
-
-        conteudo.append("\nCLIENTE: " + "Rafa");
-        conteudo.append("\nNº PEDIDOS: " + 1);
-        conteudo.append("\nMONTANTE GASTO: " + FormatosImpressao.getRealFormat(new BigDecimal(100)) + "\n");
-
-
-        return conteudo.toString();
+        return """
+                \nCLIENTE: Bela
+                Nº PEDIDOS: 2
+                MONTANTE GASTO: %s
+                \nCLIENTE: Rafa
+                Nº PEDIDOS: 1
+                MONTANTE GASTO: %s
+                """.formatted(FormatosImpressao.getRealFormat(new BigDecimal(2300)), FormatosImpressao.getRealFormat(new BigDecimal(100)));
     }
 }

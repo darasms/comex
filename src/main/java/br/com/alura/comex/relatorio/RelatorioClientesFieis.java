@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class RelatorioClientesFieis extends GeradorRelatorio {
+public class RelatorioClientesFieis implements GeradorRelatorio {
 
     @Override
     public String gerarCabecalho() {

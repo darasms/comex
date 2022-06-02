@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
-public class RelatorioSintetico extends GeradorRelatorio {
+public class RelatorioSintetico implements GeradorRelatorio {
 
     @Override
     public String gerarCabecalho() {
