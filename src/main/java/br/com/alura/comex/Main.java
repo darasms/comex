@@ -1,18 +1,24 @@
 package br.com.alura.comex;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import br.com.alura.comex.entity.Categoria;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) {
+        Categoria livro = new Categoria();
+        livro.setNome("Teste");
+        livro.setStatus("ATIVA");
+
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("comex");
+        EntityManager em = factory.createEntityManager();
+
+        em.getTransaction().begin();
+        em.persist(livro);
+        em.getTransaction().commit();
+        em.close();
     }
 }
