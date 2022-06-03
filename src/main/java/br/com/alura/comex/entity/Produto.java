@@ -24,7 +24,6 @@ public class Produto {
     private Integer quantidadeEstoque;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private Categoria categoriaId;
 
     public Produto(String name, String descricao, BigDecimal precoUnitario, Integer quantidadeEstoque, Categoria categoriaId) {

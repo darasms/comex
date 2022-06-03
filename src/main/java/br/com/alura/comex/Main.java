@@ -1,10 +1,10 @@
 package br.com.alura.comex;
 
+import br.com.alura.comex.dao.*;
 import br.com.alura.comex.entity.*;
+import br.com.alura.comex.util.JPAUtil;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,25 +12,44 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Categoria informatica = new Categoria("INFOMATICA", StatusEnum.ATIVA);
+        Categoria informatica = new Categoria("INFORMATICA", StatusEnum.ATIVA);
 
-        Cliente cliente = new Cliente("Maria", 413566673877L, 38245566L, "Av. quinta", "424", "", "Santa Genebra", "Campinas", "SP");
+        Cliente cliente = new Cliente("Bela", 413566673877L, 38245566L, "Av. quinta", "424", "", "Santa Genebra", "Campinas", "SP");
 
-        Produto impressora = new Produto("Impressora", "", new BigDecimal(2), 2, informatica);
+        Produto impressora = new Produto("Mouse", "", new BigDecimal(2), 2, informatica);
 
-        ItemDePedido item = new ItemDePedido(new BigDecimal(3), 2, null, impressora, BigDecimal.ZERO, new TipoDesconto("FIDELIDADE"));
+        TipoDesconto fidelidade = new TipoDesconto("FIDELIDADE");
+
+        ItemDePedido item = new ItemDePedido(new BigDecimal(3), 2, null, impressora, BigDecimal.ZERO, fidelidade);
 
         List<ItemDePedido> listaPedido = new ArrayList<>();
         listaPedido.add(item);
 
-        //Pedido novoPedido = new Pedido(cliente, listaPedido, BigDecimal.ZERO, new TipoDesconto("FIDELIDADE"));
+        List<TipoDesconto> listaDesconto = new ArrayList<>();
+        listaDesconto.add(fidelidade);
+
+        Pedido novoPedido = new Pedido(cliente, listaPedido, BigDecimal.ZERO, listaDesconto);
+
+        EntityManager em = JPAUtil.getEntityManager();
+
+        ClienteDAO clienteDAO = new ClienteDAO(em);
+        CategoriaDAO categoriaDAO = new CategoriaDAO(em);
+        ProdutoDAO produtoDAO = new ProdutoDAO(em);
+        TipoDescontoDAO tipoDescontoDAO = new TipoDescontoDAO(em);
+        ItemDePedidoDAO itemDePedidoDAO = new ItemDePedidoDAO(em);
+        PedidoDAO pedidoDAO = new PedidoDAO(em);
 
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("comex");
-        EntityManager em = factory.createEntityManager();
 
         em.getTransaction().begin();
-        em.persist(cliente);
+
+        clienteDAO.cadastrar(cliente);
+        categoriaDAO.cadastrar(informatica);
+        produtoDAO.cadastrar(impressora);
+        tipoDescontoDAO.cadastrar(fidelidade);
+        itemDePedidoDAO.cadastrar(item);
+        pedidoDAO.cadastrar(novoPedido);
+
         em.getTransaction().commit();
         em.close();
 
