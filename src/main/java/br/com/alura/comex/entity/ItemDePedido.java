@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class ItemDePedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "preco_unitario")
@@ -31,63 +31,44 @@ public class ItemDePedido {
 
     private BigDecimal desconto;
 
-    @Column(name = "tipo_desconto")
-    @Enumerated(EnumType.STRING)
+    @OneToOne
+    @JoinColumn(name = "tipo_desconto", referencedColumnName = "id")
     private TipoDesconto tipoDesconto;
+
+    public ItemDePedido(BigDecimal precoUnitario, Integer quantidade, Pedido pedidoId, Produto produtoId, BigDecimal desconto, TipoDesconto tipoDesconto) {
+        this.precoUnitario = precoUnitario;
+        this.quantidade = quantidade;
+        this.pedidoId = pedidoId;
+        this.produtoId = produtoId;
+        this.desconto = desconto;
+        this.tipoDesconto = tipoDesconto;
+    }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public BigDecimal getPrecoUnitario() {
         return precoUnitario;
     }
 
-    public void setPrecoUnitario(BigDecimal precoUnitario) {
-        this.precoUnitario = precoUnitario;
-    }
-
     public Integer getQuantidade() {
         return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
     }
 
     public Pedido getPedidoId() {
         return pedidoId;
     }
 
-    public void setPedidoId(Pedido pedidoId) {
-        this.pedidoId = pedidoId;
-    }
-
     public Produto getProdutoId() {
         return produtoId;
-    }
-
-    public void setProdutoId(Produto produtoId) {
-        this.produtoId = produtoId;
     }
 
     public BigDecimal getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
     public TipoDesconto getTipoDesconto() {
         return tipoDesconto;
-    }
-
-    public void setTipoDesconto(TipoDesconto tipoDesconto) {
-        this.tipoDesconto = tipoDesconto;
     }
 }

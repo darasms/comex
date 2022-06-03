@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,11 +14,10 @@ import java.util.List;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date data;
+    private LocalDate data = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
@@ -30,47 +30,38 @@ public class Pedido {
 
     private BigDecimal desconto;
 
-    @Column(name = "tipo_desconto")
-    @Enumerated(EnumType.STRING)
-    private TipoDesconto tipoDesconto;
+    @ManyToMany
+    @JoinColumn(name = "tipo_desconto", referencedColumnName = "id")
+    private List<TipoDesconto> tipoDesconto;
+
+    public Pedido(Cliente clientId, List<ItemDePedido> listaPedido, BigDecimal desconto, List<TipoDesconto> tipoDesconto) {
+        this.clientId = clientId;
+        this.listaPedido = listaPedido;
+        this.desconto = desconto;
+        this.tipoDesconto = tipoDesconto;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getData() {
+    public LocalDate getData() {
         return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
     }
 
     public Cliente getClientId() {
         return clientId;
     }
 
-    public void setClientId(Cliente clientId) {
-        this.clientId = clientId;
+    public List<ItemDePedido> getListaPedido() {
+        return listaPedido;
     }
 
     public BigDecimal getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
-    public TipoDesconto getTipoDesconto() {
+    public List<TipoDesconto> getTipoDesconto() {
         return tipoDesconto;
-    }
-
-    public void setTipoDesconto(TipoDesconto tipoDesconto) {
-        this.tipoDesconto = tipoDesconto;
     }
 }

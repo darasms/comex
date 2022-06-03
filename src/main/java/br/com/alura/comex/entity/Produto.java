@@ -1,6 +1,8 @@
 package br.com.alura.comex.entity;
 
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -8,7 +10,10 @@ import java.math.BigDecimal;
 @Table(name = "produto")
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String name;
     private String descricao;
 
@@ -18,56 +23,39 @@ public class Produto {
     @Column(name = "quantidade_estoque")
     private Integer quantidadeEstoque;
 
-    @Column(name = "categoria_id")
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     private Categoria categoriaId;
 
-    public Long getId() {
-        return id;
+    public Produto(String name, String descricao, BigDecimal precoUnitario, Integer quantidadeEstoque, Categoria categoriaId) {
+        this.name = name;
+        this.descricao = descricao;
+        this.precoUnitario = precoUnitario;
+        this.quantidadeEstoque = quantidadeEstoque;
+        this.categoriaId = categoriaId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescricao() {
         return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public BigDecimal getPrecoUnitario() {
         return precoUnitario;
     }
 
-    public void setPrecoUnitario(BigDecimal precoUnitario) {
-        this.precoUnitario = precoUnitario;
-    }
-
     public Integer getQuantidadeEstoque() {
         return quantidadeEstoque;
     }
 
-    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
-    }
-
     public Categoria getCategoriaId() {
         return categoriaId;
-    }
-
-    public void setCategoriaId(Categoria categoriaId) {
-        this.categoriaId = categoriaId;
     }
 }

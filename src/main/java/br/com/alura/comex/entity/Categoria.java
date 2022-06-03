@@ -10,34 +10,27 @@ import javax.persistence.*;
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private String nome;
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-    public Long getId() {
-        return id;
+    public Categoria(String nome, StatusEnum status) {
+        this.nome = nome;
+        this.status = status;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public StatusEnum getStatus() {
         return status;
-    }
-
-    public void setStatus(StatusEnum status) {
-        this.status = status;
     }
 }

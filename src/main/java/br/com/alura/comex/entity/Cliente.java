@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -18,7 +18,7 @@ public class Cliente {
     @NotNull
     private Long cpf;
 
-    private Integer telefone;
+    private Long telefone;
 
     private String rua;
 
@@ -32,4 +32,55 @@ public class Cliente {
 
     private String estado;
 
+    public Long getId() {
+        return id;
+    }
+
+    public Cliente(String nome, Long cpf, Long telefone, String rua, String numero, String complemento, String bairro, String cidade, String estado) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.rua = rua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public Long getCpf() {
+        return cpf;
+    }
+
+    public Long getTelefone() {
+        return telefone;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
 }
