@@ -1,12 +1,9 @@
 package br.com.alura.comex.entity;
 
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,18 +11,16 @@ import java.util.List;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate data = LocalDate.now();
 
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Cliente clientId;
+    private Cliente cliente;
 
     @OneToMany
     @JoinColumn(name = "pedido_id", referencedColumnName = "id")
-    @NotNull
     private List<ItemDePedido> listaPedido;
 
     private BigDecimal desconto;
@@ -34,8 +29,8 @@ public class Pedido {
     @JoinColumn(name = "tipo_desconto", referencedColumnName = "id")
     private List<TipoDesconto> tipoDesconto;
 
-    public Pedido(Cliente clientId, List<ItemDePedido> listaPedido, BigDecimal desconto, List<TipoDesconto> tipoDesconto) {
-        this.clientId = clientId;
+    public Pedido(Cliente cliente, List<ItemDePedido> listaPedido, BigDecimal desconto, List<TipoDesconto> tipoDesconto) {
+        this.cliente = cliente;
         this.listaPedido = listaPedido;
         this.desconto = desconto;
         this.tipoDesconto = tipoDesconto;
@@ -49,8 +44,8 @@ public class Pedido {
         return data;
     }
 
-    public Cliente getClientId() {
-        return clientId;
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public List<ItemDePedido> getListaPedido() {

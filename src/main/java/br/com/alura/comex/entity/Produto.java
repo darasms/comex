@@ -11,27 +11,27 @@ import java.math.BigDecimal;
 public class Produto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @Column(nullable = false)
     private String name;
     private String descricao;
 
-    @Column(name = "preco_unitario")
+    @Column(name = "preco_unitario", nullable = false)
     private BigDecimal precoUnitario;
 
-    @Column(name = "quantidade_estoque")
+    @Column(name = "quantidade_estoque", nullable = false)
     private Integer quantidadeEstoque;
 
-    @ManyToOne
-    private Categoria categoriaId;
+    @ManyToOne(optional = false)
+    private Categoria categoria;
 
-    public Produto(String name, String descricao, BigDecimal precoUnitario, Integer quantidadeEstoque, Categoria categoriaId) {
+    public Produto(String name, String descricao, BigDecimal precoUnitario, Integer quantidadeEstoque, Categoria categoria) {
         this.name = name;
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
         this.quantidadeEstoque = quantidadeEstoque;
-        this.categoriaId = categoriaId;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -54,7 +54,7 @@ public class Produto {
         return quantidadeEstoque;
     }
 
-    public Categoria getCategoriaId() {
-        return categoriaId;
+    public Categoria getCategoria() {
+        return categoria;
     }
 }

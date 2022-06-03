@@ -4,20 +4,24 @@ package br.com.alura.comex.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "categoria")
 public class Categoria {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String nome;
     @Enumerated(EnumType.STRING)
-    private StatusEnum status;
+    private StatusCategoria status;
 
-    public Categoria(String nome, StatusEnum status) {
+    @OneToMany
+    private List<Pedido> produtos;
+
+    public Categoria(String nome, StatusCategoria status) {
         this.nome = nome;
         this.status = status;
     }
@@ -30,7 +34,11 @@ public class Categoria {
         return nome;
     }
 
-    public StatusEnum getStatus() {
+    public StatusCategoria getStatus() {
         return status;
+    }
+
+    public List<Pedido> getProdutos() {
+        return produtos;
     }
 }

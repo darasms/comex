@@ -10,24 +10,20 @@ import java.math.BigDecimal;
 public class ItemDePedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "preco_unitario")
-    @NotNull
+    @Column(name = "preco_unitario", nullable = false)
     private BigDecimal precoUnitario;
 
-    @NotNull
+    @Column(nullable = false)
     private Integer quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "pedido_id", referencedColumnName = "id")
-    private Pedido pedidoId;
+    private Pedido pedido;
 
     @ManyToOne
-    @JoinColumn(name = "produto_id", referencedColumnName = "id")
-    @NotNull
-    private Produto produtoId;
+    private Produto produto;
 
     private BigDecimal desconto;
 
@@ -38,8 +34,8 @@ public class ItemDePedido {
     public ItemDePedido(BigDecimal precoUnitario, Integer quantidade, Pedido pedidoId, Produto produtoId, BigDecimal desconto, TipoDesconto tipoDesconto) {
         this.precoUnitario = precoUnitario;
         this.quantidade = quantidade;
-        this.pedidoId = pedidoId;
-        this.produtoId = produtoId;
+        this.pedido = pedidoId;
+        this.produto = produtoId;
         this.desconto = desconto;
         this.tipoDesconto = tipoDesconto;
     }
@@ -57,11 +53,11 @@ public class ItemDePedido {
     }
 
     public Pedido getPedidoId() {
-        return pedidoId;
+        return pedido;
     }
 
     public Produto getProdutoId() {
-        return produtoId;
+        return produto;
     }
 
     public BigDecimal getDesconto() {

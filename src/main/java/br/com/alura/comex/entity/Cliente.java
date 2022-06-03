@@ -1,51 +1,40 @@
 package br.com.alura.comex.entity;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String nome;
 
-    @NotNull
+    @Column(nullable = false)
     private Long cpf;
 
     private Long telefone;
 
-    private String rua;
+    @Embedded
+    private Endereco endereco;
 
-    private String numero;
+    @OneToMany
+    @Column(name = "pedidos")
+    private List<Pedido> listaDePedido;
 
-    private String complemento;
-
-    private String bairro;
-
-    private String cidade;
-
-    private String estado;
-
-    public Long getId() {
-        return id;
-    }
-
-    public Cliente(String nome, Long cpf, Long telefone, String rua, String numero, String complemento, String bairro, String cidade, String estado) {
+    public Cliente(String nome, Long cpf, Long telefone, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
-        this.rua = rua;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
+        this.endereco = endereco;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -60,27 +49,11 @@ public class Cliente {
         return telefone;
     }
 
-    public String getRua() {
-        return rua;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public String getEstado() {
-        return estado;
+    public List<Pedido> getListaDePedido() {
+        return listaDePedido;
     }
 }
