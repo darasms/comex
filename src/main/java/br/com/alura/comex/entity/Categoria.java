@@ -1,6 +1,8 @@
 package br.com.alura.comex.entity;
 
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,10 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @NotNull
     private String nome;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
     public Long getId() {
         return id;
@@ -28,14 +33,11 @@ public class Categoria {
         this.nome = nome;
     }
 
-    public String getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
-
-    private String status;
-
 }

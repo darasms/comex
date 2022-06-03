@@ -1,6 +1,7 @@
 package br.com.alura.comex;
 
 import br.com.alura.comex.entity.Categoria;
+import br.com.alura.comex.entity.StatusEnum;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         Categoria livro = new Categoria();
         livro.setNome("Teste");
-        livro.setStatus("ATIVA");
+        livro.setStatus(StatusEnum.ATIVA);
 
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("comex");
         EntityManager em = factory.createEntityManager();
