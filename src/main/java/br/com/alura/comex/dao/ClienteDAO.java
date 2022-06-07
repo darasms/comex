@@ -33,6 +33,7 @@ public class ClienteDAO {
     }
 
     public void remove(Cliente cliente) {
+        cliente = em.merge(cliente);
         this.em.remove(cliente);
     }
 
@@ -42,5 +43,12 @@ public class ClienteDAO {
 
     public List<Cliente> listaTodos() {
         return em.createQuery("FROM" + Cliente.class.getName(), Cliente.class).getResultList();
+    }
+
+    public List<Cliente> buscaPorNome(String nome){
+        String query = "SELECT c FROM Cliente c WHERE c.nome = :nome";
+        return em.createQuery(query, Cliente.class)
+                .setParameter("nome", nome)
+                .getResultList();
     }
 }

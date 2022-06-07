@@ -22,7 +22,7 @@ public class Main {
 
         TipoDesconto fidelidade = new TipoDesconto("FIDELIDADE");
 
-        ItemDePedido item = new ItemDePedido(new BigDecimal(3), 2, null, impressora, BigDecimal.ZERO, fidelidade);
+        ItemDePedido item = new ItemDePedido(2, null, impressora, BigDecimal.ZERO, fidelidade);
 
         List<ItemDePedido> listaPedido = new ArrayList<>();
         listaPedido.add(item);

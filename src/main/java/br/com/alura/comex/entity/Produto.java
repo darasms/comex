@@ -57,4 +57,24 @@ public class Produto {
     public Categoria getCategoria() {
         return categoria;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }

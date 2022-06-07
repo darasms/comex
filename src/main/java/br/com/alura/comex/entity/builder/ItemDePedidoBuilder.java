@@ -52,7 +52,7 @@ public class ItemDePedidoBuilder {
     }
 
     public ItemDePedido build() {
-        return new ItemDePedido(precoUnitario, quantidade, pedido, produto, desconto, tipoDesconto);
+        return new ItemDePedido(quantidade, pedido, produto, desconto, tipoDesconto);
     }
 
 

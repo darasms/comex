@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +17,6 @@ public class ClienteDAOTest {
 
     @Mock
     private ClienteDAO clienteDAO;
-
-    @Mock
-    private EntityManager manager;
-
 
     @Test
     public void deveriaCadastrar() {
@@ -47,7 +42,7 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void deveriaRetornarUmCliente(){
+    public void deveriaRetornarUmCliente() {
         clienteDAO = Mockito.mock(ClienteDAO.class);
 
         Endereco endereco = new Endereco("Av. quinta", "424", "", "Santa Genebra", "Campinas", "SP");
@@ -70,7 +65,7 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void deveriaListarTodosClientes(){
+    public void deveriaListarTodosClientes() {
         clienteDAO = Mockito.mock(ClienteDAO.class);
 
         List<Cliente> clientesEsperados = clientesTeste();

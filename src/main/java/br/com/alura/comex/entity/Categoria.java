@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "categoria")
+@Table(name = "categorias")
 public class Categoria {
 
     @Id
@@ -41,5 +41,17 @@ public class Categoria {
 
     public List<Produto> getProdutos() {
         return produtos;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setStatus(StatusCategoria status) {
+        this.status = status;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

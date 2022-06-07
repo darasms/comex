@@ -29,8 +29,7 @@ public class ItemDePedido {
     @JoinColumn(name = "tipo_desconto", referencedColumnName = "id")
     private TipoDesconto tipoDesconto;
 
-    public ItemDePedido(BigDecimal precoUnitario, Integer quantidade, Pedido pedidoId, Produto produtoId, BigDecimal desconto, TipoDesconto tipoDesconto) {
-        this.precoUnitario = precoUnitario;
+    public ItemDePedido(Integer quantidade, Pedido pedidoId, Produto produtoId, BigDecimal desconto, TipoDesconto tipoDesconto) {;
         this.quantidade = quantidade;
         this.pedido = pedidoId;
         this.produto = produtoId;

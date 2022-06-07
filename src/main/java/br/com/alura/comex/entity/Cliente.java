@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "clientes")
 public class Cliente {
 
     @Id
@@ -24,6 +24,10 @@ public class Cliente {
 
     @OneToMany(mappedBy = "id")
     private List<Pedido> listaDePedido;
+
+    public Cliente() {
+        super();
+    }
 
     public Cliente(String nome, Long cpf, Long telefone, Endereco endereco, List<Pedido> listaDePedido ) {
         this.nome = nome;
