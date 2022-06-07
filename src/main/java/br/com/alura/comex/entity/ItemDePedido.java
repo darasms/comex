@@ -1,7 +1,5 @@
 package br.com.alura.comex.entity;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -22,7 +20,7 @@ public class ItemDePedido {
     @ManyToOne
     private Pedido pedido;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Produto produto;
 
     private BigDecimal desconto;

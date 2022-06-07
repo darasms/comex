@@ -16,22 +16,20 @@ public class Pedido {
 
     private LocalDate data = LocalDate.now();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Cliente cliente;
 
-    @OneToMany
-    @JoinColumn(name = "pedido_id", referencedColumnName = "id")
-    private List<ItemDePedido> listaPedido;
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemDePedido> listaItem;
 
     private BigDecimal desconto;
 
-    @ManyToMany
-    @JoinColumn(name = "tipo_desconto", referencedColumnName = "id")
+    @ManyToMany()
     private List<TipoDesconto> tipoDesconto;
 
-    public Pedido(Cliente cliente, List<ItemDePedido> listaPedido, BigDecimal desconto, List<TipoDesconto> tipoDesconto) {
+    public Pedido(Cliente cliente, List<ItemDePedido> listaItem, BigDecimal desconto, List<TipoDesconto> tipoDesconto) {
         this.cliente = cliente;
-        this.listaPedido = listaPedido;
+        this.listaItem = listaItem;
         this.desconto = desconto;
         this.tipoDesconto = tipoDesconto;
     }
@@ -48,8 +46,8 @@ public class Pedido {
         return cliente;
     }
 
-    public List<ItemDePedido> getListaPedido() {
-        return listaPedido;
+    public List<ItemDePedido> getListaItem() {
+        return listaItem;
     }
 
     public BigDecimal getDesconto() {

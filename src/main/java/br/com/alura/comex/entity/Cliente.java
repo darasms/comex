@@ -22,15 +22,15 @@ public class Cliente {
     @Embedded
     private Endereco endereco;
 
-    @OneToMany
-    @Column(name = "pedidos")
+    @OneToMany(mappedBy = "id")
     private List<Pedido> listaDePedido;
 
-    public Cliente(String nome, Long cpf, Long telefone, Endereco endereco) {
+    public Cliente(String nome, Long cpf, Long telefone, Endereco endereco, List<Pedido> listaDePedido ) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;
+        this.listaDePedido = listaDePedido;
     }
 
     public Long getId() {
@@ -55,5 +55,25 @@ public class Cliente {
 
     public List<Pedido> getListaDePedido() {
         return listaDePedido;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(Long cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setTelefone(Long telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public void setListaDePedido(List<Pedido> listaDePedido) {
+        this.listaDePedido = listaDePedido;
     }
 }

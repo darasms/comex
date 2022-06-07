@@ -1,10 +1,10 @@
 package br.com.alura.comex.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 @Embeddable
 public class Endereco {
+
     @Column(nullable = false)
     private String rua;
 
@@ -21,6 +21,10 @@ public class Endereco {
 
     @Column(nullable = false)
     private String estado;
+
+    public Endereco(){
+        super();
+    }
 
     public Endereco(String rua, String numero, String complemento, String bairro, String cidade, String estado) {
         this.rua = rua;

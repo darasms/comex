@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "tipo_desconto")
 public class TipoDesconto {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -12,11 +12,11 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Categoria informatica = new Categoria("INFORMATICA", StatusCategoria.ATIVA);
+        Categoria informatica = new Categoria("INFORMATICA", StatusCategoria.ATIVA, new ArrayList<>());
 
         Endereco endereco = new Endereco("Av. quinta", "424", "", "Santa Genebra", "Campinas", "SP");
 
-        Cliente cliente = new Cliente("Bela", 413566673877L, 38245566L, endereco);
+        Cliente cliente = new Cliente("Bela", 413566673877L, 38245566L, endereco, new ArrayList<>());
 
         Produto impressora = new Produto("Mouse", "", new BigDecimal(2), 2, informatica);
 
@@ -46,11 +46,11 @@ public class Main {
         em.getTransaction().begin();
 
         clienteDAO.cadastrar(cliente);
-//        categoriaDAO.cadastrar(informatica);
-//        produtoDAO.cadastrar(impressora);
-//        tipoDescontoDAO.cadastrar(fidelidade);
-//        itemDePedidoDAO.cadastrar(item);
-//        pedidoDAO.cadastrar(novoPedido);
+        categoriaDAO.cadastrar(informatica);
+        produtoDAO.cadastrar(impressora);
+        tipoDescontoDAO.cadastrar(fidelidade);
+        itemDePedidoDAO.cadastrar(item);
+        pedidoDAO.cadastrar(novoPedido);
 
         em.getTransaction().commit();
         em.close();

@@ -13,17 +13,18 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @Column(nullable = false)
     private String nome;
     @Enumerated(EnumType.STRING)
     private StatusCategoria status;
 
-    @OneToMany
-    private List<Pedido> produtos;
+    @OneToMany(mappedBy = "categoria")
+    private List<Produto> produtos;
 
-    public Categoria(String nome, StatusCategoria status) {
+    public Categoria(String nome, StatusCategoria status, List<Produto> produtos) {
         this.nome = nome;
         this.status = status;
+        this.produtos = produtos;
     }
 
     public Long getId() {
@@ -38,7 +39,7 @@ public class Categoria {
         return status;
     }
 
-    public List<Pedido> getProdutos() {
+    public List<Produto> getProdutos() {
         return produtos;
     }
 }
