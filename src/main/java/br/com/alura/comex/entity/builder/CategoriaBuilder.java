@@ -40,6 +40,6 @@ public class CategoriaBuilder {
 
 
     public Categoria build() {
-        return new Categoria(nome, status, produtos);
+        return new Categoria(nome, status);
     }
 }

@@ -6,7 +6,6 @@
 
     <groupId>br.com.alura</groupId>
     <artifactId>comex</artifactId>
-    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>

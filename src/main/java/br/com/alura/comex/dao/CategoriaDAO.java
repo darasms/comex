@@ -1,7 +1,6 @@
 package br.com.alura.comex.dao;
 
 import br.com.alura.comex.entity.Categoria;
-import br.com.alura.comex.entity.Categoria;
 import br.com.alura.comex.entity.StatusCategoria;
 
 import javax.persistence.EntityManager;
@@ -21,18 +20,13 @@ public class CategoriaDAO {
     }
 
     public void atualiza(Categoria categoria) {
-
-        Categoria categoriaNovasInfos = this.buscarPorId(categoria.getId());
-        categoriaNovasInfos.setNome(categoria.getNome());
-        categoriaNovasInfos.setStatus(categoria.getStatus());
-        categoriaNovasInfos.setProdutos(categoria.getProdutos());
-
-        this.em.merge(categoriaNovasInfos);
+        this.em.merge(categoria);
 
     }
 
     public List<Categoria> listaTodas() {
-        return em.createQuery("FROM" + Categoria.class.getName(), Categoria.class).getResultList();
+        String query = "SELECT c FROM Categoria c";
+        return em.createQuery(query, Categoria.class).getResultList();
     }
 
     public List<Categoria> listaInativas() {

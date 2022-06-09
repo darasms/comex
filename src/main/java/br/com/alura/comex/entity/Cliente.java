@@ -1,6 +1,8 @@
 package br.com.alura.comex.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,20 +25,31 @@ public class Cliente {
     private Endereco endereco;
 
     @OneToMany(mappedBy = "id")
-    private List<Pedido> listaDePedido;
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente() {
         super();
     }
 
-    public Cliente(String nome, Long cpf, Long telefone, Endereco endereco, List<Pedido> listaDePedido ) {
+    public Cliente(String nome, Long cpf, Long telefone, Endereco endereco ) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;
-        this.listaDePedido = listaDePedido;
     }
 
+    public void adicionarPedido(Pedido pedido){
+        pedido.setCliente(this);
+        this.pedidos.add(pedido);
+    }
+
+    public BigDecimal getMontanteGasto(){
+        return pedidos.stream().map(Pedido::getValorTotalPedido).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public int quantidadePedidos(){
+        return pedidos.size();
+    }
     public Long getId() {
         return id;
     }
@@ -58,7 +71,7 @@ public class Cliente {
     }
 
     public List<Pedido> getListaDePedido() {
-        return listaDePedido;
+        return pedidos;
     }
 
     public void setNome(String nome) {
@@ -78,6 +91,9 @@ public class Cliente {
     }
 
     public void setListaDePedido(List<Pedido> listaDePedido) {
-        this.listaDePedido = listaDePedido;
+        this.pedidos = listaDePedido;
     }
+
+
+
 }

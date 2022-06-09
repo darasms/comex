@@ -8,6 +8,7 @@ import br.com.alura.comex.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainCategoriaDAO {
 
@@ -27,6 +28,47 @@ public class MainCategoriaDAO {
         categoriaDAO.cadastrar(auto);
         categoriaDAO.cadastrar(tech);
         categoriaDAO.cadastrar(livros);
+
+        Categoria categoriaRetornada = categoriaDAO.buscarPorId(5L);
+
+        atualizarNome(categoriaRetornada);
+
+        atualizarStatus(categoriaRetornada);
+
+        em.getTransaction().commit();
+        em.close();
+
+
+    }
+
+    private static void atualizarNome(Categoria categoriaRetornada) {
+
+        EntityManager em = JPAUtil.getEntityManager();
+
+        CategoriaDAO categoriaDAO = new CategoriaDAO(em);
+
+        em.getTransaction().begin();
+
+        categoriaRetornada.setNome("ALIMENTAÇÃO");
+
+        categoriaDAO.atualiza(categoriaRetornada);
+
+        em.getTransaction().commit();
+        em.close();
+
+    }
+
+    private static void atualizarStatus(Categoria categoriaRetornada) {
+
+        EntityManager em = JPAUtil.getEntityManager();
+
+        CategoriaDAO categoriaDAO = new CategoriaDAO(em);
+
+        em.getTransaction().begin();
+
+        categoriaRetornada.setStatus(StatusCategoria.INATIVA);
+
+        categoriaDAO.atualiza(categoriaRetornada);
 
         em.getTransaction().commit();
         em.close();

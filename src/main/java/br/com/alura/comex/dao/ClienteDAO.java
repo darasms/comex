@@ -1,6 +1,8 @@
 package br.com.alura.comex.dao;
 
+import br.com.alura.comex.entity.Categoria;
 import br.com.alura.comex.entity.Cliente;
+import br.com.alura.comex.relatorio.RelatorioDeQtdPedidosCliente;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,15 +22,7 @@ public class ClienteDAO {
     }
 
     public void atualiza(Cliente cliente) {
-
-        Cliente clienteNovasInfos = this.buscaPorId(cliente.getId());
-        clienteNovasInfos.setCpf(cliente.getCpf());
-        clienteNovasInfos.setNome(cliente.getNome());
-        clienteNovasInfos.setTelefone(cliente.getTelefone());
-        clienteNovasInfos.setEndereco(cliente.getEndereco());
-        clienteNovasInfos.setListaDePedido(cliente.getListaDePedido());
-
-        this.em.merge(clienteNovasInfos);
+        this.em.merge(cliente);
 
     }
 
@@ -42,7 +36,8 @@ public class ClienteDAO {
     }
 
     public List<Cliente> listaTodos() {
-        return em.createQuery("FROM" + Cliente.class.getName(), Cliente.class).getResultList();
+        String query = "SELECT c FROM Cliente c";
+        return em.createQuery(query, Cliente.class).getResultList();
     }
 
     public List<Cliente> buscaPorNome(String nome){
@@ -51,4 +46,15 @@ public class ClienteDAO {
                 .setParameter("nome", nome)
                 .getResultList();
     }
+    public List<Cliente> relatorioClientesMaisLucrativos(){
+        String query =
+                "SELECT cliente "
+                        + "FROM Cliente cliente "
+                        + "JOIN cliente.pedidos pedido "
+                        + "GROUP BY pedido.cliente ";
+
+        return em.createQuery(query, Cliente.class).getResultList();
+    }
+
+
 }

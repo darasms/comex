@@ -17,24 +17,32 @@ public class ItemDePedido {
     @Column(nullable = false)
     private Integer quantidade;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Pedido pedido;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Produto produto;
 
     private BigDecimal desconto;
 
-    @OneToOne
-    @JoinColumn(name = "tipo_desconto", referencedColumnName = "id")
+    @OneToOne(fetch = FetchType.LAZY)
     private TipoDesconto tipoDesconto;
 
-    public ItemDePedido(Integer quantidade, Pedido pedidoId, Produto produtoId, BigDecimal desconto, TipoDesconto tipoDesconto) {;
+    public ItemDePedido(){
+        super();
+    }
+
+    public ItemDePedido(Integer quantidade, Pedido pedido, Produto produto, BigDecimal desconto, TipoDesconto tipoDesconto) {;
         this.quantidade = quantidade;
-        this.pedido = pedidoId;
-        this.produto = produtoId;
+        this.pedido = pedido;
+        this.produto = produto;
+        this.precoUnitario = produto.getPrecoUnitario();
         this.desconto = desconto;
         this.tipoDesconto = tipoDesconto;
+    }
+
+    public BigDecimal getValorTotalItem(){
+        return this.precoUnitario.multiply(new BigDecimal(this.quantidade));
     }
 
     public Long getId() {
@@ -63,5 +71,8 @@ public class ItemDePedido {
 
     public TipoDesconto getTipoDesconto() {
         return tipoDesconto;
+    }
+
+    public void setPedido(Pedido pedido) {
     }
 }

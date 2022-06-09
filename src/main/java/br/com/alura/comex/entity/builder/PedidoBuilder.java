@@ -15,7 +15,6 @@ public class PedidoBuilder {
 
     private Cliente cliente;
 
-    private List<ItemDePedido> listaItem;
 
     private BigDecimal desconto;
 
@@ -30,11 +29,6 @@ public class PedidoBuilder {
         return this;
     }
 
-    public PedidoBuilder listaItem(List<ItemDePedido> listaItem){
-        this.listaItem = listaItem;
-        return this;
-    }
-
     public PedidoBuilder desconto(BigDecimal desconto){
         this.desconto = desconto;
         return this;
@@ -46,6 +40,6 @@ public class PedidoBuilder {
     }
 
     public Pedido build(){
-        return new Pedido(cliente, listaItem, desconto, tipoDesconto);
+        return new Pedido(cliente, desconto, tipoDesconto);
     }
 }

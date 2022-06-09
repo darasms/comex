@@ -4,6 +4,7 @@ package br.com.alura.comex.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,14 +20,21 @@ public class Categoria {
     private StatusCategoria status;
 
     @OneToMany(mappedBy = "categoria")
-    private List<Produto> produtos;
+    private List<Produto> produtos = new ArrayList<>();
 
-    public Categoria(String nome, StatusCategoria status, List<Produto> produtos) {
+    public Categoria(){
+
+    }
+    public Categoria(String nome, StatusCategoria status) {
         this.nome = nome;
         this.status = status;
-        this.produtos = produtos;
     }
 
+    public void adicionarProduto(Produto produto){
+        produto.setCategoria(this);
+        this.produtos.add(produto);
+
+    }
     public Long getId() {
         return id;
     }

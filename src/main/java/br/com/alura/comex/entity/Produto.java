@@ -26,6 +26,9 @@ public class Produto {
     @ManyToOne(optional = false)
     private Categoria categoria;
 
+    public Produto(){
+        super();
+    }
     public Produto(String name, String descricao, BigDecimal precoUnitario, Integer quantidadeEstoque, Categoria categoria) {
         this.name = name;
         this.descricao = descricao;
@@ -76,5 +79,17 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", precoUnitario=" + precoUnitario +
+                ", quantidadeEstoque=" + quantidadeEstoque +
+                ", categoria=" + categoria +
+                '}';
     }
 }

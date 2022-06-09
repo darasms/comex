@@ -52,7 +52,7 @@ public class ClienteBuilder {
     }
 
     public Cliente build(){
-        return new Cliente(nome, cpf, telefone, endereco, listaDePedido);
+        return new Cliente(nome, cpf, telefone, endereco);
     }
 
 }

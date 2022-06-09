@@ -1,5 +1,6 @@
 package br.com.alura.comex.dao;
 
+import br.com.alura.comex.entity.Categoria;
 import br.com.alura.comex.entity.Produto;
 
 import javax.persistence.EntityManager;
@@ -18,24 +19,18 @@ public class ProdutoDAO {
     }
 
     public void atualiza(Produto produto) {
-
-        Produto categoriaNovasInfos = this.buscarPorId(produto.getId());
-        categoriaNovasInfos.setCategoria(produto.getCategoria());
-        categoriaNovasInfos.setName(produto.getName());
-        categoriaNovasInfos.setDescricao(produto.getDescricao());
-        categoriaNovasInfos.setPrecoUnitario(produto.getPrecoUnitario());
-        categoriaNovasInfos.setQuantidadeEstoque(produto.getQuantidadeEstoque());
-
-        this.em.merge(categoriaNovasInfos);
+        this.em.merge(produto);
 
     }
 
     public List<Produto> listaTodas() {
-        return em.createQuery("FROM" + Produto.class.getName(), Produto.class).getResultList();
+        String query = "SELECT p FROM Produto p";
+        return em.createQuery(query, Produto.class).getResultList();
     }
 
     public List<Produto> listaIndisponível() {
-        return em.createQuery("FROM" + Produto.class.getName() + "As a WHERE a.quantidade < 0", Produto.class).getResultList();
+        String query = "SELECT p FROM Produto p WHERE p.quantidade < 0";
+        return em.createQuery(query, Produto.class).getResultList();
     }
 
     public Produto buscarPorId(Long id) {

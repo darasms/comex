@@ -15,7 +15,26 @@ public class MainProdutoDAO {
 
     public static void main(String[] args){
 
-        Categoria informatica = new Categoria("INFORMATICA", StatusCategoria.ATIVA, new ArrayList<>());
+
+        cadastrarProduto();
+
+        EntityManager em = JPAUtil.getEntityManager();
+
+        CategoriaDAO categoriaDAO = new CategoriaDAO(em);
+        ProdutoDAO produtoDAO = new ProdutoDAO(em);
+
+        em.getTransaction().begin();
+        List<Produto> listaProdutos = produtoDAO.listaIndisponível();
+        em.getTransaction().commit();
+        em.close();
+
+        listaProdutos.stream().forEach(System.out::println);
+
+    }
+
+    private static void cadastrarProduto(){
+
+        Categoria informatica = new Categoria("INFORMATICA", StatusCategoria.ATIVA);
         Produto impressora = new Produto("Impressora", "", new BigDecimal(2), 2, informatica);
         Produto mouse = new Produto("Mouse", "", new BigDecimal(2), 4, informatica);
         Produto teclado = new Produto("Teclado", "", new BigDecimal(2), 0, informatica);
@@ -36,16 +55,6 @@ public class MainProdutoDAO {
 
         em.getTransaction().commit();
         em.close();
-
-        em.getTransaction().begin();
-
-        categoriaDAO.cadastrar(informatica);
-        List<Produto> listaProdutos = produtoDAO.listaIndisponível();
-        em.getTransaction().commit();
-        em.close();
-
-
-        listaProdutos.stream().forEach(System.out::println);
 
     }
 
