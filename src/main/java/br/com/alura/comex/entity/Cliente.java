@@ -20,7 +20,7 @@ public class Cliente {
     @Column(nullable = false)
     private Long cpf;
 
-    private Long telefone;
+    private String telefone;
 
     @Embedded
     private Endereco endereco;
@@ -32,7 +32,7 @@ public class Cliente {
         super();
     }
 
-    public Cliente(String nome, Long cpf, Long telefone, Endereco endereco ) {
+    public Cliente(String nome, Long cpf, String telefone, Endereco endereco ) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -63,7 +63,7 @@ public class Cliente {
         return cpf;
     }
 
-    public Long getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
@@ -83,7 +83,7 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public void setTelefone(Long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 

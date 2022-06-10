@@ -8,6 +8,10 @@ import br.com.alura.comex.entity.Produto;
 import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,10 +32,15 @@ public class ProdutoController {
     private CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public List<ProdutoDto> listar(){
-        List<Produto> produtos = produtoRepository.findAll();
-        return ProdutoDto.converter(produtos);
+    public ResponseEntity<Page<ProdutoDto>> listar(@RequestParam(defaultValue = "0") int pagina){
 
+        Pageable pegeable = PageRequest.of(pagina, 5, Sort.by(Sort.Direction.ASC, "nome"));
+
+        Page<Produto> produtos = produtoRepository.findAll(pegeable);
+
+        Page<ProdutoDto> produtosDto = ProdutoDto.converterPagina(produtos);
+
+        return ResponseEntity.ok().body(produtosDto);
     }
 
     @PostMapping

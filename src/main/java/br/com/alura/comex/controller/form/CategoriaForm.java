@@ -1,14 +1,16 @@
 package br.com.alura.comex.controller.form;
 
 import br.com.alura.comex.entity.Categoria;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class CategoriaForm {
 
-    @NotNull @NotEmpty @Length(min = 2)
+    @NotNull
+    @NotEmpty
+    @Size(min = 2)
     private String nome;
 
     public String getNome() {

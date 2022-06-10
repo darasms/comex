@@ -2,17 +2,18 @@ package br.com.alura.comex.controller.form;
 
 import br.com.alura.comex.entity.Produto;
 import br.com.alura.comex.repository.ProdutoRepository;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class AtualizacaoProdutoForm {
 
     @NotNull
     @NotEmpty
-    @Length(min = 3)
+    @Size(min = 2)
     private String nome;
 
     private String descricao;
@@ -23,20 +24,19 @@ public class AtualizacaoProdutoForm {
 
     @NotNull
     @NotEmpty
-    @Length(min = 2)
+    @Size(min = 2)
     private String categoria;
 
 
 
     public Produto atualizar(Long id, ProdutoRepository produtoRepository) {
 
-        Produto produto = produtoRepository.getReferenceById(id);
-
-        produto.setName(this.nome);
-        produto.setDescricao(this.descricao);
-        produto.setPrecoUnitario(this.precoUnitario);
-        produto.setQuantidadeEstoque(this.quantidadeEstoque);
-        return produto;
+        Optional<Produto> produto = produtoRepository.findById(id);
+        produto.get().setName(this.nome);
+        produto.get().setDescricao(this.descricao);
+        produto.get().setPrecoUnitario(this.precoUnitario);
+        produto.get().setQuantidadeEstoque(this.quantidadeEstoque);
+        return produto.get();
 
     }
 

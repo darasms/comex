@@ -3,15 +3,17 @@ package br.com.alura.comex.controller.form;
 import br.com.alura.comex.entity.Categoria;
 import br.com.alura.comex.entity.enuns.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Optional;
 
 public class AtualizacaoCategoriaForm {
 
-    @NotNull @NotEmpty @Length(min=2)
+    @NotNull
+    @NotEmpty
+    @Size(min = 2)
     private String nome;
     private StatusCategoria status;
     public Categoria atualizar(Long id, CategoriaRepository categoriaRepository) {
