@@ -11,7 +11,9 @@ import java.math.BigDecimal;
 
 public class ProdutoForm {
 
-    @NotNull @NotEmpty @Length(min = 3)
+    @NotNull
+    @NotEmpty
+    @Length(min = 3)
     private String nome;
 
     private String descricao;
@@ -20,7 +22,9 @@ public class ProdutoForm {
 
     private int quantidadeEstoque;
 
-    @NotNull @NotEmpty @Length(min = 2)
+    @NotNull
+    @NotEmpty
+    @Length(min = 2)
     private String categoria;
 
     public String getNome() {
