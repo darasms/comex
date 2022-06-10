@@ -3,6 +3,8 @@ package br.com.alura.comex.entity;
 import br.com.alura.comex.entity.enuns.StatusCategoria;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categorias")
@@ -12,9 +14,11 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-
     @Enumerated(EnumType.STRING)
     private StatusCategoria status = StatusCategoria.ATIVA;
+
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Produto> produtos = new ArrayList<>();
 
     public Categoria() {
     }
@@ -51,5 +55,28 @@ public class Categoria {
 
     public void setStatus(StatusCategoria status) {
         this.status = status;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", status=" + status +
+                ", produtos=" + produtos +
+                '}';
+    }
+
+    public void adicionarProduto(Produto produto){
+        produto.setCategoria(this);
+        this.produtos.add(produto);
     }
 }
