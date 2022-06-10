@@ -27,7 +27,7 @@ public class CategoriaController {
 
     @GetMapping
     public List<CategoriaDto> listar(){
-        List<Categoria> categorias = categoriaRepository.findAll();
+        Iterable<Categoria> categorias = categoriaRepository.findAll();
         return CategoriaDto.converter(categorias);
     }
 
@@ -46,7 +46,9 @@ public class CategoriaController {
     public ResponseEntity<DetalhesDaCategoriaDto> buscarCategoriaPorId(@PathVariable Long id){
         Optional<Categoria> categoria = categoriaRepository.findById(id);
 
-        if (categoria.isPresent()) return ResponseEntity.ok(new DetalhesDaCategoriaDto(categoria.get()));
+        if (categoria.isPresent()) {
+            return ResponseEntity.ok().body(new DetalhesDaCategoriaDto(categoria.get()));
+        }
 
         return ResponseEntity.notFound().build();
     }

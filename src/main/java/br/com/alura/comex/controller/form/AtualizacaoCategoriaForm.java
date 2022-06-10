@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 public class AtualizacaoCategoriaForm {
 
@@ -14,9 +15,9 @@ public class AtualizacaoCategoriaForm {
     private String nome;
     private StatusCategoria status;
     public Categoria atualizar(Long id, CategoriaRepository categoriaRepository) {
-        Categoria categoria = categoriaRepository.getReferenceById(id);
-        categoria.setNome(this.nome);
-        return categoria;
+        Optional<Categoria> categoria = categoriaRepository.findById(id);
+        categoria.get().setNome(this.nome);
+        return categoria.get();
     }
 
     public String getNome() {

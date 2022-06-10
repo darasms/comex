@@ -17,7 +17,7 @@ public class Categoria {
     @Enumerated(EnumType.STRING)
     private StatusCategoria status = StatusCategoria.ATIVA;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoria")
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria() {
@@ -63,16 +63,6 @@ public class Categoria {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
-    }
-
-    @Override
-    public String toString() {
-        return "Categoria{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", status=" + status +
-                ", produtos=" + produtos +
-                '}';
     }
 
     public void adicionarProduto(Produto produto){
