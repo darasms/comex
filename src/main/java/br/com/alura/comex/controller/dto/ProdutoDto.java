@@ -4,7 +4,6 @@ import br.com.alura.comex.entity.Produto;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoDto {

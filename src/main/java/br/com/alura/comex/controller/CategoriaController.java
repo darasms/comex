@@ -26,14 +26,14 @@ public class CategoriaController {
     private CategoriaRepository categoriaRepository;
 
     @GetMapping
-    public List<CategoriaDto> listar(){
-        Iterable<Categoria> categorias = categoriaRepository.findAll();
-        return CategoriaDto.converter(categorias);
+    public ResponseEntity<List<CategoriaDto>> listar() {
+        List<Categoria> categorias = categoriaRepository.findAll();
+        return ResponseEntity.ok(CategoriaDto.converter(categorias));
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CategoriaDto> cadastrar(@RequestBody @Valid CategoriaForm form, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<CategoriaDto> cadastrar(@RequestBody @Valid CategoriaForm form, UriComponentsBuilder uriComponentsBuilder) {
 
         Categoria categoria = form.converter();
         categoriaRepository.save(categoria);
@@ -43,7 +43,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetalhesDaCategoriaDto> buscarCategoriaPorId(@PathVariable Long id){
+    public ResponseEntity<DetalhesDaCategoriaDto> buscarCategoriaPorId(@PathVariable Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
 
         if (categoria.isPresent()) {
@@ -55,10 +55,10 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<CategoriaDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoCategoriaForm form){
+    public ResponseEntity<CategoriaDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoCategoriaForm form) {
         Optional<Categoria> optional = categoriaRepository.findById(id);
 
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             Categoria categoria = form.atualizar(id, categoriaRepository);
             return ResponseEntity.ok(new CategoriaDto(categoria));
         }
@@ -69,11 +69,11 @@ public class CategoriaController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> remover(@PathVariable Long id){
+    public ResponseEntity<?> remover(@PathVariable Long id) {
 
         Optional<Categoria> optional = categoriaRepository.findById(id);
 
-        if (optional.isPresent()){
+        if (optional.isPresent()) {
             categoriaRepository.deleteById(id);
             return ResponseEntity.ok().build();
         }

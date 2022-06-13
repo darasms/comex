@@ -6,6 +6,7 @@ import br.com.alura.comex.entity.enuns.StatusCategoria;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CategoriaDto {
 
@@ -34,14 +35,14 @@ public class CategoriaDto {
         return status;
     }
 
-    public static List<CategoriaDto> converter(Iterable<Categoria> categorias){
+    public static List<CategoriaDto> converter(List<Categoria> categorias){
 
-        List<CategoriaDto> categoriasDto = new ArrayList<CategoriaDto>();
-        categorias.iterator().forEachRemaining(catg -> {
-            categoriasDto.add(new CategoriaDto(catg));
-        });
-
-        return categoriasDto;
-        //return categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
+//        List<CategoriaDto> categoriasDto = new ArrayList<CategoriaDto>();
+//        categorias.iterator().forEachRemaining(catg -> {
+//            categoriasDto.add(new CategoriaDto(catg));
+//        });
+//
+//        return categoriasDto;
+        return categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
     }
 }
