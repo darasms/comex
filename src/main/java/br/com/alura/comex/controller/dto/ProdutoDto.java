@@ -19,7 +19,7 @@ public class ProdutoDto {
 
     private int quantidadeEstoque;
 
-    private String categoria;
+    private CategoriaDto categoria;
 
     public ProdutoDto(Produto produto) {
         this.id = produto.getId();
@@ -27,7 +27,7 @@ public class ProdutoDto {
         this.descricao = produto.getDescricao();
         this.precoUnitario = produto.getPrecoUnitario();
         this.quantidadeEstoque = produto.getQuantidadeEstoque();
-        this.categoria = produto.getCategoria().getNome();
+        this.categoria = new CategoriaDto(produto.getCategoria());
     }
 
 
@@ -51,7 +51,7 @@ public class ProdutoDto {
         return quantidadeEstoque;
     }
 
-    public String getCategoria() {
+    public CategoriaDto getCategoria() {
         return categoria;
     }
 

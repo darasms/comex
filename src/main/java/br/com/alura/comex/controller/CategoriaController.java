@@ -6,7 +6,9 @@ import br.com.alura.comex.controller.dto.DetalhesDaCategoriaDto;
 import br.com.alura.comex.controller.form.AtualizacaoCategoriaForm;
 import br.com.alura.comex.controller.form.CategoriaForm;
 import br.com.alura.comex.entity.Categoria;
+import br.com.alura.comex.entity.projecao.RelatorioPedidosPorCategoriaProjecao;
 import br.com.alura.comex.repository.CategoriaRepository;
+import br.com.alura.comex.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,9 @@ public class CategoriaController {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> listar() {
@@ -79,6 +84,14 @@ public class CategoriaController {
         }
         return ResponseEntity.notFound().build();
 
+    }
+
+    @GetMapping("/pedidos")
+    public ResponseEntity<List<RelatorioPedidosPorCategoriaProjecao>> pedidosVendidosPorCategoria(){
+
+        List<RelatorioPedidosPorCategoriaProjecao> relatorioPedidosPorCategoria = pedidoRepository.findPedidosPorCategoria();
+
+        return ResponseEntity.ok(relatorioPedidosPorCategoria);
     }
 
 

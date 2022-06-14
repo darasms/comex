@@ -26,6 +26,7 @@ public class ItemDePedido {
     private Produto produto;
 
     private BigDecimal desconto;
+    @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto;
 
     public ItemDePedido(){

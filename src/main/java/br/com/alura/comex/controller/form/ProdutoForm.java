@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public class ProdutoForm {
 
@@ -18,16 +19,14 @@ public class ProdutoForm {
     private String nome;
 
     private String descricao;
-
+    @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal precoUnitario;
 
     private int quantidadeEstoque;
 
     @NotNull
-    @NotEmpty
-    @Size(min = 2)
-    private String categoria;
+    private Long categoria;
 
     public String getNome() {
         return nome;
@@ -45,13 +44,13 @@ public class ProdutoForm {
         return quantidadeEstoque;
     }
 
-    public String getCategoria() {
+    public Long getCategoria() {
         return categoria;
     }
 
     public Produto converter(CategoriaRepository categoriaRepository) {
-        Categoria novaCategoria = categoriaRepository.findByNome(categoria);
-        return new Produto(nome, descricao, precoUnitario, quantidadeEstoque, novaCategoria);
+        Optional<Categoria> novaCategoria = categoriaRepository.findById(categoria);
+        return new Produto(nome, descricao, precoUnitario, quantidadeEstoque, novaCategoria.get());
     }
 
     @Override

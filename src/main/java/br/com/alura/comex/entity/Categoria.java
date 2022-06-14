@@ -69,4 +69,5 @@ public class Categoria {
         produto.setCategoria(this);
         this.produtos.add(produto);
     }
+
 }
