@@ -15,6 +15,7 @@ public class Categoria {
     private Long id;
     private String nome;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatusCategoria status = StatusCategoria.ATIVA;
 
     @OneToMany(mappedBy = "categoria")

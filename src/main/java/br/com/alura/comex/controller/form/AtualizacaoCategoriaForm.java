@@ -15,13 +15,24 @@ public class AtualizacaoCategoriaForm {
     @NotEmpty
     @Size(min = 2)
     private String nome;
-    private StatusCategoria status;
+    private StatusCategoria status = StatusCategoria.ATIVA;
     public Categoria atualizar(Long id, CategoriaRepository categoriaRepository) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         categoria.get().setNome(this.nome);
         return categoria.get();
     }
 
+    public Categoria atualizarStatus(Categoria categoria){
+        Categoria categoriaAtualizada = categoria;
+
+        if (categoriaAtualizada.getStatus().equals(StatusCategoria.ATIVA)){
+            this.status = StatusCategoria.INATIVA;
+            categoriaAtualizada.setStatus(this.status);
+        }
+
+        categoriaAtualizada.setStatus(this.status);
+        return categoriaAtualizada;
+    }
     public String getNome() {
         return nome;
     }

@@ -1,6 +1,7 @@
 package br.com.alura.comex.config.validacao;
 
 import br.com.alura.comex.config.validacao.dto.ErroDeFormularioDto;
+import br.com.alura.comex.config.validacao.dto.ErroRuntimeExceptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;

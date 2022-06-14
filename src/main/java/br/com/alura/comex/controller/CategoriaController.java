@@ -6,6 +6,7 @@ import br.com.alura.comex.controller.dto.DetalhesDaCategoriaDto;
 import br.com.alura.comex.controller.form.AtualizacaoCategoriaForm;
 import br.com.alura.comex.controller.form.CategoriaForm;
 import br.com.alura.comex.entity.Categoria;
+import br.com.alura.comex.entity.enuns.StatusCategoria;
 import br.com.alura.comex.entity.projecao.RelatorioPedidosPorCategoriaProjecao;
 import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.PedidoRepository;
@@ -94,5 +95,19 @@ public class CategoriaController {
         return ResponseEntity.ok(relatorioPedidosPorCategoria);
     }
 
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity<CategoriaDto> atualizarStatus(@PathVariable Long id){
+        Optional<Categoria> optional = categoriaRepository.findById(id);
+        AtualizacaoCategoriaForm atualizacaoCategoriaForm = new AtualizacaoCategoriaForm();
+
+        if (optional.isPresent()){
+            Categoria categoria = atualizacaoCategoriaForm.atualizarStatus(optional.get());
+            return ResponseEntity.ok(new CategoriaDto(categoria));
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
 
 }
