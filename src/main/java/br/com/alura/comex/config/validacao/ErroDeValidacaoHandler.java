@@ -34,4 +34,12 @@ public class ErroDeValidacaoHandler {
 
         return listaErro;
     }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RuntimeException.class)
+    public ErroRuntimeExceptionDto handle(RuntimeException exception){;
+            return new ErroRuntimeExceptionDto(exception.getClass(), exception.getMessage());
+    }
+
+
 }

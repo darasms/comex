@@ -25,9 +25,7 @@ public class AtualizacaoProdutoForm {
     private int quantidadeEstoque;
 
     @NotNull
-    @NotEmpty
     private Long categoria;
-
 
 
     public Produto atualizar(Long id, ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository) {
@@ -41,6 +39,8 @@ public class AtualizacaoProdutoForm {
         Optional<Categoria> novaCategoria = categoriaRepository.findById(categoria);
         if(novaCategoria.isPresent()){
             produto.get().setCategoria(novaCategoria.get());
+        }else{
+            throw new RuntimeException("Categoria não foi encontrada!");
         }
 
         return produto.get();

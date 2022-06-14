@@ -3,6 +3,7 @@ package br.com.alura.comex.config.validacao.dto;
 public class ErroDeFormularioDto {
 
     private String campo;
+
     private String mensagem;
     public ErroDeFormularioDto(String campo, String mensagem) {
         this.campo = campo;
@@ -16,4 +17,5 @@ public class ErroDeFormularioDto {
     public String getMensagem() {
         return mensagem;
     }
+
 }
