@@ -1,6 +1,8 @@
 package br.com.alura.comex.controller.form;
 
+import br.com.alura.comex.entity.Categoria;
 import br.com.alura.comex.entity.Produto;
+import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 
 import javax.validation.constraints.NotEmpty;
@@ -24,18 +26,23 @@ public class AtualizacaoProdutoForm {
 
     @NotNull
     @NotEmpty
-    @Size(min = 2)
-    private String categoria;
+    private Long categoria;
 
 
 
-    public Produto atualizar(Long id, ProdutoRepository produtoRepository) {
+    public Produto atualizar(Long id, ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository) {
 
         Optional<Produto> produto = produtoRepository.findById(id);
         produto.get().setName(this.nome);
         produto.get().setDescricao(this.descricao);
         produto.get().setPrecoUnitario(this.precoUnitario);
         produto.get().setQuantidadeEstoque(this.quantidadeEstoque);
+
+        Optional<Categoria> novaCategoria = categoriaRepository.findById(categoria);
+        if(novaCategoria.isPresent()){
+            produto.get().setCategoria(novaCategoria.get());
+        }
+
         return produto.get();
 
     }
@@ -72,11 +79,11 @@ public class AtualizacaoProdutoForm {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public String getCategoria() {
+    public Long getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Long categoria) {
         this.categoria = categoria;
     }
 }

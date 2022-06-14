@@ -71,7 +71,7 @@ public class ProdutoController {
         Optional<Produto> optional = produtoRepository.findById(id);
 
         if (optional.isPresent()){
-            Produto produto = form.atualizar(id, produtoRepository);
+            Produto produto = form.atualizar(id, produtoRepository, categoriaRepository);
             return ResponseEntity.ok(new ProdutoDto(produto));
         }
         return ResponseEntity.notFound().build();
