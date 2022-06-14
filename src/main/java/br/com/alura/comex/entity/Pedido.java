@@ -38,6 +38,10 @@ public class Pedido {
         this.itens.add(item);
     }
 
+    public int getQuantidadeDeProdutos() {
+        return this.itens.stream().mapToInt(ItemDePedido::getQuantidade).sum();
+    }
+
     public BigDecimal getValorTotalPedido() {
         return this.itens.stream().map(ItemDePedido::getValorTotalItem).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
