@@ -16,16 +16,23 @@ public class ItemDePedidoForm {
     @Valid
     private Long idProduto;
 
-    @Min(0)
+    @Min(1)
     private int quantidadeProduto;
 
+    public ItemDePedidoForm() {
+    }
 
     private Produto verificarProduto(ProdutoRepository produtoRepository){
         Optional<Produto> produto = produtoRepository.findById(this.idProduto);
 
-        if (produto.get().getQuantidadeEstoque() == 0){
+        if (produto.get().getQuantidadeEstoque() < this.quantidadeProduto){
             throw new RuntimeException("Sem produto em estoque");
         }
+
+        produto.get().setQuantidadeEstoque(
+                produto.get().getQuantidadeEstoque() - this.quantidadeProduto
+        );
+
         return produto.get();
     }
 
@@ -40,5 +47,13 @@ public class ItemDePedidoForm {
 
     public int getQuantidadeProduto() {
         return quantidadeProduto;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemDePedidoForm{" +
+                "idProduto=" + idProduto +
+                ", quantidadeProduto=" + quantidadeProduto +
+                '}';
     }
 }

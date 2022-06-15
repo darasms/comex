@@ -1,6 +1,6 @@
 package br.com.alura.comex.model;
 
-import br.com.alura.comex.model.enuns.TipoDesconto;
+import br.com.alura.comex.model.enuns.TipoDescontoItem;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,19 +28,20 @@ public class ItemDePedido {
     @Column(nullable = false)
     private BigDecimal desconto = BigDecimal.ZERO;
     @Enumerated(EnumType.STRING)
-    private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
+    private TipoDescontoItem tipoDesconto = TipoDescontoItem.NENHUM;
 
-    public ItemDePedido(){
+    public ItemDePedido() {
         super();
     }
 
-    public ItemDePedido(Integer quantidade, Produto produto) {;
+    public ItemDePedido(Integer quantidade, Produto produto) {
+        ;
         this.quantidade = quantidade;
         this.produto = produto;
         this.precoUnitario = produto.getPrecoUnitario();
     }
 
-    public BigDecimal getValorTotalItem(){
+    public BigDecimal getValorTotalItem() {
         return this.precoUnitario.multiply(new BigDecimal(this.quantidade));
     }
 
@@ -68,17 +69,19 @@ public class ItemDePedido {
         return desconto;
     }
 
-    public TipoDesconto getTipoDesconto() {
+    public TipoDescontoItem getTipoDesconto() {
         return tipoDesconto;
     }
 
     public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
+
     public void setDesconto(BigDecimal desconto) {
         this.desconto = desconto;
     }
 
-    public void setTipoDesconto(TipoDesconto tipoDesconto) {
+    public void setTipoDesconto(TipoDescontoItem tipoDesconto) {
         this.tipoDesconto = tipoDesconto;
     }
 }

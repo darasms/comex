@@ -56,4 +56,17 @@ public class ItemDePedidoDto {
     public BigDecimal getValorFinal() {
         return valorFinal;
     }
+
+    @Override
+    public String toString() {
+        return "ItemDePedidoDto{" +
+                "id=" + id +
+                ", precoUnitario=" + precoUnitario +
+                ", quantidade=" + quantidade +
+                ", produto='" + produto + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", desconto=" + desconto +
+                ", valorFinal=" + valorFinal +
+                '}';
+    }
 }

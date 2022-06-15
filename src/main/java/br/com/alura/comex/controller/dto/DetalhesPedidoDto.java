@@ -1,12 +1,13 @@
 package br.com.alura.comex.controller.dto;
 
 import br.com.alura.comex.model.Pedido;
-import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class PedidoDto {
+public class DetalhesPedidoDto {
 
     private LocalDate data;
 
@@ -18,15 +19,18 @@ public class PedidoDto {
 
     private Long idCliente;
 
-    private String nomeCliente;
+    private String NomeCliente;
 
-    public PedidoDto(Pedido pedido) {
+    private List<ItemDePedidoDto> itens;
+
+    public DetalhesPedidoDto(Pedido pedido) {
         this.data = pedido.getData();
         this.valorTotal = pedido.getValorTotalPedido();
-        this.desconto = pedido.getValorTotalDescontos();
+        this.desconto = pedido.getDesconto();
         this.quantidadeProdutos = pedido.getQuantidadeDeProdutos();
         this.idCliente = pedido.getCliente().getId();
-        this.nomeCliente = pedido.getCliente().getNome();
+        NomeCliente = pedido.getCliente().getNome();
+        this.itens = pedido.getItens().stream().map(ItemDePedidoDto::new).collect(Collectors.toList());
     }
 
     public LocalDate getData() {
@@ -50,10 +54,10 @@ public class PedidoDto {
     }
 
     public String getNomeCliente() {
-        return nomeCliente;
+        return NomeCliente;
     }
 
-    public static Page<PedidoDto> converter(Page<Pedido> pedidosDb) {
-        return pedidosDb.map(PedidoDto::new);
+    public List<ItemDePedidoDto> getItens() {
+        return itens;
     }
 }

@@ -34,9 +34,9 @@ public class AtualizacaoProdutoForm {
         produto.get().setName(this.nome);
         produto.get().setDescricao(this.descricao);
         produto.get().setPrecoUnitario(this.precoUnitario);
-        produto.get().setQuantidadeEstoque(this.quantidadeEstoque);
-
+        produto.get().setQuantidadeEstoque(produto.get().getQuantidadeEstoque() + this.quantidadeEstoque);
         Optional<Categoria> novaCategoria = categoriaRepository.findById(categoria);
+
         if(novaCategoria.isPresent()){
             produto.get().setCategoria(novaCategoria.get());
         }else{
