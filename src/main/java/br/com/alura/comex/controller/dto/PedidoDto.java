@@ -23,7 +23,7 @@ public class PedidoDto {
     public PedidoDto(Pedido pedido) {
         this.data = pedido.getData();
         this.valorTotal = pedido.getValorTotalPedido();
-        this.desconto = pedido.getDesconto();
+        this.desconto = pedido.getValorTotalDescontos();
         this.quantidadeProdutos = pedido.getQuantidadeDeProdutos();
         this.idCliente = pedido.getCliente().getId();
         NomeCliente = pedido.getCliente().getNome();

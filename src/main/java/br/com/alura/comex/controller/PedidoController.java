@@ -34,7 +34,6 @@ public class PedidoController {
         Page<PedidoDto> paginaPedidos = PedidoDto.converter(pedidos);
 
         return ResponseEntity.ok().body(paginaPedidos);
-
     }
 
     @GetMapping("/{id}")
@@ -45,7 +44,6 @@ public class PedidoController {
             return ResponseEntity.ok().body(new DetalhamentoPedidoDto(optionalPedido.get()));
         }
         return ResponseEntity.notFound().build();
-
     }
 
     @PostMapping

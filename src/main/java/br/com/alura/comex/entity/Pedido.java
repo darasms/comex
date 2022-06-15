@@ -39,11 +39,22 @@ public class Pedido {
     }
 
     public int getQuantidadeDeProdutos() {
-        return this.itens.stream().mapToInt(ItemDePedido::getQuantidade).sum();
+        return this.itens.stream()
+                .mapToInt(ItemDePedido::getQuantidade)
+                .sum();
     }
 
     public BigDecimal getValorTotalPedido() {
-        return this.itens.stream().map(ItemDePedido::getValorTotalItem).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return this.itens.stream()
+                .map(ItemDePedido::getValorTotalItem)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .subtract(this.getValorTotalDescontos());
+    }
+    public BigDecimal getValorTotalDescontos(){
+        return this.itens.stream()
+                .map(ItemDePedido::getDesconto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .add(this.desconto);
     }
 
     public Long getId() {
