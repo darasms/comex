@@ -1,4 +1,4 @@
-package br.com.alura.comex.entity.projecao;
+package br.com.alura.comex.model.projecao;
 
 import java.math.BigDecimal;
 

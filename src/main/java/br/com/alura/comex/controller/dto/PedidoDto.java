@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller.dto;
 
-import br.com.alura.comex.entity.Pedido;
+import br.com.alura.comex.model.Pedido;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;

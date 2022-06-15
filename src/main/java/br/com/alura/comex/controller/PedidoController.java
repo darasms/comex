@@ -3,8 +3,11 @@ package br.com.alura.comex.controller;
 import br.com.alura.comex.controller.dto.DetalhamentoPedidoDto;
 import br.com.alura.comex.controller.dto.PedidoDto;
 import br.com.alura.comex.controller.form.PedidoFrom;
-import br.com.alura.comex.entity.Pedido;
+import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.repository.PedidoRepository;
+import br.com.alura.comex.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +28,12 @@ public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @GetMapping
     public ResponseEntity<Page<PedidoDto>> listar(@RequestParam(defaultValue = "0") int pagina){
@@ -49,7 +58,7 @@ public class PedidoController {
     @PostMapping
     @Transactional
     public ResponseEntity<PedidoDto> cadastrar(@RequestBody @Valid PedidoFrom form, UriComponentsBuilder uriComponentsBuilder){
-        Pedido pedido = form.converter();
+        Pedido pedido = form.converter(clienteRepository, produtoRepository);
         pedidoRepository.save(pedido);
 
         URI uri = uriComponentsBuilder.path("/api/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
@@ -57,6 +66,4 @@ public class PedidoController {
         return ResponseEntity.created(uri).body(new PedidoDto(pedido));
 
     }
-
-
 }

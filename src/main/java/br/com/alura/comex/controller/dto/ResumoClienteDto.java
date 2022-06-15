@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller.dto;
 
-import br.com.alura.comex.entity.Cliente;
+import br.com.alura.comex.model.Cliente;
 import org.springframework.data.domain.Page;
 
 public class ResumoClienteDto {

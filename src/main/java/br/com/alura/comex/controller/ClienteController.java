@@ -3,7 +3,7 @@ package br.com.alura.comex.controller;
 import br.com.alura.comex.controller.dto.ClienteDto;
 import br.com.alura.comex.controller.dto.ResumoClienteDto;
 import br.com.alura.comex.controller.form.ClienteForm;
-import br.com.alura.comex.entity.Cliente;
+import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller.form;
 
-import br.com.alura.comex.entity.Cliente;
-import br.com.alura.comex.entity.Endereco;
+import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.model.Endereco;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

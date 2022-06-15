@@ -1,4 +1,4 @@
-package br.com.alura.comex.entity;
+package br.com.alura.comex.model;
 
 
 import javax.persistence.*;

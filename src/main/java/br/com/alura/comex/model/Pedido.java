@@ -1,9 +1,10 @@
-package br.com.alura.comex.entity;
+package br.com.alura.comex.model;
 
 
-import br.com.alura.comex.entity.enuns.TipoDesconto;
+import br.com.alura.comex.model.enuns.TipoDesconto;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,9 +20,11 @@ public class Pedido {
     private LocalDate data = LocalDate.now();
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Valid
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @Valid
     private List<ItemDePedido> itens = new ArrayList<>();
 
     private BigDecimal desconto;

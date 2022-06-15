@@ -1,6 +1,7 @@
-package br.com.alura.comex.entity;
+package br.com.alura.comex.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 @Entity
@@ -17,6 +18,7 @@ public class Produto {
     private BigDecimal precoUnitario;
 
     @Column(name = "quantidade_estoque", nullable = false)
+    @Min(0)
     private int quantidadeEstoque;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

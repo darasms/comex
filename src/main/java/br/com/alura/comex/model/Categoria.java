@@ -1,6 +1,6 @@
-package br.com.alura.comex.entity;
+package br.com.alura.comex.model;
 
-import br.com.alura.comex.entity.enuns.StatusCategoria;
+import br.com.alura.comex.model.enuns.StatusCategoria;
 
 import javax.persistence.*;
 import java.util.ArrayList;
