@@ -10,6 +10,7 @@ import br.com.alura.comex.model.projecao.RelatorioPedidosPorCategoriaProjecao;
 import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -87,6 +88,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/pedidos")
+    @Cacheable(value = "relatorioPedidosPorCategoria")
     public ResponseEntity<List<RelatorioPedidosPorCategoriaProjecao>> pedidosVendidosPorCategoria(){
 
         List<RelatorioPedidosPorCategoriaProjecao> relatorioPedidosPorCategoria = pedidoRepository.findPedidosPorCategoria();

@@ -10,6 +10,8 @@ import br.com.alura.comex.repository.ItemDePedidoRepository;
 import br.com.alura.comex.repository.PedidoRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -60,6 +62,7 @@ public class PedidoController {
 
     @PostMapping
     @Transactional
+    @CacheEvict(value = "relatorioPedidosPorCategoria", allEntries = true)
     public ResponseEntity<DetalhesPedidoDto> cadastrar(@RequestBody @Valid PedidoFrom form, UriComponentsBuilder uriComponentsBuilder) {
         Pedido pedido = form.converter(clienteRepository, produtoRepository);
 
