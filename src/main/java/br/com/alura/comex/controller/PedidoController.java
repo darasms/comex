@@ -4,7 +4,6 @@ import br.com.alura.comex.controller.dto.DetalhamentoPedidoDto;
 import br.com.alura.comex.controller.dto.DetalhesPedidoDto;
 import br.com.alura.comex.controller.dto.PedidoDto;
 import br.com.alura.comex.controller.form.PedidoFrom;
-import br.com.alura.comex.model.Cliente;
 import br.com.alura.comex.model.Pedido;
 import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.repository.ItemDePedidoRepository;
@@ -12,9 +11,9 @@ import br.com.alura.comex.repository.PedidoRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -41,9 +40,8 @@ public class PedidoController {
     private ItemDePedidoRepository itemDePedidoRepository;
 
     @GetMapping
-    public ResponseEntity<Page<PedidoDto>> listar(@RequestParam(defaultValue = "0") int pagina){
+    public ResponseEntity<Page<PedidoDto>> listar(@PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "data") Pageable pageable) {
 
-        Pageable pageable = PageRequest.of(pagina, 5, Sort.Direction.DESC, "data");
         Page<Pedido> pedidos = pedidoRepository.findAll(pageable);
         Page<PedidoDto> paginaPedidos = PedidoDto.converter(pedidos);
 
@@ -51,10 +49,10 @@ public class PedidoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetalhamentoPedidoDto> buscarPedidoPorId(@PathVariable Long id){
-        Optional<Pedido> optionalPedido= pedidoRepository.findById(id);
+    public ResponseEntity<DetalhamentoPedidoDto> buscarPedidoPorId(@PathVariable Long id) {
+        Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
 
-        if (optionalPedido.isPresent()){
+        if (optionalPedido.isPresent()) {
             return ResponseEntity.ok().body(new DetalhamentoPedidoDto(optionalPedido.get()));
         }
         return ResponseEntity.notFound().build();
@@ -62,7 +60,7 @@ public class PedidoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DetalhesPedidoDto> cadastrar(@RequestBody @Valid PedidoFrom form, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<DetalhesPedidoDto> cadastrar(@RequestBody @Valid PedidoFrom form, UriComponentsBuilder uriComponentsBuilder) {
         Pedido pedido = form.converter(clienteRepository, produtoRepository);
 
         pedidoRepository.save(pedido);
