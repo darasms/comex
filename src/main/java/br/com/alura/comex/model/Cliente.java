@@ -28,6 +28,9 @@ public class Cliente {
     @OneToMany(mappedBy = "id")
     private List<Pedido> pedidos = new ArrayList<>();
 
+    @OneToOne(optional = false, mappedBy = "cliente")
+    private Usuario usuario;
+
     public Cliente() {
         super();
     }
@@ -95,4 +98,11 @@ public class Cliente {
         this.pedidos = listaDePedido;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

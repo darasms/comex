@@ -27,6 +27,7 @@ WHERE pedidos.id = item.pedido_id AND item.produto_id = p.id AND p.categoria_id 
 GROUP BY c.id, pedidos.id, item.id;
 
 
+INSERT INTO usuarios(email, senha, cliente_id) VALUES("aluno@exemplo.com", "$2a$10$JhY8lcscK7wotSZJCnNCL..ZmEq.R9TUGPo00Bai1qc4GkczudRTW", 4);
 
 
 
