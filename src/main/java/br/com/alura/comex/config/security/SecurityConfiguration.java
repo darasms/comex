@@ -29,9 +29,9 @@ public class SecurityConfiguration {
     private UsuarioRepository usuarioRepository;
 
     @Bean
-    protected AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration,
-                                                          ApplicationContext context, ObjectPostProcessor<Object> objectPostProcessor) throws Exception {
-        authenticationConfiguration.authenticationManagerBuilder(objectPostProcessor, context).userDetailsService(autenticacaoService)
+    protected AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration, ApplicationContext context, ObjectPostProcessor<Object> objectPostProcessor) throws Exception {
+        authenticationConfiguration.authenticationManagerBuilder(objectPostProcessor, context)
+                .userDetailsService(autenticacaoService)
                 .passwordEncoder(new BCryptPasswordEncoder());
         return authenticationConfiguration.getAuthenticationManager();
     }
@@ -42,6 +42,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizedRequests -> authorizedRequests
                                 .antMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/api/produtos/**").permitAll()
+                                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                                 .antMatchers("/swagger-ui/**").permitAll()
                                 .antMatchers("/v3/api-docs/**").permitAll()
                                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
