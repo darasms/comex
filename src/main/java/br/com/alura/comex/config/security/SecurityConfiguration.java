@@ -18,7 +18,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfiguration {
 
     @Autowired
@@ -43,14 +42,13 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizedRequests -> authorizedRequests
                                 .antMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/api/produtos/**").permitAll()
-                                .antMatchers("/swagger-ui/*").permitAll()
+                                .antMatchers("/swagger-ui/**").permitAll()
                                 .antMatchers("/v3/api-docs/**").permitAll()
                                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                                .anyRequest().authenticated()
-                            )
-                            .csrf().disable()
-                            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                            .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),  UsernamePasswordAuthenticationFilter.class);
+                                .anyRequest().authenticated())
+                                .csrf().disable()
+                                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),  UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
