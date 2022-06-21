@@ -4,6 +4,7 @@ import br.com.alura.comex.config.security.TokenService;
 import br.com.alura.comex.controller.dto.TokenDto;
 import br.com.alura.comex.controller.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Profile("prod")
 @RestController
 @RequestMapping("/auth")
 public class AutenticacaoController {
