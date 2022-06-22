@@ -24,7 +24,7 @@ public class ProdutoControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void deveriasomething() throws Exception {
+    public void deveriaCadastrarProduto() throws Exception {
         URI uri = new URI("/api/produtos");
 
         JSONObject json = criarObjetoJson();
@@ -46,7 +46,7 @@ public class ProdutoControllerTest {
                 .put("descricao", "4K com AI")
                 .put("precoUnitario",5000.00)
                 .put("quantidadeEstoque", 2)
-                .put("categoria", 1);
+                .put("categoria", 34);
     }
 
 }
