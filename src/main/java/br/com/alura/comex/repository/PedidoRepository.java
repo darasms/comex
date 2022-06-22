@@ -11,15 +11,13 @@ import java.util.List;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
-    @Query(value = "SELECT c.nome, COUNT(item.id) AS quantidadeProdutos, SUM((item.preco_unitario * item.quantidade)) AS montanteVendido " +
+    @Query(value = "SELECT c.nome, item.quantidade AS quantidadeProdutos, (item.preco_unitario * item.quantidade) AS montanteVendido " +
             "FROM pedidos " +
             "JOIN itens_pedido item " +
             "JOIN produtos p " +
             "JOIN categorias c " +
             "WHERE pedidos.id = item.pedido_id AND item.produto_id = p.id AND p.categoria_id = c.id " +
-            "GROUP BY c.id, pedidos.id, item.id", nativeQuery = true)
+            "GROUP BY item.id", nativeQuery = true)
     List<RelatorioPedidosPorCategoriaProjecao> findPedidosPorCategoria();
-
-
 
 }

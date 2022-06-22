@@ -13,6 +13,6 @@ public class CacheController {
     @GetMapping("/aW52YWxpZGEgcmVsYXTDs3JpbyBkZSB2ZW5kYXM")
     @CacheEvict(value = "relatorioPedidosPorCategoria", allEntries = true)
     public ResponseEntity<?> invalidarCache() {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

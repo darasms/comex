@@ -30,7 +30,7 @@ public class PedidoFrom {
 
          cliente.get().adicionarPedido(pedido);
 
-         this.itens.stream().forEach(p -> {
+         this.itens.forEach(p -> {
              pedido.adicionarItem(p.converter(produtoRepository));
          });
 

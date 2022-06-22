@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Profile("prod")
+
 @Configuration
 public class SecurityConfiguration {
 
@@ -47,6 +47,7 @@ public class SecurityConfiguration {
                                 .antMatchers("/swagger-ui/**").permitAll()
                                 .antMatchers("/v3/api-docs/**").permitAll()
                                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                                 .anyRequest().authenticated())
                                 .csrf().disable()
                                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
