@@ -31,23 +31,20 @@ public class PedidoRepositoryTest {
     @Test
     public void deveriaRetornarUmRegistroParaCadaCategoriaComDescontoQuantidadeEmUmDosRegistros() {
 
-        persistirRegistrosTeste();
+        //persistirRegistrosTeste();
 
         List<RelatorioPedidosPorCategoriaProjecao> resultado = repository.findPedidosPorCategoria();
 
-        System.out.println(resultado.size());
         System.out.println(resultado.get(0).getNome());
-        System.out.println(resultado.get(0).getQuantidadeProdutos());
-        System.out.println(resultado.get(0).getMontanteVendido());
-
-//        assertThat(resultado)
-//                .hasSize(2)
-//                .extracting(RelatorioPedidosPorCategoriaProjecao::getNome,
-//                        RelatorioPedidosPorCategoriaProjecao::getQuantidadeProdutos,
-//                        RelatorioPedidosPorCategoriaProjecao::getMontanteVendido)
-//                .containsExactly(tuple(("INFORMÁTICA"), (10L), new BigDecimal("305")), tuple("FILMES", 3L, new BigDecimal("75.00")) );
+        System.out.println(resultado.get(1).getNome());
 
 
+        assertThat(resultado)
+                .hasSize(2)
+                .extracting(RelatorioPedidosPorCategoriaProjecao::getNome,
+                        RelatorioPedidosPorCategoriaProjecao::getQuantidadeProdutos,
+                        RelatorioPedidosPorCategoriaProjecao::getMontanteVendido)
+                .containsExactly(tuple(("INFORMÁTICA"), (10L), new BigDecimal("305.00")), tuple("FILMES", 3L, new BigDecimal("75.00")) );
     }
 
     private void persistirRegistrosTeste() {

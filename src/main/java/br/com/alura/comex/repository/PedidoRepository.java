@@ -16,7 +16,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
             "JOIN produtos p " +
             "JOIN categorias c " +
             "WHERE item.produto_id = p.id AND p.categoria_id = c.id " +
-            "GROUP BY item.pedido_id, c.nome", nativeQuery = true)
+            "GROUP BY item.produto_id, c.nome", nativeQuery = true)
     List<RelatorioPedidosPorCategoriaProjecao> findPedidosPorCategoria();
 
 }
