@@ -47,7 +47,6 @@ public class SecurityConfiguration {
                                 .antMatchers("/swagger-ui/**").permitAll()
                                 .antMatchers("/v3/api-docs/**").permitAll()
                                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                                .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                                 .anyRequest().authenticated())
                                 .csrf().disable()
                                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

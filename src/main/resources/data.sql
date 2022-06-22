@@ -18,14 +18,12 @@ INSERT INTO itens_pedido(desconto, preco_unitario, quantidade, tipo_desconto, pe
 VALUES (0.00, 223.6, 3, "NENHUM", 1, 1);
 
 
-SELECT c.nome, COUNT(item.id) AS quantidade, SUM((item.preco_unitario * item.quantidade)) AS montanteVendido
-FROM pedidos
-JOIN itens_pedido item
+SELECT c.nome, SUM(item.quantidade) AS quantidade, SUM((item.preco_unitario * item.quantidade)) AS montanteVendido
+FROM itens_pedido item
 JOIN produtos p
 JOIN categorias c
-WHERE pedidos.id = item.pedido_id AND item.produto_id = p.id AND p.categoria_id = c.id
-GROUP BY c.id, pedidos.id, item.id;
-
+WHERE item.produto_id = p.id AND p.categoria_id = c.id
+GROUP BY item.pedido_id, c.nome;
 
 INSERT INTO usuarios(email, senha, cliente_id) VALUES("aluno@exemplo.com", "$2a$10$JhY8lcscK7wotSZJCnNCL..ZmEq.R9TUGPo00Bai1qc4GkczudRTW", 4);
 

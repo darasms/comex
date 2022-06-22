@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@Profile("prod")
 @RestController
 @RequestMapping("/auth")
 public class AutenticacaoController {
