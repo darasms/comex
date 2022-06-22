@@ -46,9 +46,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(authorizedRequests -> authorizedRequests
                                 .antMatchers( "/**").permitAll()
                                 .anyRequest().authenticated())
-                                .csrf().disable()
-                                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),  UsernamePasswordAuthenticationFilter.class);
+                                .csrf().disable();
         return http.build();
     }
 
