@@ -35,7 +35,6 @@ public class ItemDePedido {
     }
 
     public ItemDePedido(Integer quantidade, Produto produto) {
-        ;
         this.quantidade = quantidade;
         this.produto = produto;
         this.precoUnitario = produto.getPrecoUnitario();
