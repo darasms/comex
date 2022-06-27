@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-@Profile("dev")
+@Profile("prod")
 @Configuration
 public class SecurityConfiguration {
 
