@@ -11,8 +11,10 @@ import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
@@ -62,14 +64,12 @@ public class CategoriaController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<CategoriaDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoCategoriaForm form) {
-        Optional<Categoria> optional = categoriaRepository.findById(id);
 
-        if (optional.isPresent()) {
-            Categoria categoria = form.atualizar(id, categoriaRepository);
-            return ResponseEntity.ok(new CategoriaDto(categoria));
-        }
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        return ResponseEntity.notFound().build();
+        Categoria categoriaAtualizada = form.atualizar(id, categoriaRepository);
+
+        return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
 
     }
 
@@ -99,16 +99,12 @@ public class CategoriaController {
     @PatchMapping("/{id}")
     @Transactional
     public ResponseEntity<CategoriaDto> atualizarStatus(@PathVariable Long id){
-        Optional<Categoria> optional = categoriaRepository.findById(id);
+
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         AtualizacaoCategoriaForm atualizacaoCategoriaForm = new AtualizacaoCategoriaForm();
 
-        if (optional.isPresent()){
-            Categoria categoria = atualizacaoCategoriaForm.atualizarStatus(optional.get());
-            return ResponseEntity.ok(new CategoriaDto(categoria));
-        }
-
-        return ResponseEntity.notFound().build();
-
+        Categoria categoriaAtualizada = atualizacaoCategoriaForm.atualizarStatus(categoria);
+        return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
     }
 
 }
