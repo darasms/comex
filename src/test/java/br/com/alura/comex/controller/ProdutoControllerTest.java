@@ -47,7 +47,7 @@ public class ProdutoControllerTest {
                 .put("descricao", "4K com AI")
                 .put("precoUnitario",5000.00)
                 .put("quantidadeEstoque", 2)
-                .put("categoria", 34);
+                .put("categoria", 7);
     }
 
 }
