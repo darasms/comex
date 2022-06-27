@@ -1,6 +1,8 @@
 package br.com.alura.comex.controller;
 
 
+import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.repository.CategoriaRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,9 @@ public class ProdutoControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @Test
     public void deveriaCadastrarProduto() throws Exception {
         URI uri = new URI("/api/produtos");
@@ -42,12 +47,15 @@ public class ProdutoControllerTest {
     }
 
     private JSONObject criarObjetoJson() throws JSONException {
+
+        Categoria categoria = categoriaRepository.save(new Categoria("Eletrônicos"));
+
         return new JSONObject()
                 .put("nome","Tela")
                 .put("descricao", "4K com AI")
                 .put("precoUnitario",5000.00)
                 .put("quantidadeEstoque", 2)
-                .put("categoria", 7);
+                .put("categoria", categoria.getId());
     }
 
 }
