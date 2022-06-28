@@ -20,6 +20,9 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
+    public Usuario() {
+    }
+
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     private Cliente cliente;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -110,4 +113,11 @@ public class Usuario implements UserDetails {
         return true;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }
