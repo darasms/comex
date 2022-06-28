@@ -55,23 +55,6 @@ class AutenticacaoControllerTest {
     }
 
     @Test
-    public void deveriaAutenticar() throws Exception {
-
-        URI uri = new URI("/auth");
-        String autenticacao = new JSONObject().put("email", "aluno@exemplo.com")
-                .put("senha", "123456").toString();
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post(uri)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(autenticacao))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token", equalTo("")))
-                .andExpect(jsonPath("$.tipo", equalTo("Bearer")));
-
-    }
-
-    @Test
     public void deveriaRetornarBadRequest() throws Exception {
         URI uri = new URI("/auth");
 
