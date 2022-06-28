@@ -1,6 +1,9 @@
 FROM openjdk:17-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Xmx512m","-Dserver.port=${PORT}","-jar","/app.jar"]
+
+WORKDIR /comex
+
+COPY target/*.jar /comex/app.jar
+
+EXPOSE 8080
+
+CMD java -XX:+UseContainerSupport -Xmx512m -jar app.jar --server.port=$PORT
