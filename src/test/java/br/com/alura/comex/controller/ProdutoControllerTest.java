@@ -88,7 +88,7 @@ public class ProdutoControllerTest {
                 .andExpect(jsonPath("$.nome", equalTo(DEFAULT_MOUSE.getName())))
                 .andExpect(jsonPath("$.descricao", equalTo(DEFAULT_MOUSE.getDescricao())))
                 .andExpect(jsonPath("$.quantidadeEstoque", equalTo(DEFAULT_MOUSE.getQuantidadeEstoque())))
-                .andExpect(jsonPath("$.categoria", equalTo(DEFAULT_MOUSE.getCategoria().getNome()))).andReturn();
+                .andExpect(jsonPath("$.categoria", equalTo(DEFAULT_MOUSE.getCategoria().getNome())));
     }
 
 

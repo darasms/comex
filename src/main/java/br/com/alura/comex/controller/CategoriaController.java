@@ -65,11 +65,16 @@ public class CategoriaController {
     @Transactional
     public ResponseEntity<CategoriaDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizacaoCategoriaForm form) {
 
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        Categoria categoriaAtualizada = form.atualizar(id, categoriaRepository);
+        Optional<Categoria> categoria = categoriaRepository.findById(id);
 
-        return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
+        if (categoria.isPresent()){
+            Categoria categoriaAtualizada = form.atualizar(id, categoriaRepository);
+
+            return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
+        }
+        return ResponseEntity.notFound().build();
 
     }
 
@@ -100,10 +105,14 @@ public class CategoriaController {
     @Transactional
     public ResponseEntity<CategoriaDto> atualizarStatus(@PathVariable Long id){
 
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Optional<Categoria> categoria = categoriaRepository.findById(id);
+
+        if (!categoria.isPresent()) return ResponseEntity.notFound().build();
+
         AtualizacaoCategoriaForm atualizacaoCategoriaForm = new AtualizacaoCategoriaForm();
 
-        Categoria categoriaAtualizada = atualizacaoCategoriaForm.atualizarStatus(categoria);
+        Categoria categoriaAtualizada = atualizacaoCategoriaForm.atualizarStatus(categoria.get());
         return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
     }
 
