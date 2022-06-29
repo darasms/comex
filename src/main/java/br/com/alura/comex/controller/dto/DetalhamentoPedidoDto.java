@@ -18,7 +18,7 @@ public class DetalhamentoPedidoDto {
 
     private Long idCliente;
 
-    private String NomeCliente;
+    private String nomeCliente;
 
     public DetalhamentoPedidoDto(Pedido pedido) {
         this.data = pedido.getData();
@@ -26,7 +26,7 @@ public class DetalhamentoPedidoDto {
         this.desconto = pedido.getDesconto();
         this.itens = pedido.getItens().stream().map(ItemDePedidoDto::new).collect(Collectors.toList());
         this.idCliente = pedido.getCliente().getId();
-        NomeCliente = pedido.getCliente().getNome();
+        this.nomeCliente = pedido.getCliente().getNome();
     }
 
     public LocalDate getData() {
@@ -50,6 +50,6 @@ public class DetalhamentoPedidoDto {
     }
 
     public String getNomeCliente() {
-        return NomeCliente;
+        return this.nomeCliente;
     }
 }
