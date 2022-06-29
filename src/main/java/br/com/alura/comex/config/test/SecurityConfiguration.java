@@ -1,4 +1,4 @@
-package br.com.alura.comex.config.dev.security;
+package br.com.alura.comex.config.test;
 
 import br.com.alura.comex.config.security.AuthenticationService;
 import br.com.alura.comex.config.security.TokenService;
@@ -16,7 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Profile("dev")
+
+@Profile("test")
 @Configuration
 public class SecurityConfiguration {
 
@@ -41,9 +42,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizedRequests -> authorizedRequests
-                                .antMatchers( "/**").permitAll()
-                                .anyRequest().authenticated())
-                                .csrf().disable();
+                        .antMatchers( "/**").permitAll()
+                        .anyRequest().authenticated())
+                .csrf().disable();
         return http.build();
     }
 
@@ -52,8 +53,4 @@ public class SecurityConfiguration {
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
-
 }

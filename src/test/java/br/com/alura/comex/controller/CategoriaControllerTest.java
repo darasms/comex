@@ -70,7 +70,7 @@ class CategoriaControllerTest {
                         .get(uri)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$.length()").value(3))
                 .andExpect(jsonPath("$.[0].id", equalTo(INFORMATICA.getId().intValue())))
                 .andExpect(jsonPath("$.[0].nome", equalTo(INFORMATICA.getNome())))
                 .andExpect(jsonPath("$.[0].status", equalTo(INFORMATICA.getStatus().toString())))

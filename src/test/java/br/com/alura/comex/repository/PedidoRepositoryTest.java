@@ -33,10 +33,6 @@ public class PedidoRepositoryTest {
 
         List<RelatorioPedidosPorCategoriaProjecao> resultado = repository.findPedidosPorCategoria();
 
-        System.out.println(resultado.get(0).getNome());
-        System.out.println(resultado.get(1).getNome());
-
-
         assertThat(resultado)
                 .hasSize(2)
                 .extracting(RelatorioPedidosPorCategoriaProjecao::getNome,

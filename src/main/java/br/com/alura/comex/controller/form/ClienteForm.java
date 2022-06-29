@@ -14,7 +14,6 @@ public class ClienteForm {
     private String nome;
 
     @NotNull
-    @NotEmpty
     private Long cpf;
 
     @NotNull
