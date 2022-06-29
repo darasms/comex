@@ -1,18 +1,13 @@
+version: '3'
+
 services:
-
-  db:
+  database:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8082:8084
-
+      MYSQL_DATABASE: comexdb
+      MYSQL_ROOT_PASSWORD: Cit123456
+    volumes:
+      - ./db:/var/lib/mysql/
 
   api:
     image: comex/comex-api

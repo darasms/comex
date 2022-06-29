@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.transaction.Transactional;
 import java.net.URI;
@@ -46,12 +47,30 @@ class AutenticacaoControllerTest {
         testEntityManager.persist(cliente);
         Usuario aluno = new Usuario();
         aluno.setEmail("aluno@exemplo.com");
-        aluno.setSenha("123456");
+        aluno.setSenha("$2a$10$JhY8lcscK7wotSZJCnNCL..ZmEq.R9TUGPo00Bai1qc4GkczudRTW");
         aluno.setCliente(cliente);
 
         testEntityManager.persist(aluno);
 
         cliente.setUsuario(aluno);
+    }
+
+    @Test
+    public void deveriaRealizarAAltenticacao() throws Exception {
+        URI uri = new URI("/auth");
+
+        String autenticacao = new JSONObject().put("email", "aluno@exemplo.com")
+                .put("senha", "123456").toString();
+
+        mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post(uri)
+                        .content(autenticacao)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers
+                        .status()
+                        .is(200))
+                .andExpect(jsonPath("$.tipo").value("Bearer"));
     }
 
     @Test
@@ -62,7 +81,8 @@ class AutenticacaoControllerTest {
                 .put("senha", "123456").toString();
 
         mockMvc.perform(MockMvcRequestBuilders
-                        .post(uri))
+                        .post(uri)
+                        .content(autenticacao).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
 
     }
