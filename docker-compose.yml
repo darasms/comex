@@ -7,7 +7,7 @@ services:
       MYSQL_DATABASE: comexdb
       MYSQL_ROOT_PASSWORD: Cit123456
     volumes:
-      - ./db:/var/lib/mysql/
+      - ./db-volume:/var/lib/mysql/
 
   api:
     image: comex/comex-api

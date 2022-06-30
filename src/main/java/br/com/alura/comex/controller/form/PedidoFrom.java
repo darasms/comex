@@ -54,4 +54,8 @@ public class PedidoFrom {
                 ", itens=" + itens +
                 '}';
     }
+
+    public void setItens(List<ItemDePedidoForm> itens) {
+        this.itens = itens;
+    }
 }

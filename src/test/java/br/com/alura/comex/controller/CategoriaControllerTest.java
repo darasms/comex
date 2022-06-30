@@ -156,7 +156,7 @@ class CategoriaControllerTest {
     @Test
     public void deveriaRetornar404ParaCategoriaNaoEncontradoParaAlteração() throws Exception {
 
-        URI uri = new URI("/api/categorias/" + 9);
+        URI uri = new URI("/api/categorias/" + 99);
 
         String request = new JSONObject()
                 .put("nome", "FILMES").toString();

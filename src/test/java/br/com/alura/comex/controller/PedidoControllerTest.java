@@ -1,15 +1,17 @@
 package br.com.alura.comex.controller;
 
 
+import br.com.alura.comex.controller.form.ItemDePedidoForm;
+import br.com.alura.comex.controller.form.PedidoFrom;
 import br.com.alura.comex.model.*;
-import br.com.alura.comex.repository.CategoriaRepository;
-import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.repository.PedidoRepository;
-import br.com.alura.comex.repository.ProdutoRepository;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
@@ -23,10 +25,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -52,6 +52,12 @@ class PedidoControllerTest {
 
     private Endereco DEFAULT_ENDERECO = new Endereco("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
 
+    @Mock
+    private ItemDePedidoForm itemDePedidoForm;
+
+    @Mock
+    private PedidoFrom pedido;
+
     @BeforeEach
     public void setup(){
 
@@ -71,7 +77,7 @@ class PedidoControllerTest {
                 .get(uri))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").isNotEmpty())
-                .andExpect(jsonPath("$.content[0].data").value("2022-06-29"));
+                .andExpect(jsonPath("$.content[0].data").value(LocalDate.now().toString()));
     }
 
 
@@ -85,7 +91,7 @@ class PedidoControllerTest {
                 .andExpect(jsonPath("$.idCliente").value(DEFAULT_PEDIDO.getCliente().getId()))
                 .andExpect(jsonPath("$.nomeCliente").value(DEFAULT_PEDIDO.getCliente().getNome()))
                 .andExpect(jsonPath("$.itens").isEmpty())
-                .andExpect(jsonPath("$.data").value("2022-06-29"));
+                .andExpect(jsonPath("$.data").value(LocalDate.now().toString()));
 
 
     }
@@ -100,47 +106,6 @@ class PedidoControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-
-//    @Test
-//    public void deveriaCadastrarUmNovoPedido() throws Exception {
-//        URI uri = new URI("/api/pedidos" );
-//
-//        String requestBody = criarUmNovoPedido().toString();
-//
-//        mockMvc.perform(MockMvcRequestBuilders
-//                        .post(uri)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(requestBody))
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.idCliente").value(2))
-//                .andExpect(jsonPath("$.nomeCliente").value("Kelvin"))
-//                .andExpect(jsonPath("$.itens").isEmpty())
-//                .andExpect(jsonPath("$.data").value("2022-06-29"));
-//
-//    }
-
-    private JSONObject criarUmNovoPedido() throws JSONException {
-
-        Categoria informatica = new Categoria("INFORMÁTICA");
-        Categoria filmes = new Categoria("FILMES");
-
-        Produto mouse = new Produto("Mouse", "Mouse", new BigDecimal("30.50"), 15, informatica);
-        Produto moana = new Produto("Moana", "BlueRay",  new BigDecimal(25), 8, filmes);
-
-        Cliente kelvin = new Cliente("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECO);
-
-        em.persist(informatica);
-        em.persist(filmes);
-
-        em.persist(mouse);
-        em.persist(moana);
-
-        em.persist(kelvin);
-
-  //      return new JSONObject().put("idCliente", kelvin.getId()).put("itens", List.of(new JSONObject().put("idProduto", moana.getId()).put("quantidadeProduto", 12), new JSONObject().put("idProduto", mouse.getId()).put("quantidadeProduto", 12)));
-        return new JSONObject().put("itens", new ArrayList<>()).put("idCliente", kelvin.getId());
-
-    }
 
     private void persistirRegistrosTeste() {
 
