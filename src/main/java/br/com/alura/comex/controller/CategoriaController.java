@@ -5,16 +5,14 @@ import br.com.alura.comex.controller.dto.CategoriaDto;
 import br.com.alura.comex.controller.dto.DetalhesDaCategoriaDto;
 import br.com.alura.comex.controller.form.AtualizacaoCategoriaForm;
 import br.com.alura.comex.controller.form.CategoriaForm;
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.projecao.RelatorioPedidosPorCategoriaProjecao;
+import br.com.alura.comex.infra.Categoria;
+import br.com.alura.comex.infra.projecao.RelatorioPedidosPorCategoriaProjecao;
 import br.com.alura.comex.repository.CategoriaRepository;
 import br.com.alura.comex.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;

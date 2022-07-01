@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.model.Cliente;
-import br.com.alura.comex.model.Endereco;
-import br.com.alura.comex.model.Usuario;
+import br.com.alura.comex.infra.Cliente;
+import br.com.alura.comex.infra.Endereco;
+import br.com.alura.comex.infra.Usuario;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import javax.transaction.Transactional;
 import java.net.URI;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

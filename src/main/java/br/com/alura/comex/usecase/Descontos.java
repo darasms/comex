@@ -1,8 +1,8 @@
 package br.com.alura.comex.usecase;
 
-import br.com.alura.comex.model.Pedido;
-import br.com.alura.comex.model.enuns.TipoDesconto;
-import br.com.alura.comex.model.enuns.TipoDescontoItem;
+import br.com.alura.comex.infra.Pedido;
+import br.com.alura.comex.infra.enuns.TipoDesconto;
+import br.com.alura.comex.infra.enuns.TipoDescontoItem;
 
 import java.math.BigDecimal;
 

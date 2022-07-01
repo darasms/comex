@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller.form;
 
-import br.com.alura.comex.model.Cliente;
-import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.infra.Cliente;
+import br.com.alura.comex.infra.Pedido;
 import br.com.alura.comex.repository.ClienteRepository;
 import br.com.alura.comex.repository.ProdutoRepository;
 import br.com.alura.comex.usecase.Descontos;

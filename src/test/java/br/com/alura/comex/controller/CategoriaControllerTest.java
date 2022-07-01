@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.Produto;
+import br.com.alura.comex.infra.Categoria;
+import br.com.alura.comex.infra.Produto;
 import br.com.alura.comex.repository.CategoriaRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;

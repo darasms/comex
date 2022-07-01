@@ -1,6 +1,6 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.infra.Categoria;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

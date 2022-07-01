@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller.dto;
 
-import br.com.alura.comex.model.Pedido;
+import br.com.alura.comex.infra.Pedido;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

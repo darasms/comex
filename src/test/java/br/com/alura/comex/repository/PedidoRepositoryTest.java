@@ -1,7 +1,8 @@
 package br.com.alura.comex.repository;
 
+import br.com.alura.comex.infra.*;
 import br.com.alura.comex.model.*;
-import br.com.alura.comex.model.projecao.RelatorioPedidosPorCategoriaProjecao;
+import br.com.alura.comex.infra.projecao.RelatorioPedidosPorCategoriaProjecao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

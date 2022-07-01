@@ -1,4 +1,4 @@
-package br.com.alura.comex.model.enuns;
+package br.com.alura.comex.infra.enuns;
 
 public enum TipoDesconto {
     FIDELIDADE, NENHUM;

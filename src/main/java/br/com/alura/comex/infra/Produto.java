@@ -1,4 +1,4 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.infra;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

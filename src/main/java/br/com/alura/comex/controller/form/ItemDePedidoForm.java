@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller.form;
 
-import br.com.alura.comex.model.ItemDePedido;
-import br.com.alura.comex.model.Produto;
+import br.com.alura.comex.infra.ItemDePedido;
+import br.com.alura.comex.infra.Produto;
 import br.com.alura.comex.repository.ProdutoRepository;
 
 import javax.validation.Valid;

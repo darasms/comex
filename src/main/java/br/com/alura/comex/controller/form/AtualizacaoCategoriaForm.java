@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller.form;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.enuns.StatusCategoria;
+import br.com.alura.comex.infra.Categoria;
+import br.com.alura.comex.infra.enuns.StatusCategoria;
 import br.com.alura.comex.repository.CategoriaRepository;
 
 import javax.validation.constraints.NotEmpty;

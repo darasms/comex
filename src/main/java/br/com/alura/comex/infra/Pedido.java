@@ -1,7 +1,7 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.infra;
 
 
-import br.com.alura.comex.model.enuns.TipoDesconto;
+import br.com.alura.comex.infra.enuns.TipoDesconto;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -124,4 +124,5 @@ public class Pedido {
                 ", tipoDesconto=" + tipoDesconto +
                 '}';
     }
+
 }

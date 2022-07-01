@@ -1,4 +1,4 @@
-package br.com.alura.comex.model;
+package br.com.alura.comex.infra;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;

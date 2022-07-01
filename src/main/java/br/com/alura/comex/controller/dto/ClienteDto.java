@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller.dto;
 
-import br.com.alura.comex.model.Cliente;
+import br.com.alura.comex.infra.Cliente;
 
 public class ClienteDto {
 

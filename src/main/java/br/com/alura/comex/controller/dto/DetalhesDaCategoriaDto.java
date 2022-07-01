@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller.dto;
 
-import br.com.alura.comex.model.Categoria;
-import br.com.alura.comex.model.Produto;
-import br.com.alura.comex.model.enuns.StatusCategoria;
+import br.com.alura.comex.infra.Categoria;
+import br.com.alura.comex.infra.Produto;
+import br.com.alura.comex.infra.enuns.StatusCategoria;
 
 import java.util.List;
 import java.util.stream.Collectors;

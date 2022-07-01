@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller.dto;
 
-import br.com.alura.comex.model.ItemDePedido;
+import br.com.alura.comex.infra.ItemDePedido;
 
 import java.math.BigDecimal;
 

@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller.form;
 
-import br.com.alura.comex.model.Categoria;
+import br.com.alura.comex.infra.Categoria;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
