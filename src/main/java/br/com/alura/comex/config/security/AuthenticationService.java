@@ -1,6 +1,6 @@
 package br.com.alura.comex.config.security;
 
-import br.com.alura.comex.infra.Usuario;
+import br.com.alura.comex.infra.usuario.Usuario;
 import br.com.alura.comex.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

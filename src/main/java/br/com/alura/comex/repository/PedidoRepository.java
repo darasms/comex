@@ -1,7 +1,7 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.infra.Pedido;
-import br.com.alura.comex.infra.projecao.RelatorioPedidosPorCategoriaProjecao;
+import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.entity.categoria.RelatorioPedidosPorCategoriaProjecao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

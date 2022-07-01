@@ -1,6 +1,6 @@
 package br.com.alura.comex.usecase;
 
-import br.com.alura.comex.infra.Pedido;
+import br.com.alura.comex.infra.pedido.Pedido;
 import br.com.alura.comex.infra.enuns.TipoDesconto;
 import br.com.alura.comex.infra.enuns.TipoDescontoItem;
 

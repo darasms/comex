@@ -1,6 +1,6 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.infra.Usuario;
+import br.com.alura.comex.infra.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

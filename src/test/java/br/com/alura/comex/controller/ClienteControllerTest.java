@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.infra.Cliente;
-import br.com.alura.comex.infra.Endereco;
+import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.Endereco;
 import br.com.alura.comex.repository.ClienteRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.infra.Categoria;
-import br.com.alura.comex.infra.Produto;
+import br.com.alura.comex.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.infra.produto.ProdutoEntity;
 import br.com.alura.comex.repository.ProdutoRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,15 +43,15 @@ public class ProdutoControllerTest {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    private Categoria INFORMATICA;
+    private CategoriaEntity INFORMATICA;
 
-    private Produto DEFAULT_MOUSE;
+    private ProdutoEntity DEFAULT_MOUSE;
 
     @BeforeEach
     void setup() {
-        INFORMATICA = new Categoria("INFORMATICA");
+        INFORMATICA = new CategoriaEntity("INFORMATICA");
 
-        DEFAULT_MOUSE = new Produto("mouse", "Dell", new BigDecimal("25.4"), 3, INFORMATICA );
+        DEFAULT_MOUSE = new ProdutoEntity("mouse", "Dell", new BigDecimal("25.4"), 3, INFORMATICA );
 
         entityManager.persist(INFORMATICA);
 
@@ -63,7 +63,7 @@ public class ProdutoControllerTest {
     public void deveriaListar2ProdutosOrdenadosPorNome() throws Exception {
         URI uri = new URI("/api/produtos");
 
-        Produto teclado = new Produto("teclado", "Dell", new BigDecimal("45.90"), 10, INFORMATICA );
+        ProdutoEntity teclado = new ProdutoEntity("teclado", "Dell", new BigDecimal("45.90"), 10, INFORMATICA );
         entityManager.persist(teclado);
 
         mockMvc
@@ -172,12 +172,12 @@ public class ProdutoControllerTest {
     }
 
 
-    private JSONObject criarObjetoProdutoJsonAlterado(Produto produto) throws JSONException {
+    private JSONObject criarObjetoProdutoJsonAlterado(ProdutoEntity produtoEntity) throws JSONException {
 
         return new JSONObject()
-                .put("nome", produto.getName())
-                .put("descricao", produto.getDescricao())
-                .put("precoUnitario",produto.getPrecoUnitario())
+                .put("nome", produtoEntity.getName())
+                .put("descricao", produtoEntity.getDescricao())
+                .put("precoUnitario", produtoEntity.getPrecoUnitario())
                 .put("quantidadeEstoque", 10)
                 .put("categoria", INFORMATICA.getId());
     }

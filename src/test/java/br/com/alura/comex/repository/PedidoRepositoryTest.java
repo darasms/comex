@@ -1,8 +1,13 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.infra.*;
+import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
+import br.com.alura.comex.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.Endereco;
+import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.infra.produto.ProdutoEntity;
 import br.com.alura.comex.model.*;
-import br.com.alura.comex.infra.projecao.RelatorioPedidosPorCategoriaProjecao;
+import br.com.alura.comex.entity.categoria.RelatorioPedidosPorCategoriaProjecao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -44,11 +49,11 @@ public class PedidoRepositoryTest {
 
     private void persistirRegistrosTeste() {
 
-        Categoria informatica = new Categoria("INFORMÁTICA");
-        Categoria filmes = new Categoria("FILMES");
+        CategoriaEntity informatica = new CategoriaEntity("INFORMÁTICA");
+        CategoriaEntity filmes = new CategoriaEntity("FILMES");
 
-        Produto mouse = new Produto("Mouse", "Mouse", new BigDecimal("30.50"), 15, informatica);
-        Produto moana = new Produto("Moana", "BlueRay",  new BigDecimal(25), 8, filmes);
+        ProdutoEntity mouse = new ProdutoEntity("Mouse", "Mouse", new BigDecimal("30.50"), 15, informatica);
+        ProdutoEntity moana = new ProdutoEntity("Moana", "BlueRay",  new BigDecimal(25), 8, filmes);
 
         Endereco endereco = new Endereco("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
         Cliente kelvin = new Cliente("Kelvin", 4156667228L, "198273666444", endereco);

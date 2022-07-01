@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.infra.Categoria;
-import br.com.alura.comex.infra.Produto;
-import br.com.alura.comex.repository.CategoriaRepository;
+import br.com.alura.comex.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.infra.produto.ProdutoEntity;
+import br.com.alura.comex.infra.categoria.CategoriaDAO;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,13 +43,13 @@ class CategoriaControllerTest {
     private TestEntityManager entityManager;
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaDAO categoriaRepository;
 
-    private Categoria INFORMATICA;
+    private CategoriaEntity INFORMATICA;
 
     @BeforeEach
     void setup() {
-        INFORMATICA = new Categoria("INFORMATICA");
+        INFORMATICA = new CategoriaEntity("INFORMATICA");
         entityManager.persist(INFORMATICA);
 
     }
@@ -59,8 +59,8 @@ class CategoriaControllerTest {
     public void deveriaListar3Categorias() throws Exception {
         URI uri = new URI("/api/categorias");
 
-        Categoria FILMES = new Categoria("FILMES");
-        Categoria LIVROS = new Categoria("LIVROS");
+        CategoriaEntity FILMES = new CategoriaEntity("FILMES");
+        CategoriaEntity LIVROS = new CategoriaEntity("LIVROS");
 
         entityManager.persist(FILMES);
         entityManager.persist(LIVROS);
@@ -87,13 +87,13 @@ class CategoriaControllerTest {
 
         URI uri = new URI("/api/categorias/" + INFORMATICA.getId());
 
-         Produto teclado = new Produto("teclado", "Dell", new BigDecimal("25.4"), 3, INFORMATICA );
-         Produto tela = new Produto("tela", "Dell", new BigDecimal("45.00"), 10, INFORMATICA );
+         ProdutoEntity teclado = new ProdutoEntity("teclado", "Dell", new BigDecimal("25.4"), 3, INFORMATICA );
+         ProdutoEntity tela = new ProdutoEntity("tela", "Dell", new BigDecimal("45.00"), 10, INFORMATICA );
 
          entityManager.persist(teclado);
          entityManager.persist(tela);
 
-        INFORMATICA.setProdutos(List.of(teclado, tela));
+        INFORMATICA.setProdutoEntities(List.of(teclado, tela));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(uri))
@@ -101,7 +101,7 @@ class CategoriaControllerTest {
                 .andDo(log())
                 .andExpect(jsonPath("$.nome", equalTo(INFORMATICA.getNome())))
                 .andExpect(jsonPath("$.status", equalTo(INFORMATICA.getStatus().toString())))
-                .andExpect(jsonPath("$.produtos", equalTo(INFORMATICA.getProdutos().stream().map(Produto::getName).collect(Collectors.toList()))));
+                .andExpect(jsonPath("$.produtos", equalTo(INFORMATICA.getProdutoEntities().stream().map(ProdutoEntity::getName).collect(Collectors.toList()))));
     }
 
     @Test
@@ -115,7 +115,7 @@ class CategoriaControllerTest {
                 .andDo(log())
                 .andExpect(jsonPath("$.nome", equalTo(INFORMATICA.getNome())))
                 .andExpect(jsonPath("$.status", equalTo(INFORMATICA.getStatus().toString())))
-                .andExpect(jsonPath("$.produtos", equalTo(new ArrayList<>(INFORMATICA.getProdutos()))));
+                .andExpect(jsonPath("$.produtos", equalTo(new ArrayList<>(INFORMATICA.getProdutoEntities()))));
     }
 
 

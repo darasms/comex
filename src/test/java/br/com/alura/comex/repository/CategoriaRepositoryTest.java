@@ -1,6 +1,7 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.infra.Categoria;
+import br.com.alura.comex.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.infra.categoria.CategoriaDAO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -17,7 +18,7 @@ import java.util.Optional;
 class CategoriaRepositoryTest {
 
     @Autowired
-    private CategoriaRepository repository;
+    private CategoriaDAO repository;
 
     @Autowired
     private TestEntityManager em;
@@ -25,11 +26,11 @@ class CategoriaRepositoryTest {
     @Test
     public void deveriaRetornarListaDeCategorias(){
 
-        Categoria categoria = new Categoria("FILMES");
+        CategoriaEntity categoria = new CategoriaEntity("FILMES");
 
         repository.save(categoria);
 
-        Optional<Categoria> retorno = repository.findById(categoria.getId());
+        Optional<CategoriaEntity> retorno = repository.findById(categoria.getId());
 
         assertThat(retorno).contains(categoria);
 

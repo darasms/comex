@@ -1,0 +1,51 @@
+package br.com.alura.comex.adapter.form;
+
+import br.com.alura.comex.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.infra.enuns.StatusCategoria;
+import br.com.alura.comex.infra.categoria.CategoriaDAO;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Optional;
+
+public class AtualizacaoCategoriaForm {
+
+    @NotNull
+    @NotEmpty
+    @Size(min = 2)
+    private String nome;
+    private StatusCategoria status = StatusCategoria.ATIVA;
+    public CategoriaEntity atualizar(Long id, CategoriaDAO categoriaRepository) {
+        Optional<CategoriaEntity> categoria = categoriaRepository.findById(id);
+        categoria.get().setNome(this.nome);
+        return categoria.get();
+    }
+
+    public CategoriaEntity atualizarStatus(CategoriaEntity categoria){
+        CategoriaEntity categoriaAtualizada = categoria;
+
+        if (categoriaAtualizada.getStatus().equals(StatusCategoria.ATIVA)){
+            this.status = StatusCategoria.INATIVA;
+            categoriaAtualizada.setStatus(this.status);
+        }
+
+        categoriaAtualizada.setStatus(this.status);
+        return categoriaAtualizada;
+    }
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public StatusCategoria getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusCategoria status) {
+        this.status = status;
+    }
+}

@@ -1,6 +1,6 @@
 package br.com.alura.comex.infra.cliente;
 
-import br.com.alura.comex.entity.Cliente.ValidadorTelefone;
+import br.com.alura.comex.entity.cliente.ValidadorTelefone;
 
 public class ValidadorTelefonePorExpReg implements ValidadorTelefone {
 

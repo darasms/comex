@@ -1,6 +1,6 @@
 package br.com.alura.comex.infra.cliente;
 
-import br.com.alura.comex.entity.Cliente.ValidadorCPF;
+import br.com.alura.comex.entity.cliente.ValidadorCPF;
 
 public class ValidadorProExpressaoRegular implements ValidadorCPF {
 
