@@ -7,6 +7,7 @@ import br.com.alura.comex.infra.produto.ProdutoEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,9 +16,10 @@ import java.util.List;
 @Entity
 @Table(name = "categorias")
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
+@ToString
 public class CategoriaEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,16 +35,16 @@ public class CategoriaEntity {
         this.nome = nome;
     }
 
-    public static CategoriaEntity converter (Categoria categoria){
+    public static CategoriaEntity converter(Categoria categoria) {
         return new CategoriaEntity(categoria.getNome());
 
     }
 
-    public List<Produto> toProdutos(){
+    public List<Produto> toProdutos() {
         return this.produtoEntities.stream().map(ProdutoEntity::toProduto).toList();
     }
 
-    public Categoria toCategoria(){
+    public Categoria toCategoria() {
         return Categoria.builder()
                 .id(this.id)
                 .nome(this.nome)
@@ -52,7 +54,7 @@ public class CategoriaEntity {
     }
 
 
-    public void adicionarProduto(ProdutoEntity produtoEntity){
+    public void adicionarProduto(ProdutoEntity produtoEntity) {
         produtoEntity.setCategoria(this);
         this.produtoEntities.add(produtoEntity);
     }

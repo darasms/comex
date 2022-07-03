@@ -1,5 +1,6 @@
 package br.com.alura.comex.adapter.form;
 
+import br.com.alura.comex.entity.categoria.Categoria;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 
 import javax.validation.constraints.NotEmpty;
@@ -21,7 +22,7 @@ public class CategoriaForm {
         this.nome = nome;
     }
 
-    public CategoriaEntity converter() {
-        return new CategoriaEntity(nome);
+    public Categoria converter() {
+        return Categoria.builder().nome(this.nome).build();
     }
 }

@@ -8,9 +8,11 @@ public interface CategoriaRepository {
 
     void cadastrarCategoria(Categoria categoria);
 
+    void deletarCategoria(Long id);
+
     Categoria buscarCategoria(Long id);
 
-    Categoria atualizar(Long id, String categoria);
+    Categoria atualizar(Long id, String nomeCategoria);
 
     Categoria atualizarStatus(Long id);
 

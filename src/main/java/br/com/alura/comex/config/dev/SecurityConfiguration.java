@@ -1,4 +1,4 @@
-package br.com.alura.comex.config.dev.security;
+package br.com.alura.comex.config.dev;
 
 import br.com.alura.comex.config.security.AuthenticationService;
 import br.com.alura.comex.config.security.TokenService;
