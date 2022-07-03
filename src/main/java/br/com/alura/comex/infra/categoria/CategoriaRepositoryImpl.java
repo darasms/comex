@@ -28,9 +28,9 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     }
 
     @Override
-    public void cadastrarCategoria(Categoria categoria) {
-        categoriaDAO.save(CategoriaEntity.converter(categoria));
-
+    public Categoria cadastrarCategoria(Categoria categoria) {
+        CategoriaEntity categoriaEntity = categoriaDAO.save(CategoriaEntity.converter(categoria));
+        return categoriaEntity.toCategoria();
     }
 
     @Override

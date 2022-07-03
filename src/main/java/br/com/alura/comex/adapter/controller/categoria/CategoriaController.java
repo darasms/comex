@@ -31,8 +31,8 @@ public class CategoriaController {
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> listar() {
-        List<Categoria> categorias = categoriaRepository.listarTodasCategorias();
 
+        List<Categoria> categorias = categoriaRepository.listarTodasCategorias();
         List<CategoriaEntity> categoriaEntities = categorias.stream().map(CategoriaEntity::converter).toList();
 
         return ResponseEntity.ok(CategoriaDto.converter(categoriaEntities));
@@ -42,9 +42,7 @@ public class CategoriaController {
     @Transactional
     public ResponseEntity<CategoriaDto> cadastrar(@RequestBody @Valid CategoriaForm form, UriComponentsBuilder uriComponentsBuilder) {
 
-        Categoria categoria = form.converter();
-
-        categoriaRepository.cadastrarCategoria(categoria);
+        Categoria categoria = categoriaRepository.cadastrarCategoria(form.converterEmCategoria());
 
         URI uri = uriComponentsBuilder.path("/api/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
         return ResponseEntity.created(uri).body(new CategoriaDto(CategoriaEntity.converter(categoria)));

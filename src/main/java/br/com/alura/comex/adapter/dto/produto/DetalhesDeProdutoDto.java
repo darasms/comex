@@ -19,7 +19,7 @@ public class DetalhesDeProdutoDto {
     private String categoria;
 
     public DetalhesDeProdutoDto(ProdutoEntity produtoEntity) {
-        this.id = produtoEntity.getId();
+        this.id = produtoEntity.getCodigoProduto();
         this.nome = produtoEntity.getNome();
         this.descricao = produtoEntity.getDescricao();
         this.precoUnitario = produtoEntity.getPrecoUnitario();

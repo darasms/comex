@@ -50,7 +50,7 @@ public class ProdutoController {
         ProdutoEntity produtoEntity = form.converter(categoriaRepository);
         produtoRepository.save(produtoEntity);
 
-        URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produtoEntity.getId()).toUri();
+        URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produtoEntity.getCodigoProduto()).toUri();
         return ResponseEntity.created(uri).body(new ProdutoDto(produtoEntity));
 
     }

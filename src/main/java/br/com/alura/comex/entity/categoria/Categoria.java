@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -20,7 +21,7 @@ public class Categoria {
     private String nome;
 
     private StatusCategoria status = StatusCategoria.ATIVA;
-    private List<Produto> produtos;
+    private List<Produto> produtos = new ArrayList<>();
 
     public void adicionarProduto(Produto produto) {
         produto.setCategoria(this);

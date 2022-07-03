@@ -4,10 +4,7 @@ import br.com.alura.comex.entity.categoria.Categoria;
 import br.com.alura.comex.entity.produto.Produto;
 import br.com.alura.comex.infra.enuns.StatusCategoria;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,8 +13,10 @@ import java.util.List;
 @Entity
 @Table(name = "categorias")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @ToString
 public class CategoriaEntity {
     @Id
@@ -31,13 +30,15 @@ public class CategoriaEntity {
     @OneToMany(mappedBy = "categoria")
     private List<ProdutoEntity> produtoEntities = new ArrayList<>();
 
-    public CategoriaEntity(String nome) {
-        this.nome = nome;
-    }
 
     public static CategoriaEntity converter(Categoria categoria) {
-        return new CategoriaEntity(categoria.getNome());
 
+        return CategoriaEntity.builder()
+                .id(categoria.getId())
+                .nome(categoria.getNome())
+                .status(categoria.getStatus())
+                .produtoEntities(categoria.getProdutos().stream().map(ProdutoEntity::converter).toList())
+                .build();
     }
 
     public List<Produto> toProdutos() {

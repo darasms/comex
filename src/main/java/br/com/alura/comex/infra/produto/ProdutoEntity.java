@@ -11,23 +11,18 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@ToString
+@ToString @Builder
 @Entity
 @Table(name = "produtos")
 public class ProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
     private Long codigoProduto;
     @Column(nullable = false)
     private String nome;
     private String descricao;
-
     @Column(name = "preco_unitario", nullable = false)
     private BigDecimal precoUnitario;
-
     @Column(name = "quantidade_estoque", nullable = false)
     @Min(0)
     private int quantidadeEstoque;
@@ -35,13 +30,22 @@ public class ProdutoEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CategoriaEntity categoria;
 
-    public ProdutoEntity(String nome, String descricao, BigDecimal precoUnitario, int quantidadeEstoque, CategoriaEntity categoria) {
-        this.codigoProduto = 1L;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.precoUnitario = precoUnitario;
-        this.quantidadeEstoque = quantidadeEstoque;
-        this.categoria = categoria;
+//    public ProdutoEntity(String nome, String descricao, BigDecimal precoUnitario, int quantidadeEstoque, CategoriaEntity categoria) {
+//        this.nome = nome;
+//        this.descricao = descricao;
+//        this.precoUnitario = precoUnitario;
+//        this.quantidadeEstoque = quantidadeEstoque;
+//        this.categoria = categoria;
+//    }
+
+    public static ProdutoEntity converter(Produto produto){
+        return ProdutoEntity.builder()
+                .nome(produto.getNome())
+                .codigoProduto(produto.getCodigoProduto())
+                .descricao(produto.getDescricao())
+                .precoUnitario(produto.getPrecoUnitario())
+                .categoria(CategoriaEntity.converter(produto.getCategoria()))
+                .build();
     }
 
     public Produto toProduto() {

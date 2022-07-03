@@ -50,7 +50,13 @@ public class ProdutoForm {
 
     public ProdutoEntity converter(CategoriaDAO categoriaRepository) {
         Optional<CategoriaEntity> novaCategoria = categoriaRepository.findById(categoria);
-        return new ProdutoEntity(nome, descricao, precoUnitario, quantidadeEstoque, novaCategoria.get());
+        return ProdutoEntity.builder()
+                .nome(nome)
+                .descricao(descricao)
+                .precoUnitario(precoUnitario)
+                .quantidadeEstoque(quantidadeEstoque)
+                .categoria(novaCategoria.get())
+                .build();
     }
 
     @Override

@@ -6,7 +6,7 @@ public interface CategoriaRepository {
 
     List<Categoria> listarTodasCategorias();
 
-    void cadastrarCategoria(Categoria categoria);
+    Categoria cadastrarCategoria(Categoria categoria);
 
     void deletarCategoria(Long id);
 
