@@ -1,5 +1,6 @@
 package br.com.alura.comex.infra.produto;
 
+import br.com.alura.comex.entity.categoria.Categoria;
 import br.com.alura.comex.entity.produto.Produto;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import lombok.*;
@@ -30,15 +31,9 @@ public class ProdutoEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private CategoriaEntity categoria;
 
-//    public ProdutoEntity(String nome, String descricao, BigDecimal precoUnitario, int quantidadeEstoque, CategoriaEntity categoria) {
-//        this.nome = nome;
-//        this.descricao = descricao;
-//        this.precoUnitario = precoUnitario;
-//        this.quantidadeEstoque = quantidadeEstoque;
-//        this.categoria = categoria;
-//    }
 
     public static ProdutoEntity converter(Produto produto){
+
         return ProdutoEntity.builder()
                 .nome(produto.getNome())
                 .codigoProduto(produto.getCodigoProduto())
@@ -48,7 +43,8 @@ public class ProdutoEntity {
                 .build();
     }
 
-    public Produto toProduto() {
+    public Produto paraProduto() {
+
         return Produto.builder()
                 .codigoProduto(this.codigoProduto)
                 .nome(this.nome)

@@ -1,16 +1,18 @@
 package br.com.alura.comex.adapter.form;
 
-import br.com.alura.comex.infra.categoria.CategoriaEntity;
-import br.com.alura.comex.infra.produto.ProdutoEntity;
-import br.com.alura.comex.infra.categoria.CategoriaDAO;
+import br.com.alura.comex.entity.categoria.Categoria;
+import br.com.alura.comex.entity.produto.Produto;
+import br.com.alura.comex.infra.categoria.CategoriaRepositoryImpl;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Optional;
 
+@Getter @Setter
 public class ProdutoForm {
 
     @NotNull
@@ -28,34 +30,25 @@ public class ProdutoForm {
     @NotNull
     private Long categoria;
 
-    public String getNome() {
-        return nome;
-    }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public BigDecimal getPrecoUnitario() {
-        return precoUnitario;
-    }
-
-    public int getQuantidadeEstoque() {
-        return quantidadeEstoque;
-    }
-
-    public Long getCategoria() {
-        return categoria;
-    }
-
-    public ProdutoEntity converter(CategoriaDAO categoriaRepository) {
-        Optional<CategoriaEntity> novaCategoria = categoriaRepository.findById(categoria);
-        return ProdutoEntity.builder()
+//    public ProdutoEntity converter(CategoriaDAO categoriaRepository) {
+//        Optional<CategoriaEntity> novaCategoria = categoriaRepository.findById(categoria);
+//        return ProdutoEntity.builder()
+//                .nome(nome)
+//                .descricao(descricao)
+//                .precoUnitario(precoUnitario)
+//                .quantidadeEstoque(quantidadeEstoque)
+//                .categoria(novaCategoria.get())
+//                .build();
+//    }
+    public Produto converterEmProduto(CategoriaRepositoryImpl categoriaRepository) {
+        Categoria novaCategoria = categoriaRepository.buscarCategoria(categoria);
+        return Produto.builder()
                 .nome(nome)
                 .descricao(descricao)
                 .precoUnitario(precoUnitario)
                 .quantidadeEstoque(quantidadeEstoque)
-                .categoria(novaCategoria.get())
+                .categoria(novaCategoria)
                 .build();
     }
 

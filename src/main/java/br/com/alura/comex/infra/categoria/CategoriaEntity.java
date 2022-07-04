@@ -42,7 +42,7 @@ public class CategoriaEntity {
     }
 
     public List<Produto> toProdutos() {
-        return this.produtoEntities.stream().map(ProdutoEntity::toProduto).toList();
+        return this.produtoEntities.stream().map(ProdutoEntity::paraProduto).toList();
     }
 
     public Categoria toCategoria() {
@@ -50,7 +50,7 @@ public class CategoriaEntity {
                 .id(this.id)
                 .nome(this.nome)
                 .status(this.status)
-                .produtos(toProdutos())
+                .produtos(new ArrayList<>())
                 .build();
     }
 

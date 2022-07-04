@@ -1,6 +1,11 @@
 package br.com.alura.comex.entity.cliente;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CPF {
 
     private final ValidadorCPF validadorCPF;

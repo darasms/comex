@@ -1,14 +1,24 @@
 package br.com.alura.comex.entity.cliente;
 
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Telefone {
 
-    private final ValidadorTelefone validadorTelefone;
+    @Autowired
+    private ValidadorTelefone validadorTelefone;
     private String ddd;
     private String numero;
 
-    public Telefone(ValidadorTelefone validadorTelefone, String ddd, String numero) {
-        this.validadorTelefone = validadorTelefone;
+    public Telefone(String ddd, String numero) {
         this.ddd = validadorTelefone.validarDDD(ddd);
         this.numero = validadorTelefone.validarNumero(numero);
+    }
+
+    public  String telefoneCompleto(){
+        return ddd.concat(numero);
     }
 }

@@ -1,7 +1,7 @@
 package br.com.alura.comex.infra.pedido;
 
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
 import br.com.alura.comex.infra.enuns.TipoDesconto;
 
@@ -23,7 +23,7 @@ public class Pedido {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Valid
-    private Cliente cliente;
+    private ClienteEntity clienteEntity;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     @Valid
@@ -37,8 +37,8 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Cliente cliente) {
-        this.cliente = cliente;
+    public Pedido(ClienteEntity clienteEntity) {
+        this.clienteEntity = clienteEntity;
     }
 
     public void adicionarItem(ItemDePedido item) {
@@ -82,12 +82,12 @@ public class Pedido {
         this.data = data;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public ClienteEntity getCliente() {
+        return clienteEntity;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(ClienteEntity clienteEntity) {
+        this.clienteEntity = clienteEntity;
     }
 
     public List<ItemDePedido> getItens() {
@@ -120,7 +120,7 @@ public class Pedido {
         return "Pedido{" +
                 "id=" + id +
                 ", data=" + data +
-                ", cliente=" + cliente +
+                ", cliente=" + clienteEntity +
                 ", itens=" + itens +
                 ", desconto=" + desconto +
                 ", tipoDesconto=" + tipoDesconto +

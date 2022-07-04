@@ -1,6 +1,6 @@
 package br.com.alura.comex.adapter.dto.cliente;
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import org.springframework.data.domain.Page;
 
 public class ResumoClienteDto {
@@ -9,11 +9,11 @@ public class ResumoClienteDto {
     private String telefone;
     private String local;
 
-    public ResumoClienteDto(Cliente cliente) {
-        this.nome = cliente.getNome();
-        this.cpf = cliente.getCpf();
-        this.telefone = cliente.getTelefone();
-        this.local = cliente.getEndereco().getCidade() + "/" + cliente.getEndereco().getEstado().toUpperCase();
+    public ResumoClienteDto(ClienteEntity clienteEntity) {
+        this.nome = clienteEntity.getNome();
+        this.cpf = clienteEntity.getCpf();
+        this.telefone = clienteEntity.getTelefone();
+        this.local = clienteEntity.getEndereco().getCidade() + "/" + clienteEntity.getEndereco().getEstado().toUpperCase();
     }
 
 
@@ -33,7 +33,7 @@ public class ResumoClienteDto {
         return local;
     }
 
-    public static Page<ResumoClienteDto> converter(Page<Cliente> clientes) {
+    public static Page<ResumoClienteDto> converter(Page<ClienteEntity> clientes) {
         return clientes.map(ResumoClienteDto::new);
     }
 

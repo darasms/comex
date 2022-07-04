@@ -1,7 +1,7 @@
 package br.com.alura.comex.infra.usuario;
 
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,7 +25,7 @@ public class Usuario implements UserDetails {
     }
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
-    private Cliente cliente;
+    private ClienteEntity clienteEntity;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 
@@ -114,11 +114,11 @@ public class Usuario implements UserDetails {
         return true;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public ClienteEntity getCliente() {
+        return clienteEntity;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setCliente(ClienteEntity clienteEntity) {
+        this.clienteEntity = clienteEntity;
     }
 }

@@ -1,6 +1,6 @@
 package br.com.alura.comex.entity.pedido;
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
 import br.com.alura.comex.infra.enuns.TipoDesconto;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class Pedido {
 
     private LocalDate data = LocalDate.now();
 
-    private Cliente cliente;
+    private ClienteEntity clienteEntity;
 
     private List<ItemDePedido> itens = new ArrayList<>();
 

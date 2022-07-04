@@ -4,6 +4,7 @@ package br.com.alura.comex.entity.cliente;
 import br.com.alura.comex.entity.pedido.Pedido;
 import br.com.alura.comex.entity.usuario.Usuario;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Builder
 public class Cliente {
 
     private String nome;

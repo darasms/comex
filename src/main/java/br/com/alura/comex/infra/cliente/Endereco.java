@@ -1,10 +1,17 @@
 package br.com.alura.comex.infra.cliente;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
+@Getter
+@Setter @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Endereco {
+
     @Column(nullable = false)
     private String rua;
 
@@ -22,40 +29,5 @@ public class Endereco {
     @Column(nullable = false)
     private String estado;
 
-    public Endereco(){
-        super();
-    }
 
-    public Endereco(String rua, String numero, String complemento, String bairro, String cidade, String estado) {
-        this.rua = rua;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
 }

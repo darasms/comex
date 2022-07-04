@@ -1,9 +1,9 @@
 package br.com.alura.comex.controller;
 
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.cliente.Endereco;
-import br.com.alura.comex.repository.ClienteRepository;
+import br.com.alura.comex.infra.cliente.ClienteDAO;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @AutoConfigureTestEntityManager
 @ActiveProfiles("test")
-class ClienteControllerTest {
+class ClienteEntityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteDAO clienteDAO;
 
     private Endereco DEFAULT_ENDERECO = new Endereco("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
 
@@ -39,8 +39,8 @@ class ClienteControllerTest {
     @Test
     public void deveriaRetornarTodosClientesOrdenadosPorNomeUtilizandoPaginacaoPadrao() throws Exception {
 
-        clienteRepository.save(new Cliente("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECO));
-        clienteRepository.save(new Cliente("Amanda", 4156667228L, "198273666444", DEFAULT_ENDERECO));
+        clienteDAO.save(new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECO));
+        clienteDAO.save(new ClienteEntity("Amanda", 4156667228L, "198273666444", DEFAULT_ENDERECO));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/clientes"))
                 .andExpect(status().isOk())

@@ -1,6 +1,6 @@
 package br.com.alura.comex.adapter.dto.cliente;
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 
 public class ClienteDto {
 
@@ -22,16 +22,16 @@ public class ClienteDto {
 
     private String estado;
 
-    public ClienteDto(Cliente cliente) {
-        this.nome = cliente.getNome();
-        this.cpf = cliente.getCpf();
-        this.telefone = cliente.getTelefone();
-        this.rua = cliente.getEndereco().getRua();
-        this.numero = cliente.getEndereco().getNumero();
-        this.complemento = cliente.getEndereco().getComplemento();
-        this.bairro = cliente.getEndereco().getBairro();
-        this.cidade = cliente.getEndereco().getCidade();
-        this.estado = cliente.getEndereco().getEstado();
+    public ClienteDto(ClienteEntity clienteEntity) {
+        this.nome = clienteEntity.getNome();
+        this.cpf = clienteEntity.getCpf();
+        this.telefone = clienteEntity.getTelefone();
+        this.rua = clienteEntity.getEndereco().getRua();
+        this.numero = clienteEntity.getEndereco().getNumero();
+        this.complemento = clienteEntity.getEndereco().getComplemento();
+        this.bairro = clienteEntity.getEndereco().getBairro();
+        this.cidade = clienteEntity.getEndereco().getCidade();
+        this.estado = clienteEntity.getEndereco().getEstado();
     }
 
     public String getNome() {

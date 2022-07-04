@@ -1,6 +1,6 @@
 package br.com.alura.comex.adapter.form;
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.cliente.Endereco;
 
 import javax.validation.constraints.NotEmpty;
@@ -82,7 +82,7 @@ public class ClienteForm {
         return estado;
     }
 
-    public Cliente converter() {
-        return new Cliente(nome, cpf, telefone, new Endereco(rua, numero, complemento, bairro, cidade, estado));
+    public ClienteEntity converter() {
+        return new ClienteEntity(nome, cpf, telefone, new Endereco(rua, numero, complemento, bairro, cidade, estado));
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -46,13 +45,14 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     @Override
     public Categoria buscarCategoria(Long id) {
 
-        Optional<CategoriaEntity> categoriaEntity = categoriaDAO.findById(id);
+        CategoriaEntity categoriaEntity = categoriaDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         return Categoria.builder()
-                .id(categoriaEntity.get().getId())
-                .nome(categoriaEntity.get().getNome())
-                .status(categoriaEntity.get().getStatus())
-                .produtos(categoriaEntity.get().toProdutos())
+                .id(categoriaEntity.getId())
+                .nome(categoriaEntity.getNome())
+                .status(categoriaEntity.getStatus())
+                .produtos(categoriaEntity.toProdutos())
                 .build();
     }
 

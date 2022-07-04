@@ -1,6 +1,5 @@
 package br.com.alura.comex.entity.produto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProdutoRepository {
@@ -9,12 +8,9 @@ public interface ProdutoRepository {
 
     Produto buscarProdutoPorCodProduto(Long codigoProduto);
 
-    void cadastrarProduto(Produto produto);
+    Produto cadastrarProduto(Produto produto);
 
-    Produto atualizarPrecoProduto(Long codigoProduto, BigDecimal novoPrecoUnitario);
-
-    Produto atualizarQuantidadeEmEstoque(Long codigoProduto, int novaQuantidade);
-
+    Produto atualizarProduto(Long codigoProduto, Produto produto);
 
     void excluirProduto(Long codigoProduto);
 }

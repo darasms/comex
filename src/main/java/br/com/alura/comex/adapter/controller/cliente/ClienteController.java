@@ -3,8 +3,8 @@ package br.com.alura.comex.adapter.controller.cliente;
 import br.com.alura.comex.adapter.dto.cliente.ClienteDto;
 import br.com.alura.comex.adapter.dto.cliente.ResumoClienteDto;
 import br.com.alura.comex.adapter.form.ClienteForm;
-import br.com.alura.comex.infra.cliente.Cliente;
-import br.com.alura.comex.repository.ClienteRepository;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
+import br.com.alura.comex.infra.cliente.ClienteDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,24 +23,24 @@ import java.net.URI;
 public class ClienteController {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteDAO clienteDAO;
 
     @PostMapping
     @Transactional
     public ResponseEntity<ClienteDto> cadastrar(@RequestBody @Valid ClienteForm form, UriComponentsBuilder uriBuilder){
-        Cliente cliente = form.converter();
-        clienteRepository.save(cliente);
+        ClienteEntity clienteEntity = form.converter();
+        clienteDAO.save(clienteEntity);
 
-        URI uri = uriBuilder.path("/api/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+        URI uri = uriBuilder.path("/api/cliente/{id}").buildAndExpand(clienteEntity.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new ClienteDto(cliente));
+        return ResponseEntity.created(uri).body(new ClienteDto(clienteEntity));
     }
 
     @GetMapping
     public ResponseEntity<Page<ResumoClienteDto>> listar(@RequestParam(defaultValue = "0") int pagina){
 
         Pageable pageable = PageRequest.of(pagina, 5, Sort.Direction.ASC, "nome");
-        Page<Cliente> clientes = clienteRepository.findAll(pageable);
+        Page<ClienteEntity> clientes = clienteDAO.findAll(pageable);
 
         Page<ResumoClienteDto> resumoClientes = ResumoClienteDto.converter(clientes);
 

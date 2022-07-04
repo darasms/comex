@@ -1,6 +1,6 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.infra.cliente.Cliente;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.cliente.Endereco;
 import br.com.alura.comex.infra.usuario.Usuario;
 import org.json.JSONObject;
@@ -38,20 +38,20 @@ class AutenticacaoControllerTest {
 
     private Endereco DEFAULT_ENDERECO = new Endereco( "rua", "344", "complemento", "bairro", "cidade", "estado" );
 
-    private Cliente cliente = new Cliente("aluno", 123456789L, "1982873847", DEFAULT_ENDERECO);
+    private ClienteEntity clienteEntity = new ClienteEntity("aluno", 123456789L, "1982873847", DEFAULT_ENDERECO);
 
     @BeforeEach
     void setup(){
 
-        testEntityManager.persist(cliente);
+        testEntityManager.persist(clienteEntity);
         Usuario aluno = new Usuario();
         aluno.setEmail("aluno@exemplo.com");
         aluno.setSenha("$2a$10$JhY8lcscK7wotSZJCnNCL..ZmEq.R9TUGPo00Bai1qc4GkczudRTW");
-        aluno.setCliente(cliente);
+        aluno.setCliente(clienteEntity);
 
         testEntityManager.persist(aluno);
 
-        cliente.setUsuario(aluno);
+        clienteEntity.setUsuario(aluno);
     }
 
     @Test

@@ -3,7 +3,6 @@ package br.com.alura.comex.controller;
 
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
-import br.com.alura.comex.repository.ProdutoRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
