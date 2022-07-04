@@ -3,7 +3,7 @@ package br.com.alura.comex.repository;
 import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
-import br.com.alura.comex.infra.cliente.Endereco;
+import br.com.alura.comex.infra.cliente.EnderecoEntity;
 import br.com.alura.comex.infra.pedido.Pedido;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
 import br.com.alura.comex.model.*;
@@ -55,8 +55,8 @@ public class PedidoRepositoryTest {
         ProdutoEntity mouse = new ProdutoEntity("Mouse", "Mouse", new BigDecimal("30.50"), 15, informatica);
         ProdutoEntity moana = new ProdutoEntity("Moana", "BlueRay",  new BigDecimal(25), 8, filmes);
 
-        Endereco endereco = new Endereco("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
-        ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", endereco);
+        EnderecoEntity enderecoEntity = new EnderecoEntity("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
+        ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", enderecoEntity);
 
         Pedido pedido1 = new Pedido(kelvin);
         Pedido pedido2 = new Pedido(kelvin);

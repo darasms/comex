@@ -1,6 +1,7 @@
 package br.com.alura.comex.adapter.dto.produto;
 
 import br.com.alura.comex.adapter.dto.categorias.CategoriaDto;
+import br.com.alura.comex.entity.produto.Produto;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class ProdutoDto {
 
     private CategoriaDto categoria;
 
-    public ProdutoDto(ProdutoEntity produtoEntity) {
+    public ProdutoDto(Produto produtoEntity) {
         this.codigoProduto = produtoEntity.getCodigoProduto();
         this.nome = produtoEntity.getNome();
         this.descricao = produtoEntity.getDescricao();
@@ -35,10 +36,10 @@ public class ProdutoDto {
     }
 
 
-    public static List<ProdutoDto> converter(Page<ProdutoEntity> produtos) {
+    public static List<ProdutoDto> converter(Page<Produto> produtos) {
         return produtos.stream().map(ProdutoDto::new).toList();
     }
-    public static Page<ProdutoDto> converterPagina(Page<ProdutoEntity> produtos) {
+    public static Page<ProdutoDto> converterPagina(Page<Produto> produtos) {
         return produtos.map(ProdutoDto::new);
     }
 

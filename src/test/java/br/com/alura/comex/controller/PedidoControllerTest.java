@@ -6,7 +6,7 @@ import br.com.alura.comex.adapter.form.PedidoFrom;
 import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
-import br.com.alura.comex.infra.cliente.Endereco;
+import br.com.alura.comex.infra.cliente.EnderecoEntity;
 import br.com.alura.comex.infra.pedido.Pedido;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
 import br.com.alura.comex.model.*;
@@ -50,7 +50,7 @@ class PedidoControllerTest {
 
     private Pedido DEFAULT_PEDIDO;
 
-    private Endereco DEFAULT_ENDERECO = new Endereco("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
+    private EnderecoEntity DEFAULT_ENDERECOEntity = new EnderecoEntity("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
 
     @Mock
     private ItemDePedidoForm itemDePedidoForm;
@@ -61,7 +61,7 @@ class PedidoControllerTest {
     @BeforeEach
     public void setup(){
 
-        ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECO);
+        ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECOEntity);
         DEFAULT_PEDIDO = new Pedido(kelvin);
         pedidoRepository.save(DEFAULT_PEDIDO);
     }
@@ -115,7 +115,7 @@ class PedidoControllerTest {
         ProdutoEntity mouse = new ProdutoEntity("Mouse", "Mouse", new BigDecimal("30.50"), 15, informatica);
         ProdutoEntity moana = new ProdutoEntity("Moana", "BlueRay",  new BigDecimal(25), 8, filmes);
 
-        ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECO);
+        ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECOEntity);
 
         Pedido pedido1 = new Pedido(kelvin);
         Pedido pedido2 = new Pedido(kelvin);

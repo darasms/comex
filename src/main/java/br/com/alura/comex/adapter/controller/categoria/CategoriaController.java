@@ -33,9 +33,8 @@ public class CategoriaController {
     public ResponseEntity<List<CategoriaDto>> listar() {
 
         List<Categoria> categorias = categoriaRepository.listarTodasCategorias();
-        List<CategoriaEntity> categoriaEntities = categorias.stream().map(CategoriaEntity::converter).toList();
 
-        return ResponseEntity.ok(CategoriaDto.converter(categoriaEntities));
+        return ResponseEntity.ok(CategoriaDto.converter(categorias));
     }
 
     @PostMapping
@@ -45,7 +44,7 @@ public class CategoriaController {
         Categoria categoria = categoriaRepository.cadastrarCategoria(form.converterEmCategoria());
 
         URI uri = uriComponentsBuilder.path("/api/categorias/{id}").buildAndExpand(categoria.getId()).toUri();
-        return ResponseEntity.created(uri).body(new CategoriaDto(CategoriaEntity.converter(categoria)));
+        return ResponseEntity.created(uri).body(new CategoriaDto(categoria));
     }
 
     @GetMapping("/{id}")
@@ -64,7 +63,7 @@ public class CategoriaController {
 
         Categoria categoriaAtualizada = categoriaRepository.atualizar(id, form.getNome());
 
-        return ResponseEntity.ok(new CategoriaDto(CategoriaEntity.converter(categoriaAtualizada)));
+        return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
 
     }
 
@@ -84,7 +83,7 @@ public class CategoriaController {
 
         Categoria categoriaAtualizada = categoriaRepository.atualizarStatus(id);
 
-        return ResponseEntity.ok(new CategoriaDto(CategoriaEntity.converter(categoriaAtualizada)));
+        return ResponseEntity.ok(new CategoriaDto(categoriaAtualizada));
     }
 
 }

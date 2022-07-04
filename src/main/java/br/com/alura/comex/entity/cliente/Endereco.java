@@ -1,10 +1,12 @@
 package br.com.alura.comex.entity.cliente;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Endereco {
 
     private String rua;

@@ -1,12 +1,22 @@
 package br.com.alura.comex.adapter.form;
 
+import br.com.alura.comex.entity.cliente.CPF;
+import br.com.alura.comex.entity.cliente.Cliente;
+import br.com.alura.comex.entity.cliente.Endereco;
+import br.com.alura.comex.entity.cliente.Telefone;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
-import br.com.alura.comex.infra.cliente.Endereco;
+import br.com.alura.comex.infra.cliente.EnderecoEntity;
+import br.com.alura.comex.infra.cliente.TelefoneEntity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@NoArgsConstructor
+@Getter @Setter
 public class ClienteForm {
 
     @NotNull
@@ -14,10 +24,11 @@ public class ClienteForm {
     private String nome;
 
     @NotNull
-    private Long cpf;
+    private String cpf;
 
     @NotNull
     @NotEmpty
+    @Size(min = 9, max = 9)
     private String telefone;
 
     @NotNull
@@ -43,46 +54,41 @@ public class ClienteForm {
     @Size(max = 2)
     private String estado;
 
-    public ClienteForm() {
+    public ClienteEntity converterParaClienteEntity() {
+        return ClienteEntity.builder()
+                .nome(this.nome)
+                .cpf(this.cpf)
+                .ddd(this.telefone.substring(0,2))
+                .numeroTelefone(this.telefone.substring(2))
+                .endereco(EnderecoEntity.builder()
+                        .rua(this.rua)
+                        .numero(this.numero)
+                        .cidade(this.cidade)
+                        .bairro(this.bairro)
+                        .estado(this.estado)
+                        .complemento(this.complemento)
+                        .build())
+                .build();
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public Long getCpf() {
-        return cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public ClienteEntity converter() {
-        return new ClienteEntity(nome, cpf, telefone, new Endereco(rua, numero, complemento, bairro, cidade, estado));
+    public Cliente converterParaCliente() {
+        return Cliente.builder()
+                .nome(this.nome)
+                .cpf(CPF.builder()
+                        .numero(this.numero)
+                        .build())
+                .telefone(Telefone.builder()
+                        .ddd(this.telefone.substring(0,2))
+                        .numero(this.telefone.substring(2))
+                        .build())
+                .endereco(Endereco.builder()
+                        .rua(this.rua)
+                        .numero(this.numero)
+                        .cidade(this.cidade)
+                        .bairro(this.bairro)
+                        .estado(this.estado)
+                        .complemento(this.complemento)
+                        .build())
+                .build();
     }
 }

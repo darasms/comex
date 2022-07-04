@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
 import br.com.alura.comex.infra.cliente.ClienteEntity;
-import br.com.alura.comex.infra.cliente.Endereco;
+import br.com.alura.comex.infra.cliente.EnderecoEntity;
 import br.com.alura.comex.infra.usuario.Usuario;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,9 +36,9 @@ class AutenticacaoControllerTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
-    private Endereco DEFAULT_ENDERECO = new Endereco( "rua", "344", "complemento", "bairro", "cidade", "estado" );
+    private EnderecoEntity DEFAULT_ENDERECOEntity = new EnderecoEntity( "rua", "344", "complemento", "bairro", "cidade", "estado" );
 
-    private ClienteEntity clienteEntity = new ClienteEntity("aluno", 123456789L, "1982873847", DEFAULT_ENDERECO);
+    private ClienteEntity clienteEntity = new ClienteEntity("aluno", 123456789L, "1982873847", DEFAULT_ENDERECOEntity);
 
     @BeforeEach
     void setup(){

@@ -2,7 +2,6 @@ package br.com.alura.comex.infra.cliente;
 
 
 import br.com.alura.comex.entity.cliente.Cliente;
-import br.com.alura.comex.entity.cliente.Telefone;
 import br.com.alura.comex.infra.usuario.Usuario;
 import br.com.alura.comex.infra.pedido.Pedido;
 import lombok.*;
@@ -29,10 +28,17 @@ public class ClienteEntity {
     @Column(nullable = false)
     private String cpf;
 
-    private String telefone;
+//    @Embedded
+//    private TelefoneEntity telefone;
+
+    @Column(nullable = false)
+    private String ddd;
+
+    @Column(nullable = false)
+    private String numeroTelefone;
 
     @Embedded
-    private Endereco endereco;
+    private EnderecoEntity endereco;
 
     @OneToMany(mappedBy = "id")
     private List<Pedido> pedidos = new ArrayList<>();
@@ -45,7 +51,7 @@ public class ClienteEntity {
         return ClienteEntity.builder()
                 .nome(cliente.getNome())
                 .cpf(cliente.getCpf().getNumero())
-                .endereco(Endereco.builder()
+                .endereco(EnderecoEntity.builder()
                         .cidade(cliente.getEndereco().getCidade())
                         .bairro(cliente.getEndereco().getBairro())
                         .estado(cliente.getEndereco().getEstado())
@@ -53,7 +59,8 @@ public class ClienteEntity {
                         .numero(cliente.getEndereco().getNumero())
                         .complemento(cliente.getEndereco().getComplemento())
                         .build())
-                .telefone(cliente.getTelefone().telefoneCompleto())
+                .ddd(cliente.getTelefone().getDdd())
+                .numeroTelefone(cliente.getTelefone().getNumero())
                 .build();
     }
 

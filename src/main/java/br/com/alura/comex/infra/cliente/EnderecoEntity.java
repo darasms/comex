@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 @Setter @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Endereco {
+public class EnderecoEntity {
 
     @Column(nullable = false)
     private String rua;

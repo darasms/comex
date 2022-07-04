@@ -18,10 +18,10 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     private final ProdutoDAO produtoDAO;
 
-    public Page<ProdutoEntity> listarProdutosCadastradosPaginados(Pageable pegeable) {
-        return produtoDAO.findAll(pegeable);
+    @Override
+    public Page<Produto> listarProdutosCadastradosPaginados(Pageable pegeable) {
+        return produtoDAO.findAll(pegeable).map(ProdutoEntity::paraProduto);
     }
-
 
     @Override
     public List<Produto> listarTodosProdutosCadastrados() {

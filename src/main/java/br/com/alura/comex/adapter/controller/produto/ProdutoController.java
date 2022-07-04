@@ -36,7 +36,7 @@ public class ProdutoController {
 
         Pageable pegeable = PageRequest.of(pagina, 5, Sort.by(Sort.Direction.ASC, "nome"));
 
-        Page<ProdutoEntity> produtos = produtoRepository.listarProdutosCadastradosPaginados(pegeable);
+        Page<Produto> produtos = produtoRepository.listarProdutosCadastradosPaginados(pegeable);
 
         Page<ProdutoDto> produtosDto = ProdutoDto.converterPagina(produtos);
 
@@ -50,7 +50,7 @@ public class ProdutoController {
         Produto produto = produtoRepository.cadastrarProduto(form.converterEmProduto(categoriaRepository));
 
         URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produto.getCodigoProduto()).toUri();
-        return ResponseEntity.created(uri).body(new ProdutoDto(ProdutoEntity.converter(produto)));
+        return ResponseEntity.created(uri).body(new ProdutoDto(produto));
 
     }
 
@@ -69,7 +69,7 @@ public class ProdutoController {
 
         Produto produto = produtoRepository.atualizarProduto(codigoProduto, form.paraProduto(categoriaRepository));
 
-        return ResponseEntity.ok(new ProdutoDto(ProdutoEntity.converter(produto)));
+        return ResponseEntity.ok(new ProdutoDto(produto));
     }
 
     @DeleteMapping("/{id}")
