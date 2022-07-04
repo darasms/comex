@@ -3,6 +3,7 @@ package br.com.alura.comex.infra.produto;
 import br.com.alura.comex.entity.produto.Produto;
 import br.com.alura.comex.entity.produto.ProdutoRepository;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -11,15 +12,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Component
 public class ProdutoRepositoryImpl implements ProdutoRepository {
 
     private final ProdutoDAO produtoDAO;
-
-    public ProdutoRepositoryImpl(ProdutoDAO produtoDAO) {
-        this.produtoDAO = produtoDAO;
-    }
-
 
     public Page<ProdutoEntity> listarProdutosCadastradosPaginados(Pageable pegeable) {
         return produtoDAO.findAll(pegeable);

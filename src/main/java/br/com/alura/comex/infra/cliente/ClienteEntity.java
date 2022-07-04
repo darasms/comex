@@ -66,12 +66,13 @@ public class ClienteEntity {
         return pedidos.stream().map(Pedido::getValorTotalPedido).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-//    public Cliente paraCliente() {
+    public Cliente paraCliente() {
+        return null;
 //        return Cliente.builder()
 //                .cpf()
 //                .nome()
 //                .endereco()
 //                .telefone()
 //                .build();
-//    }
+    }
 }

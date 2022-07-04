@@ -3,6 +3,7 @@ package br.com.alura.comex.infra.categoria;
 import br.com.alura.comex.entity.categoria.Categoria;
 import br.com.alura.comex.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.infra.enuns.StatusCategoria;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,14 +11,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Component
 public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     private final CategoriaDAO categoriaDAO;
-
-    public CategoriaRepositoryImpl(CategoriaDAO categoriaDAO) {
-        this.categoriaDAO = categoriaDAO;
-    }
 
     @Override
     public List<Categoria> listarTodasCategorias() {
