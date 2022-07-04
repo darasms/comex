@@ -2,7 +2,7 @@ package br.com.alura.comex.infra.categoria;
 
 import br.com.alura.comex.entity.categoria.Categoria;
 import br.com.alura.comex.entity.categoria.CategoriaRepository;
-import br.com.alura.comex.infra.enuns.StatusCategoria;
+import br.com.alura.comex.entity.enuns.StatusCategoria;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

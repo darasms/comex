@@ -1,7 +1,7 @@
 package br.com.alura.comex.entity.categoria;
 
 import br.com.alura.comex.entity.produto.Produto;
-import br.com.alura.comex.infra.enuns.StatusCategoria;
+import br.com.alura.comex.entity.enuns.StatusCategoria;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

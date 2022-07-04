@@ -2,7 +2,7 @@ package br.com.alura.comex.adapter.dto.categorias;
 
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
-import br.com.alura.comex.infra.enuns.StatusCategoria;
+import br.com.alura.comex.entity.enuns.StatusCategoria;
 
 import java.util.List;
 import java.util.stream.Collectors;

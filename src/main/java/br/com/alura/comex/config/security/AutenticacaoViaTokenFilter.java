@@ -1,6 +1,6 @@
 package br.com.alura.comex.config.security;
 
-import br.com.alura.comex.infra.usuario.Usuario;
+import br.com.alura.comex.infra.usuario.UsuarioEntity;
 import br.com.alura.comex.repository.UsuarioRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,8 +36,8 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 
     private void autenticarCliente(String token) {
         Long idUsuario = tokenService.getIdUsuario(token);
-        Usuario usuario = repository.findById(idUsuario).get();
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+        UsuarioEntity usuarioEntity = repository.findById(idUsuario).get();
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuarioEntity, null, usuarioEntity.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 

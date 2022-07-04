@@ -1,9 +1,14 @@
 package br.com.alura.comex.infra.cliente;
 
 
+import br.com.alura.comex.entity.cliente.CPF;
 import br.com.alura.comex.entity.cliente.Cliente;
-import br.com.alura.comex.infra.usuario.Usuario;
-import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.entity.cliente.Endereco;
+import br.com.alura.comex.entity.cliente.Telefone;
+import br.com.alura.comex.entity.usuario.Usuario;
+import br.com.alura.comex.infra.cliente.validador.ValidadorProExpressaoRegular;
+import br.com.alura.comex.infra.pedido.PedidoEntity;
+import br.com.alura.comex.infra.usuario.UsuarioEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,9 +33,6 @@ public class ClienteEntity {
     @Column(nullable = false)
     private String cpf;
 
-//    @Embedded
-//    private TelefoneEntity telefone;
-
     @Column(nullable = false)
     private String ddd;
 
@@ -41,10 +43,10 @@ public class ClienteEntity {
     private EnderecoEntity endereco;
 
     @OneToMany(mappedBy = "id")
-    private List<Pedido> pedidos = new ArrayList<>();
+    private List<PedidoEntity> pedidos = new ArrayList<>();
 
-    @OneToOne(optional = false, mappedBy = "clienteEntity")
-    private Usuario usuario;
+//    @OneToOne(optional = false, mappedBy = "clienteEntity")
+//    private UsuarioEntity usuarioEntity;
 
 
     public static ClienteEntity converter(Cliente cliente) {
@@ -64,22 +66,36 @@ public class ClienteEntity {
                 .build();
     }
 
-    public void adicionarPedido(Pedido pedido){
-        pedido.setCliente(this);
-        this.pedidos.add(pedido);
+    public void adicionarPedido(PedidoEntity pedidoEntity){
+        pedidoEntity.setCliente(this);
+        this.pedidos.add(pedidoEntity);
     }
 
     public BigDecimal getMontanteGasto(){
-        return pedidos.stream().map(Pedido::getValorTotalPedido).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return pedidos.stream().map(PedidoEntity::getValorTotalPedido).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public Cliente paraCliente() {
-        return null;
-//        return Cliente.builder()
-//                .cpf()
-//                .nome()
-//                .endereco()
-//                .telefone()
-//                .build();
+        return Cliente.builder()
+                .id(this.id)
+                .cpf(CPF.builder().numero(this.numeroTelefone).validadorCPF(new ValidadorProExpressaoRegular()).build())
+                .nome(this.nome)
+                .telefone(Telefone.builder()
+                        .ddd(this.ddd)
+                        .numero(this.numeroTelefone)
+                        .build())
+                .endereco(Endereco.builder()
+                        .rua(this.endereco.getRua())
+                        .numero(this.endereco.getNumero())
+                        .cidade(this.endereco.getCidade())
+                        .bairro(this.endereco.getBairro())
+                        .estado(this.endereco.getEstado())
+                        .complemento(this.endereco.getComplemento())
+                        .build())
+//                .usuario(Usuario.builder()
+//                        .email(this.usuarioEntity.getEmail())
+//                        .senha(this.usuarioEntity.getSenha())
+//                        .build())
+                .build();
     }
 }

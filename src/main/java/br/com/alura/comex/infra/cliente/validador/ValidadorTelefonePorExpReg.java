@@ -1,4 +1,4 @@
-package br.com.alura.comex.infra.cliente;
+package br.com.alura.comex.infra.cliente.validador;
 
 import br.com.alura.comex.entity.cliente.ValidadorTelefone;
 

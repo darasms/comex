@@ -2,16 +2,14 @@ package br.com.alura.comex.entity.usuario;
 
 import br.com.alura.comex.entity.cliente.Cliente;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Builder @Setter
 public class Usuario {
 
     private String email;

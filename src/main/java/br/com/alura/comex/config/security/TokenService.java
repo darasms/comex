@@ -1,6 +1,6 @@
 package br.com.alura.comex.config.security;
 
-import br.com.alura.comex.infra.usuario.Usuario;
+import br.com.alura.comex.infra.usuario.UsuarioEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,7 +20,7 @@ public class TokenService {
     private String secret;
 
     public String gerarToken(Authentication authentication) {
-        Usuario logado = (Usuario) authentication.getPrincipal();
+        UsuarioEntity logado = (UsuarioEntity) authentication.getPrincipal();
         Date hoje = new Date();
         Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 

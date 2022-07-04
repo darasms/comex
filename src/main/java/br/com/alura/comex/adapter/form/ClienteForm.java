@@ -6,7 +6,7 @@ import br.com.alura.comex.entity.cliente.Endereco;
 import br.com.alura.comex.entity.cliente.Telefone;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.cliente.EnderecoEntity;
-import br.com.alura.comex.infra.cliente.TelefoneEntity;
+import br.com.alura.comex.infra.cliente.validador.ValidadorProExpressaoRegular;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -76,6 +76,7 @@ public class ClienteForm {
                 .nome(this.nome)
                 .cpf(CPF.builder()
                         .numero(this.numero)
+                        .validadorCPF(new ValidadorProExpressaoRegular())
                         .build())
                 .telefone(Telefone.builder()
                         .ddd(this.telefone.substring(0,2))

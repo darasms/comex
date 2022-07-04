@@ -2,7 +2,10 @@ package br.com.alura.comex.infra.cliente;
 
 import br.com.alura.comex.entity.cliente.Cliente;
 import br.com.alura.comex.entity.cliente.ClienteRepository;
+import br.com.alura.comex.infra.usuario.UsuarioEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,11 +24,20 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public List<Cliente> listarTodosClientes() {
-        return null;
+        List<ClienteEntity> clientes = clienteDAO.findAll();
+        return clientes.stream().map(ClienteEntity::paraCliente).toList() ;
     }
 
     @Override
     public Cliente buscarPorCpf(String numeroCpf) {
-        return null;
+        ClienteEntity clienteEntity = clienteDAO.findByCpf(numeroCpf);
+        return clienteEntity.paraCliente();
     }
+
+    @Override
+    public Page<Cliente> listarTodosClientesPaginados(Pageable pageable) {
+        Page<ClienteEntity> clientes = clienteDAO.findAll(pageable);
+        return clientes.map(ClienteEntity::paraCliente);
+    }
+
 }

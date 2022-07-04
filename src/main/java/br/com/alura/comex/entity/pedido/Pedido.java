@@ -2,7 +2,7 @@ package br.com.alura.comex.entity.pedido;
 
 import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
-import br.com.alura.comex.infra.enuns.TipoDesconto;
+import br.com.alura.comex.entity.enuns.TipoDesconto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 public class Pedido {
 
-    private Long codigoIdentificador;
+    private Long id;
 
     private LocalDate data = LocalDate.now();
 

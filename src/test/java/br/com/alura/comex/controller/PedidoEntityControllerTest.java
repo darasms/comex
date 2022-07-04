@@ -7,7 +7,7 @@ import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.cliente.EnderecoEntity;
-import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.infra.pedido.PedidoEntity;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
 import br.com.alura.comex.model.*;
 import br.com.alura.comex.repository.PedidoRepository;
@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @AutoConfigureTestEntityManager
 @ActiveProfiles("test")
-class PedidoControllerTest {
+class PedidoEntityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -48,7 +48,7 @@ class PedidoControllerTest {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    private Pedido DEFAULT_PEDIDO;
+    private PedidoEntity DEFAULT_PEDIDOEntity;
 
     private EnderecoEntity DEFAULT_ENDERECOEntity = new EnderecoEntity("Rua da esquina", "366", "H22", "Santa Genebra", "Campinas", "SP");
 
@@ -62,8 +62,8 @@ class PedidoControllerTest {
     public void setup(){
 
         ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECOEntity);
-        DEFAULT_PEDIDO = new Pedido(kelvin);
-        pedidoRepository.save(DEFAULT_PEDIDO);
+        DEFAULT_PEDIDOEntity = new PedidoEntity(kelvin);
+        pedidoRepository.save(DEFAULT_PEDIDOEntity);
     }
 
     @Test
@@ -83,13 +83,13 @@ class PedidoControllerTest {
 
     @Test
     public void deveriaListarDetalheDeUmPedido() throws Exception {
-        URI uri = new URI("/api/pedidos/" + DEFAULT_PEDIDO.getId());
+        URI uri = new URI("/api/pedidos/" + DEFAULT_PEDIDOEntity.getId());
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get(uri))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.idCliente").value(DEFAULT_PEDIDO.getCliente().getId()))
-                .andExpect(jsonPath("$.nomeCliente").value(DEFAULT_PEDIDO.getCliente().getNome()))
+                .andExpect(jsonPath("$.idCliente").value(DEFAULT_PEDIDOEntity.getCliente().getId()))
+                .andExpect(jsonPath("$.nomeCliente").value(DEFAULT_PEDIDOEntity.getCliente().getNome()))
                 .andExpect(jsonPath("$.itens").isEmpty())
                 .andExpect(jsonPath("$.data").value(LocalDate.now().toString()));
 
@@ -117,13 +117,13 @@ class PedidoControllerTest {
 
         ClienteEntity kelvin = new ClienteEntity("Kelvin", 4156667228L, "198273666444", DEFAULT_ENDERECOEntity);
 
-        Pedido pedido1 = new Pedido(kelvin);
-        Pedido pedido2 = new Pedido(kelvin);
-        Pedido pedido3 = new Pedido(kelvin);
+        PedidoEntity pedidoEntity1 = new PedidoEntity(kelvin);
+        PedidoEntity pedidoEntity2 = new PedidoEntity(kelvin);
+        PedidoEntity pedidoEntity3 = new PedidoEntity(kelvin);
 
-        kelvin.adicionarPedido(pedido1);
-        kelvin.adicionarPedido(pedido2);
-        kelvin.adicionarPedido(pedido3);
+        kelvin.adicionarPedido(pedidoEntity1);
+        kelvin.adicionarPedido(pedidoEntity2);
+        kelvin.adicionarPedido(pedidoEntity3);
 
         ItemDePedido item1 = new ItemDePedido(7, mouse);
         ItemDePedido item3 = new ItemDePedido(3, mouse);
@@ -138,13 +138,13 @@ class PedidoControllerTest {
         em.persist(kelvin);
 
 
-        em.persist(pedido1);
-        em.persist(pedido2);
-        em.persist(pedido3);
+        em.persist(pedidoEntity1);
+        em.persist(pedidoEntity2);
+        em.persist(pedidoEntity3);
 
-        pedido1.adicionarItem(item1);
-        pedido2.adicionarItem(item2);
-        pedido3.adicionarItem(item3);
+        pedidoEntity1.adicionarItem(item1);
+        pedidoEntity2.adicionarItem(item2);
+        pedidoEntity3.adicionarItem(item3);
 
     }
 

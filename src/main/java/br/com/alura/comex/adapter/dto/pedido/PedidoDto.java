@@ -1,6 +1,6 @@
 package br.com.alura.comex.adapter.dto.pedido;
 
-import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.infra.pedido.PedidoEntity;
 import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
@@ -20,13 +20,13 @@ public class PedidoDto {
 
     private String nomeCliente;
 
-    public PedidoDto(Pedido pedido) {
-        this.data = pedido.getData();
-        this.valorTotal = pedido.getValorTotalPedido();
-        this.desconto = pedido.getValorTotalDescontos();
-        this.quantidadeProdutos = pedido.getQuantidadeDeProdutos();
-        this.idCliente = pedido.getCliente().getId();
-        this.nomeCliente = pedido.getCliente().getNome();
+    public PedidoDto(PedidoEntity pedidoEntity) {
+        this.data = pedidoEntity.getData();
+        this.valorTotal = pedidoEntity.getValorTotalPedido();
+        this.desconto = pedidoEntity.getValorTotalDescontos();
+        this.quantidadeProdutos = pedidoEntity.getQuantidadeDeProdutos();
+        this.idCliente = pedidoEntity.getCliente().getId();
+        this.nomeCliente = pedidoEntity.getCliente().getNome();
     }
 
     public LocalDate getData() {
@@ -53,7 +53,7 @@ public class PedidoDto {
         return nomeCliente;
     }
 
-    public static Page<PedidoDto> converter(Page<Pedido> pedidosDb) {
+    public static Page<PedidoDto> converter(Page<PedidoEntity> pedidosDb) {
         return pedidosDb.map(PedidoDto::new);
     }
 }

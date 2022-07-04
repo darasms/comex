@@ -1,6 +1,6 @@
 package br.com.alura.comex.adapter.dto.pedido;
 
-import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.infra.pedido.PedidoEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -23,14 +23,14 @@ public class DetalhesPedidoDto {
 
     private List<ItemDePedidoDto> itens;
 
-    public DetalhesPedidoDto(Pedido pedido) {
-        this.data = pedido.getData();
-        this.valorTotal = pedido.getValorTotalPedido();
-        this.desconto = pedido.getDesconto();
-        this.quantidadeProdutos = pedido.getQuantidadeDeProdutos();
-        this.idCliente = pedido.getCliente().getId();
-        NomeCliente = pedido.getCliente().getNome();
-        this.itens = pedido.getItens().stream().map(ItemDePedidoDto::new).collect(Collectors.toList());
+    public DetalhesPedidoDto(PedidoEntity pedidoEntity) {
+        this.data = pedidoEntity.getData();
+        this.valorTotal = pedidoEntity.getValorTotalPedido();
+        this.desconto = pedidoEntity.getDesconto();
+        this.quantidadeProdutos = pedidoEntity.getQuantidadeDeProdutos();
+        this.idCliente = pedidoEntity.getCliente().getId();
+        NomeCliente = pedidoEntity.getCliente().getNome();
+        this.itens = pedidoEntity.getItens().stream().map(ItemDePedidoDto::new).collect(Collectors.toList());
     }
 
     public LocalDate getData() {

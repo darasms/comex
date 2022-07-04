@@ -1,7 +1,7 @@
 package br.com.alura.comex.infra.ItemDePedido;
 
-import br.com.alura.comex.infra.enuns.TipoDescontoItem;
-import br.com.alura.comex.infra.pedido.Pedido;
+import br.com.alura.comex.entity.enuns.TipoDescontoItem;
+import br.com.alura.comex.infra.pedido.PedidoEntity;
 import br.com.alura.comex.infra.produto.ProdutoEntity;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ public class ItemDePedido {
     private Integer quantidade;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Pedido pedido;
+    private PedidoEntity pedidoEntity;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProdutoEntity produtoEntity;
@@ -59,8 +59,8 @@ public class ItemDePedido {
         return quantidade;
     }
 
-    public Pedido getPedidoId() {
-        return pedido;
+    public PedidoEntity getPedidoId() {
+        return pedidoEntity;
     }
 
     public ProdutoEntity getProdutoId() {
@@ -75,8 +75,8 @@ public class ItemDePedido {
         return tipoDesconto;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setPedido(PedidoEntity pedidoEntity) {
+        this.pedidoEntity = pedidoEntity;
     }
 
     public void setDesconto(BigDecimal desconto) {

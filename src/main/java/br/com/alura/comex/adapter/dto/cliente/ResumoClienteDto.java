@@ -1,5 +1,6 @@
 package br.com.alura.comex.adapter.dto.cliente;
 
+import br.com.alura.comex.entity.cliente.Cliente;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,16 +13,16 @@ public class ResumoClienteDto {
     private String telefone;
     private String local;
 
-    public ResumoClienteDto(ClienteEntity clienteEntity) {
-        this.nome = clienteEntity.getNome();
-        this.cpf = clienteEntity.getCpf();
-        this.telefone = clienteEntity.getNumeroTelefone();
-        this.local = clienteEntity.getEndereco().getCidade() + "/" + clienteEntity.getEndereco().getEstado().toUpperCase();
+    public ResumoClienteDto(Cliente cliente) {
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf().getNumero();
+        this.telefone = cliente.getTelefone().telefoneCompleto();
+        this.local = cliente.getEndereco().getCidade() + "/" + cliente.getEndereco().getEstado().toUpperCase();
     }
 
 
 
-    public static Page<ResumoClienteDto> converter(Page<ClienteEntity> clientes) {
+    public static Page<ResumoClienteDto> converter(Page<Cliente> clientes) {
         return clientes.map(ResumoClienteDto::new);
     }
 

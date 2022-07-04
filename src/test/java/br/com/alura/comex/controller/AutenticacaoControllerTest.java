@@ -2,7 +2,7 @@ package br.com.alura.comex.controller;
 
 import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.cliente.EnderecoEntity;
-import br.com.alura.comex.infra.usuario.Usuario;
+import br.com.alura.comex.infra.usuario.UsuarioEntity;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,14 +44,14 @@ class AutenticacaoControllerTest {
     void setup(){
 
         testEntityManager.persist(clienteEntity);
-        Usuario aluno = new Usuario();
+        UsuarioEntity aluno = new UsuarioEntity();
         aluno.setEmail("aluno@exemplo.com");
         aluno.setSenha("$2a$10$JhY8lcscK7wotSZJCnNCL..ZmEq.R9TUGPo00Bai1qc4GkczudRTW");
         aluno.setCliente(clienteEntity);
 
         testEntityManager.persist(aluno);
 
-        clienteEntity.setUsuario(aluno);
+        clienteEntity.setUsuarioEntity(aluno);
     }
 
     @Test

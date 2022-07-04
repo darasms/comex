@@ -18,6 +18,8 @@ import java.util.List;
 @Getter @Builder
 public class Cliente {
 
+    private Long id;
+
     private String nome;
 
     private CPF cpf;

@@ -3,7 +3,7 @@ package br.com.alura.comex.infra.pedido;
 
 import br.com.alura.comex.infra.cliente.ClienteEntity;
 import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
-import br.com.alura.comex.infra.enuns.TipoDesconto;
+import br.com.alura.comex.entity.enuns.TipoDesconto;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
-public class Pedido {
+public class PedidoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +25,7 @@ public class Pedido {
     @Valid
     private ClienteEntity clienteEntity;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.ALL)
     @Valid
     private List<ItemDePedido> itens = new ArrayList<>();
 
@@ -34,10 +34,10 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
 
-    public Pedido() {
+    public PedidoEntity() {
     }
 
-    public Pedido(ClienteEntity clienteEntity) {
+    public PedidoEntity(ClienteEntity clienteEntity) {
         this.clienteEntity = clienteEntity;
     }
 
