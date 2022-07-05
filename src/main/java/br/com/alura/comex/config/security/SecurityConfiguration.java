@@ -1,6 +1,6 @@
 package br.com.alura.comex.config.security;
 
-import br.com.alura.comex.repository.UsuarioRepository;
+import br.com.alura.comex.infra.usuario.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class SecurityConfiguration {
     private TokenService tokenService;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioDAO usuarioDAO;
 
     @Bean
     protected AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration, ApplicationContext context, ObjectPostProcessor<Object> objectPostProcessor) throws Exception {
@@ -51,7 +51,7 @@ public class SecurityConfiguration {
                                 .anyRequest().authenticated())
                                 .csrf().disable()
                                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),  UsernamePasswordAuthenticationFilter.class);
+                                .and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioDAO),  UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

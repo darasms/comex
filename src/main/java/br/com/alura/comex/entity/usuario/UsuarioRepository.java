@@ -1,6 +1,7 @@
 package br.com.alura.comex.entity.usuario;
 
 public interface UsuarioRepository {
+    Usuario registrarNovoUsuario(Usuario usuario);
 
-    void registrarNovoUsuario();
+    Usuario buscarUsuario(String email);
 }

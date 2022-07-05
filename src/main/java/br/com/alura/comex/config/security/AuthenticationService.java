@@ -1,7 +1,7 @@
 package br.com.alura.comex.config.security;
 
 import br.com.alura.comex.infra.usuario.UsuarioEntity;
-import br.com.alura.comex.repository.UsuarioRepository;
+import br.com.alura.comex.infra.usuario.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +15,11 @@ import java.util.Optional;
 public class AuthenticationService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioDAO usuarioDAO;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<UsuarioEntity> usuario = usuarioRepository.findByEmail(username);
+        Optional<UsuarioEntity> usuario = usuarioDAO.findByEmail(username);
 
         if (usuario.isPresent()) return usuario.get();
 

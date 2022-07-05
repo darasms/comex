@@ -51,6 +51,7 @@ public class ClienteEntity {
 
     public static ClienteEntity converter(Cliente cliente) {
         return ClienteEntity.builder()
+                .id(cliente.getId())
                 .nome(cliente.getNome())
                 .cpf(cliente.getCpf().getNumero())
                 .endereco(EnderecoEntity.builder()
@@ -63,11 +64,12 @@ public class ClienteEntity {
                         .build())
                 .ddd(cliente.getTelefone().getDdd())
                 .numeroTelefone(cliente.getTelefone().getNumero())
+                .pedidos(new ArrayList<>())
                 .build();
     }
 
     public void adicionarPedido(PedidoEntity pedidoEntity){
-        pedidoEntity.setCliente(this);
+        pedidoEntity.setClienteEntity(this);
         this.pedidos.add(pedidoEntity);
     }
 
@@ -92,10 +94,15 @@ public class ClienteEntity {
                         .estado(this.endereco.getEstado())
                         .complemento(this.endereco.getComplemento())
                         .build())
+                .pedidos(new ArrayList<>())
 //                .usuario(Usuario.builder()
 //                        .email(this.usuarioEntity.getEmail())
 //                        .senha(this.usuarioEntity.getSenha())
 //                        .build())
                 .build();
+    }
+
+    public int quantidadeDePedidos(){
+        return pedidos.size();
     }
 }

@@ -1,7 +1,7 @@
 package br.com.alura.comex.config.security;
 
 import br.com.alura.comex.infra.usuario.UsuarioEntity;
-import br.com.alura.comex.repository.UsuarioRepository;
+import br.com.alura.comex.infra.usuario.UsuarioDAO;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -14,9 +14,9 @@ import java.io.IOException;
 
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
     private TokenService tokenService;
-    private UsuarioRepository repository;
+    private UsuarioDAO repository;
 
-    public AutenticacaoViaTokenFilter(TokenService tokenService, UsuarioRepository repository) {
+    public AutenticacaoViaTokenFilter(TokenService tokenService, UsuarioDAO repository) {
         this.tokenService = tokenService;
         this.repository = repository;
     }

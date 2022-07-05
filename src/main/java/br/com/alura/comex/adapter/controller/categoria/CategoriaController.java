@@ -8,7 +8,7 @@ import br.com.alura.comex.adapter.form.CategoriaForm;
 import br.com.alura.comex.entity.categoria.Categoria;
 import br.com.alura.comex.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.infra.categoria.CategoriaRepositoryImpl;
-import br.com.alura.comex.repository.PedidoRepository;
+import br.com.alura.comex.infra.pedido.PedidoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ public class CategoriaController {
     private CategoriaRepositoryImpl categoriaRepository;
 
     @Autowired
-    private PedidoRepository pedidoRepository;
+    private PedidoDAO pedidoDAO;
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> listar() {

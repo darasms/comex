@@ -6,7 +6,9 @@ import br.com.alura.comex.infra.usuario.UsuarioEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -19,6 +21,12 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     @Override
     public Cliente cadastrarCliente(Cliente cliente) {
         ClienteEntity clienteEntity = clienteDAO.save(ClienteEntity.converter(cliente));
+        return clienteEntity.paraCliente();
+    }
+
+    @Override
+    public Cliente buscarPorId(Long id) {
+        ClienteEntity clienteEntity = clienteDAO.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return clienteEntity.paraCliente();
     }
 

@@ -14,4 +14,6 @@ public interface ClienteRepository {
 
     Page<Cliente> listarTodosClientesPaginados(Pageable pageable);
 
+    Cliente buscarPorId(Long id);
+
 }

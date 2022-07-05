@@ -70,10 +70,11 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
         CategoriaEntity categoria = categoriaDAO.getReferenceById(id);
 
-        if (categoria.getStatus().equals(StatusCategoria.ATIVA)) categoria.setStatus(StatusCategoria.INATIVA);
-
-        categoria.setStatus(StatusCategoria.ATIVA);
-
+        if (categoria.getStatus().equals(StatusCategoria.ATIVA)) {
+            categoria.setStatus(StatusCategoria.INATIVA);
+        }else {
+            categoria.setStatus(StatusCategoria.ATIVA);
+        }
         return categoria.toCategoria();
     }
 }

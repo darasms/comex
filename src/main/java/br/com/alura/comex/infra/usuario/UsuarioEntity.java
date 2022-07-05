@@ -3,10 +3,7 @@ package br.com.alura.comex.infra.usuario;
 
 import br.com.alura.comex.entity.usuario.Usuario;
 import br.com.alura.comex.infra.cliente.ClienteEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Builder
 @Entity @Setter @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,10 +26,17 @@ public class UsuarioEntity implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @OneToOne(optional = false)
+    @OneToOne()
     private ClienteEntity clienteEntity;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
+
+    public static UsuarioEntity converter(Usuario usuario){
+        return UsuarioEntity.builder()
+                .email(usuario.getEmail())
+                .senha(usuario.getSenha())
+                .build();
+    }
 
     public Usuario paraUsuario(){
         return Usuario.builder()

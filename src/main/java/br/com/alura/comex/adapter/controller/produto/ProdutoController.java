@@ -47,7 +47,8 @@ public class ProdutoController {
     @Transactional
     public ResponseEntity<ProdutoDto> cadastrar(@RequestBody @Valid ProdutoForm form, UriComponentsBuilder uriBuilder) {
 
-        Produto produto = produtoRepository.cadastrarProduto(form.converterEmProduto(categoriaRepository));
+        Produto prod = form.converterEmProduto(categoriaRepository);
+        Produto produto = produtoRepository.cadastrarProduto(prod);
 
         URI uri = uriBuilder.path("/api/produtos/{id}").buildAndExpand(produto.getCodigoProduto()).toUri();
         return ResponseEntity.created(uri).body(new ProdutoDto(produto));
@@ -55,17 +56,16 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DetalhesDeProdutoDto> buscarProdutoPorId(@PathVariable Long id){
+    public ResponseEntity<DetalhesDeProdutoDto> buscarProdutoPorId(@PathVariable Long id) {
         Produto produto = produtoRepository.buscarProdutoPorCodProduto(id);
         return ResponseEntity.ok(new DetalhesDeProdutoDto(ProdutoEntity.converter(produto)));
 
     }
 
 
-
     @PutMapping("/{codigoProduto}")
     @Transactional
-    public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long codigoProduto, @RequestBody @Valid AtualizacaoProdutoForm form){
+    public ResponseEntity<ProdutoDto> atualizar(@PathVariable Long codigoProduto, @RequestBody @Valid AtualizacaoProdutoForm form) {
 
         Produto produto = produtoRepository.atualizarProduto(codigoProduto, form.paraProduto(categoriaRepository));
 
@@ -74,7 +74,7 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> remover(@PathVariable Long id){
+    public ResponseEntity<?> remover(@PathVariable Long id) {
         produtoRepository.excluirProduto(id);
 
         return ResponseEntity.ok().build();

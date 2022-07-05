@@ -1,9 +1,12 @@
 package br.com.alura.comex.infra.pedido;
 
 
-import br.com.alura.comex.infra.cliente.ClienteEntity;
-import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
 import br.com.alura.comex.entity.enuns.TipoDesconto;
+import br.com.alura.comex.entity.itemDePedido.ItemDePedido;
+import br.com.alura.comex.entity.pedido.Pedido;
+import br.com.alura.comex.infra.ItemDePedido.ItemDePedidoEntity;
+import br.com.alura.comex.infra.cliente.ClienteEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -14,6 +17,12 @@ import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 public class PedidoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,110 +30,80 @@ public class PedidoEntity {
 
     private LocalDate data = LocalDate.now();
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @Valid
     private ClienteEntity clienteEntity;
 
     @OneToMany(mappedBy = "pedidoEntity", cascade = CascadeType.ALL)
     @Valid
-    private List<ItemDePedido> itens = new ArrayList<>();
+    private List<ItemDePedidoEntity> itens = new ArrayList<>();
 
     private BigDecimal desconto = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
 
-    public PedidoEntity() {
-    }
 
     public PedidoEntity(ClienteEntity clienteEntity) {
         this.clienteEntity = clienteEntity;
     }
 
-    public void adicionarItem(ItemDePedido item) {
-        item.setPedido(this);
+    public static PedidoEntity converter(Pedido pedido) {
+        PedidoEntity pedidoEntity = PedidoEntity.builder()
+                .id(pedido.getId())
+                .data(pedido.getData())
+                .desconto(pedido.getDesconto())
+                .clienteEntity(ClienteEntity.converter(pedido.getCliente()))
+                .itens(new ArrayList<>())
+                .tipoDesconto(pedido.getTipoDesconto())
+                .build();
+
+        List<ItemDePedidoEntity> lista = pedido.getItens().stream().map(ItemDePedidoEntity::converter).toList();
+        lista.forEach(pedidoEntity::adicionarItem);
+
+        return pedidoEntity;
+    }
+
+
+    public void adicionarItem(ItemDePedidoEntity item) {
+        item.setPedidoEntity(this);
         this.itens.add(item);
     }
 
     public int getQuantidadeDeProdutos() {
         return this.itens.stream()
-                .mapToInt(ItemDePedido::getQuantidade)
+                .mapToInt(ItemDePedidoEntity::getQuantidade)
                 .sum();
     }
 
     public BigDecimal getValorTotalPedido() {
         return this.itens.stream()
-                .map(ItemDePedido::getValorTotalItem)
+                .map(ItemDePedidoEntity::getValorTotalItem)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .subtract(this.getValorTotalDescontos());
     }
 
     public BigDecimal getValorTotalDescontos() {
         return this.itens.stream()
-                .map(ItemDePedido::getDesconto)
+                .map(ItemDePedidoEntity::getDesconto)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .add(this.desconto);
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Pedido paraPedido() {
+        Pedido pedido = Pedido.builder()
+                .id(this.id)
+                .data(this.data)
+                .desconto(this.desconto)
+                .cliente(this.clienteEntity.paraCliente())
+                .itens(new ArrayList<>())
+                .tipoDesconto(this.tipoDesconto)
+                .build();
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+        List<ItemDePedido> lista = this.itens.stream().map(ItemDePedidoEntity::paraItemDePedido).toList();
+        lista.forEach(pedido::adicionarItem);
 
-    public LocalDate getData() {
-        return data;
-    }
-
-    public void setData(LocalDate data) {
-        this.data = data;
-    }
-
-    public ClienteEntity getCliente() {
-        return clienteEntity;
-    }
-
-    public void setCliente(ClienteEntity clienteEntity) {
-        this.clienteEntity = clienteEntity;
-    }
-
-    public List<ItemDePedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemDePedido> itens) {
-        this.itens = itens;
-    }
-
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
-    public TipoDesconto getTipoDesconto() {
-        return tipoDesconto;
-    }
-
-    public void setTipoDesconto(TipoDesconto tipoDesconto) {
-        this.tipoDesconto = tipoDesconto;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", data=" + data +
-                ", cliente=" + clienteEntity +
-                ", itens=" + itens +
-                ", desconto=" + desconto +
-                ", tipoDesconto=" + tipoDesconto +
-                '}';
+        return pedido;
     }
 
 }

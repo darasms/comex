@@ -40,5 +40,9 @@ public class Cliente {
         return pedidos.stream().map(Pedido::getValorTotalPedido).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    public int quantidadePedidos(){
+        return pedidos.size();
+    }
+
 
 }

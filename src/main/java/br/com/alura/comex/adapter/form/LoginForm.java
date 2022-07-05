@@ -1,27 +1,14 @@
 package br.com.alura.comex.adapter.form;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+@Getter @Setter
 public class LoginForm {
 
     private String email;
     private String senha;
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
 
     public UsernamePasswordAuthenticationToken converter() {
         return new UsernamePasswordAuthenticationToken(this.email, this.senha);

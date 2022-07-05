@@ -1,9 +1,16 @@
 package br.com.alura.comex.adapter.dto.pedido;
 
-import br.com.alura.comex.infra.ItemDePedido.ItemDePedido;
+import br.com.alura.comex.entity.itemDePedido.ItemDePedido;
+import br.com.alura.comex.infra.ItemDePedido.ItemDePedidoEntity;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class ItemDePedidoDto {
     private Long id;
     
@@ -23,50 +30,10 @@ public class ItemDePedidoDto {
         this.id = item.getId();
         this.precoUnitario = item.getPrecoUnitario();
         this.quantidade = item.getQuantidade();
-        this.produto = item.getProdutoId().getNome();
-        this.categoria = item.getProdutoId().getCategoria().getNome();
+        this.produto = item.getProduto().getNome();
+        this.categoria = item.getProduto().getCategoria().getNome();
         this.desconto = item.getDesconto();
         this.valorFinal = item.getValorTotalItem();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getPrecoUnitario() {
-        return precoUnitario;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public String getProduto() {
-        return produto;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
-
-    public BigDecimal getValorFinal() {
-        return valorFinal;
-    }
-
-    @Override
-    public String toString() {
-        return "ItemDePedidoDto{" +
-                "id=" + id +
-                ", precoUnitario=" + precoUnitario +
-                ", quantidade=" + quantidade +
-                ", produto='" + produto + '\'' +
-                ", categoria='" + categoria + '\'' +
-                ", desconto=" + desconto +
-                ", valorFinal=" + valorFinal +
-                '}';
-    }
 }

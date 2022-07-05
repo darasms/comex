@@ -13,7 +13,9 @@ import java.util.List;
 public class Usuario {
 
     private String email;
+
     private String senha;
+
     private Cliente cliente;
     private List<Perfil> perfis = new ArrayList<>();
 
