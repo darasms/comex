@@ -1,7 +1,7 @@
 package br.com.alura.comex.repository;
 
-import br.com.alura.comex.infra.categoria.CategoriaEntity;
-import br.com.alura.comex.infra.categoria.CategoriaDAO;
+import br.com.alura.comex.pedido.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.pedido.infra.categoria.CategoriaDAO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

@@ -1,8 +1,8 @@
 package br.com.alura.comex.controller;
 
-import br.com.alura.comex.infra.categoria.CategoriaEntity;
-import br.com.alura.comex.infra.produto.ProdutoEntity;
-import br.com.alura.comex.infra.categoria.CategoriaDAO;
+import br.com.alura.comex.pedido.infra.categoria.CategoriaEntity;
+import br.com.alura.comex.pedido.infra.produto.ProdutoEntity;
+import br.com.alura.comex.pedido.infra.categoria.CategoriaDAO;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
