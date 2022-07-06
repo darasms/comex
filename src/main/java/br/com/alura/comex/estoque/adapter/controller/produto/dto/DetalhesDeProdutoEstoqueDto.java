@@ -22,6 +22,14 @@ public class DetalhesDeProdutoEstoqueDto {
 
     private String categoria;
 
+    private int comprimento;
+
+    private int altura;
+
+    private int largura;
+
+    private BigDecimal peso;
+
     public DetalhesDeProdutoEstoqueDto(ProdutoEstoqueEntity produtoEstoqueEntity) {
         this.id = produtoEstoqueEntity.getCodigoProduto();
         this.nome = produtoEstoqueEntity.getNome();
@@ -29,6 +37,10 @@ public class DetalhesDeProdutoEstoqueDto {
         this.precoUnitario = produtoEstoqueEntity.getPrecoUnitario();
         this.quantidadeEstoque = produtoEstoqueEntity.getQuantidadeEstoque();
         this.categoria = produtoEstoqueEntity.getCategoria().getNome();
+        this.comprimento = produtoEstoqueEntity.getDimensao().getComprimento();
+        this.altura = produtoEstoqueEntity.getDimensao().getAltura();
+        this.largura = produtoEstoqueEntity.getDimensao().getLargura();
+        this.peso = produtoEstoqueEntity.getDimensao().getPeso();
     }
 
 }

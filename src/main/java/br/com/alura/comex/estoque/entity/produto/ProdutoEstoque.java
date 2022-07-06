@@ -1,6 +1,7 @@
 package br.com.alura.comex.estoque.entity.produto;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
+import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -22,5 +23,7 @@ public class ProdutoEstoque {
     private int quantidadeEstoque;
 
     private Categoria categoria;
+
+    private Dimensao dimensao;
 
 }

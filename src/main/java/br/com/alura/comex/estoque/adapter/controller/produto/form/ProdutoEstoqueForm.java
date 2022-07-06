@@ -1,6 +1,7 @@
 package br.com.alura.comex.estoque.adapter.controller.produto.form;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
+import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import lombok.Getter;
@@ -28,21 +29,20 @@ public class ProdutoEstoqueForm {
     private BigDecimal precoUnitario;
 
     private int quantidadeEstoque;
-
     @NotNull
     private Long categoria;
 
+    private int comprimento;
 
-//    public ProdutoEntity converter(CategoriaDAO categoriaRepository) {
-//        Optional<CategoriaEntity> novaCategoria = categoriaRepository.findById(categoria);
-//        return ProdutoEntity.builder()
-//                .nome(nome)
-//                .descricao(descricao)
-//                .precoUnitario(precoUnitario)
-//                .quantidadeEstoque(quantidadeEstoque)
-//                .categoria(novaCategoria.get())
-//                .build();
-//    }
+    private int altura;
+
+    private int largura;
+
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false)
+    private BigDecimal peso;
+
+
     public ProdutoEstoque converterEmProduto(CategoriaRepositoryImpl categoriaRepository) {
         Categoria novaCategoria = categoriaRepository.buscarCategoria(categoria);
         return ProdutoEstoque.builder()
@@ -51,6 +51,12 @@ public class ProdutoEstoqueForm {
                 .precoUnitario(precoUnitario)
                 .quantidadeEstoque(quantidadeEstoque)
                 .categoria(novaCategoria)
+                .dimensao(Dimensao.builder()
+                        .comprimento(this.comprimento)
+                        .altura(this.altura)
+                        .largura(this.largura)
+                        .peso(this.peso)
+                        .build())
                 .build();
     }
 

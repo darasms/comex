@@ -1,5 +1,6 @@
 package br.com.alura.comex.estoque.infra.produto;
 
+import br.com.alura.comex.compartilhado.infra.produto.DimensaoEntity;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoqueRepository;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
@@ -55,6 +56,7 @@ public class ProdutoEstoqueRepositoryImpl implements ProdutoEstoqueRepository {
         produtoEstoqueEntity.setPrecoUnitario(produtoEstoque.getPrecoUnitario());
         produtoEstoqueEntity.setQuantidadeEstoque(produtoEstoque.getQuantidadeEstoque());
         produtoEstoqueEntity.setCategoria(CategoriaEntity.converter(produtoEstoque.getCategoria()));
+        produtoEstoqueEntity.setDimensao(DimensaoEntity.converter(produtoEstoque.getDimensao()));
 
         return produtoEstoqueEntity.paraProduto();
     }

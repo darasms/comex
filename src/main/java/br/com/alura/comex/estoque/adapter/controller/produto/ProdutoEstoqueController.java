@@ -8,6 +8,7 @@ import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueEntity;
 import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,13 +24,12 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/produtos")
+@RequiredArgsConstructor
 public class ProdutoEstoqueController {
 
-    @Autowired
-    private ProdutoEstoqueRepositoryImpl produtoRepository;
+    private final ProdutoEstoqueRepositoryImpl produtoRepository;
 
-    @Autowired
-    private CategoriaRepositoryImpl categoriaRepository;
+    private final CategoriaRepositoryImpl categoriaRepository;
 
     @GetMapping
     public ResponseEntity<Page<ProdutoEstoqueDto>> listar(@RequestParam(defaultValue = "0") int pagina) {
