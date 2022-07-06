@@ -4,7 +4,7 @@ import br.com.alura.comex.compartilhado.adapter.controller.cliente.dto.ClienteDt
 import br.com.alura.comex.compartilhado.adapter.controller.cliente.dto.ResumoClienteDto;
 import br.com.alura.comex.compartilhado.adapter.controller.cliente.form.ClienteForm;
 import br.com.alura.comex.compartilhado.entity.cliente.Cliente;
-import br.com.alura.comex.compartilhado.infra.cliente.ClienteRepositoryImpl;
+import br.com.alura.comex.compartilhado.entity.cliente.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class ClienteController {
 
-    private final ClienteRepositoryImpl clienteDAO;
+    private final ClienteRepository clienteDAO;
 
     @PostMapping
     @Transactional

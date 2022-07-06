@@ -1,14 +1,14 @@
 package br.com.alura.comex.compartilhado.adapter.controller.categoria;
 
 
-import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
 import br.com.alura.comex.compartilhado.adapter.controller.categoria.dto.CategoriaDto;
 import br.com.alura.comex.compartilhado.adapter.controller.categoria.dto.DetalhesDaCategoriaDto;
 import br.com.alura.comex.compartilhado.adapter.controller.categoria.form.AtualizacaoCategoriaForm;
 import br.com.alura.comex.compartilhado.adapter.controller.categoria.form.CategoriaForm;
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
-import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
-import br.com.alura.comex.compartilhado.infra.pedido.PedidoDAO;
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
+import br.com.alura.comex.compartilhado.entity.pedido.PedidoRepository;
+import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +24,10 @@ import java.util.List;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepositoryImpl categoriaRepository;
+    private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private PedidoDAO pedidoDAO;
+    private PedidoRepository pedidoRepository;
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> listar() {

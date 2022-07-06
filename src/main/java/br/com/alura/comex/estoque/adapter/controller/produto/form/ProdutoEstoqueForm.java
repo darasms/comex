@@ -1,8 +1,8 @@
 package br.com.alura.comex.estoque.adapter.controller.produto.form;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
-import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 public class ProdutoEstoqueForm {
 
@@ -43,7 +44,7 @@ public class ProdutoEstoqueForm {
     private BigDecimal peso;
 
 
-    public ProdutoEstoque converterEmProduto(CategoriaRepositoryImpl categoriaRepository) {
+    public ProdutoEstoque converterEmProduto(CategoriaRepository categoriaRepository) {
         Categoria novaCategoria = categoriaRepository.buscarCategoria(categoria);
         return ProdutoEstoque.builder()
                 .nome(nome)

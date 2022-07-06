@@ -2,7 +2,7 @@ package br.com.alura.comex.compartilhado.adapter.controller.pedido.form;
 
 import br.com.alura.comex.compartilhado.entity.itemDePedido.ItemDePedido;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
-import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoqueRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,10 +24,10 @@ public class ItemDePedidoForm {
     @Min(1)
     private int quantidadeProduto;
 
-    private ProdutoEstoque verificarProduto(ProdutoEstoqueRepositoryImpl produtoRepository){
+    private ProdutoEstoque verificarProduto(ProdutoEstoqueRepository produtoRepository) {
         ProdutoEstoque produtoEstoque = produtoRepository.buscarProdutoPorCodProduto(this.idProduto);
 
-        if (produtoEstoque.getQuantidadeEstoque() < this.quantidadeProduto){
+        if (produtoEstoque.getQuantidadeEstoque() < this.quantidadeProduto) {
             throw new RuntimeException("Sem produto em estoque");
         }
 
@@ -38,7 +38,7 @@ public class ItemDePedidoForm {
         return produtoEstoque;
     }
 
-    public ItemDePedido converter(ProdutoEstoqueRepositoryImpl produtoRepository){
+    public ItemDePedido converter(ProdutoEstoqueRepository produtoRepository) {
         return new ItemDePedido(this.quantidadeProduto, verificarProduto(produtoRepository));
     }
 

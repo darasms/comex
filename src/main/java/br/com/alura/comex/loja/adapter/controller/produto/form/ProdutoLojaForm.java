@@ -1,6 +1,7 @@
 package br.com.alura.comex.loja.adapter.controller.produto.form;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.loja.entity.produto.ProdutoLoja;
@@ -45,7 +46,7 @@ public class ProdutoLojaForm {
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal peso;
 
-    public ProdutoLoja converterEmProdutoLoja(CategoriaRepositoryImpl categoriaRepository) {
+    public ProdutoLoja converterEmProdutoLoja(CategoriaRepository categoriaRepository) {
         Categoria novaCategoria = categoriaRepository.buscarCategoria(categoria);
         return ProdutoLoja.builder()
                 .nome(nome)

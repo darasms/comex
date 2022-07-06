@@ -1,13 +1,13 @@
 package br.com.alura.comex.compartilhado.adapter.controller.pedido;
 
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.DetalhamentoPedidoDto;
-import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.PedidoDto;
-import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
-import br.com.alura.comex.compartilhado.infra.pedido.PedidoRepositoryImpl;
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.DetalhesPedidoDto;
+import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.PedidoDto;
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.form.PedidoFrom;
-import br.com.alura.comex.compartilhado.infra.cliente.ClienteRepositoryImpl;
-import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
+import br.com.alura.comex.compartilhado.entity.cliente.ClienteRepository;
+import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
+import br.com.alura.comex.compartilhado.entity.pedido.PedidoRepository;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -27,13 +27,13 @@ import java.net.URI;
 public class PedidoController {
 
     @Autowired
-    private PedidoRepositoryImpl pedidoRepository;
+    private PedidoRepository pedidoRepository;
 
     @Autowired
-    private ClienteRepositoryImpl clienteRepository;
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    private ProdutoEstoqueRepositoryImpl produtoRepository;
+    private ProdutoEstoqueRepository produtoRepository;
 
     @GetMapping
     public ResponseEntity<Page<PedidoDto>> listar(@PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "data") Pageable pageable) {

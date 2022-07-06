@@ -1,15 +1,14 @@
 package br.com.alura.comex.estoque.adapter.controller.produto;
 
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.estoque.adapter.controller.produto.dto.DetalhesDeProdutoEstoqueDto;
 import br.com.alura.comex.estoque.adapter.controller.produto.dto.ProdutoEstoqueDto;
 import br.com.alura.comex.estoque.adapter.controller.produto.form.AtualizacaoProdutoEstoqueForm;
 import br.com.alura.comex.estoque.adapter.controller.produto.form.ProdutoEstoqueForm;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
-import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoqueRepository;
 import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueEntity;
-import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +26,9 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class ProdutoEstoqueController {
 
-    private final ProdutoEstoqueRepositoryImpl produtoRepository;
+    private final ProdutoEstoqueRepository produtoRepository;
 
-    private final CategoriaRepositoryImpl categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
     @GetMapping
     public ResponseEntity<Page<ProdutoEstoqueDto>> listar(@RequestParam(defaultValue = "0") int pagina) {

@@ -1,8 +1,8 @@
 package br.com.alura.comex.loja.adapter.controller.produto.form;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
-import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.loja.entity.produto.ProdutoLoja;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +42,7 @@ public class AtualizacaoProdutoLojaForm {
     private BigDecimal peso;
 
 
-    public ProdutoLoja converterEmProdutoLoja(CategoriaRepositoryImpl repository){
+    public ProdutoLoja converterEmProdutoLoja(CategoriaRepository repository) {
 
         Categoria categoria = repository.buscarCategoria(this.categoria);
 

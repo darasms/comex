@@ -1,12 +1,14 @@
 package br.com.alura.comex.loja.adapter.controller.produto;
 
 
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.loja.adapter.controller.produto.dto.DetalhesDeProdutoLojaDto;
 import br.com.alura.comex.loja.adapter.controller.produto.dto.ProdutoLojaDto;
 import br.com.alura.comex.loja.adapter.controller.produto.form.AtualizacaoProdutoLojaForm;
 import br.com.alura.comex.loja.adapter.controller.produto.form.ProdutoLojaForm;
 import br.com.alura.comex.loja.entity.produto.ProdutoLoja;
+import br.com.alura.comex.loja.entity.produto.ProdutoLojaRepository;
 import br.com.alura.comex.loja.infra.produto.ProdutoLojaEntity;
 import br.com.alura.comex.loja.infra.produto.ProdutoLojaRepositoryImpl;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +29,9 @@ import java.net.URI;
 @RequestMapping("/api/loja/produtos")
 public class ProdutoLojaContoller {
 
-    private final ProdutoLojaRepositoryImpl produtoRepository;
+    private final ProdutoLojaRepository produtoRepository;
 
-    private final CategoriaRepositoryImpl categoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
     @GetMapping
     public ResponseEntity<Page<ProdutoLojaDto>> listar(@RequestParam(defaultValue = "0") int pagina) {

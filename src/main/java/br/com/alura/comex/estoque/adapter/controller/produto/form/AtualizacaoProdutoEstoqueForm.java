@@ -1,6 +1,7 @@
 package br.com.alura.comex.estoque.adapter.controller.produto.form;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
+import br.com.alura.comex.compartilhado.entity.categoria.CategoriaRepository;
 import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
@@ -39,7 +40,7 @@ public class AtualizacaoProdutoEstoqueForm {
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal peso;
 
-    public ProdutoEstoque paraProduto(CategoriaRepositoryImpl repository){
+    public ProdutoEstoque paraProduto(CategoriaRepository repository){
 
         Categoria categoria = repository.buscarCategoria(this.categoria);
 
