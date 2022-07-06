@@ -50,7 +50,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
                 .id(categoriaEntity.getId())
                 .nome(categoriaEntity.getNome())
                 .status(categoriaEntity.getStatus())
-                .produtos(categoriaEntity.toProdutos())
+                .produtoEstoques(categoriaEntity.toProdutos())
                 .build();
     }
 

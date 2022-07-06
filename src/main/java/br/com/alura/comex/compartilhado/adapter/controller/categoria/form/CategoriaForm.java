@@ -22,7 +22,7 @@ public class CategoriaForm {
         return Categoria.builder()
                 .nome(this.nome)
                 .status(StatusCategoria.ATIVA)
-                .produtos(new ArrayList<>())
+                .produtoEstoques(new ArrayList<>())
                 .build();
     }
 }

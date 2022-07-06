@@ -4,7 +4,7 @@ import br.com.alura.comex.compartilhado.entity.itemDePedido.ItemDePedido;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
 import br.com.alura.comex.compartilhado.entity.enuns.TipoDescontoItem;
 import br.com.alura.comex.compartilhado.infra.pedido.PedidoEntity;
-import br.com.alura.comex.estoque.infra.produto.ProdutoEntity;
+import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,17 +33,17 @@ public class ItemDePedidoEntity {
     private PedidoEntity pedidoEntity;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ProdutoEntity produtoEntity;
+    private ProdutoEstoqueEntity produtoEstoqueEntity;
 
     @Column(nullable = false)
     private BigDecimal desconto = BigDecimal.ZERO;
     @Enumerated(EnumType.STRING)
     private TipoDescontoItem tipoDesconto = TipoDescontoItem.NENHUM;
 
-    public ItemDePedidoEntity(Integer quantidade, ProdutoEntity produtoEntity) {
+    public ItemDePedidoEntity(Integer quantidade, ProdutoEstoqueEntity produtoEstoqueEntity) {
         this.quantidade = quantidade;
-        this.produtoEntity = produtoEntity;
-        this.precoUnitario = produtoEntity.getPrecoUnitario();
+        this.produtoEstoqueEntity = produtoEstoqueEntity;
+        this.precoUnitario = produtoEstoqueEntity.getPrecoUnitario();
     }
 
     public static ItemDePedidoEntity converter(ItemDePedido item){
@@ -51,7 +51,7 @@ public class ItemDePedidoEntity {
                 .id(item.getId())
                 .precoUnitario(item.getPrecoUnitario())
                 .quantidade(item.getQuantidade())
-                .produtoEntity(ProdutoEntity.converter(item.getProduto()))
+                .produtoEstoqueEntity(ProdutoEstoqueEntity.converter(item.getProdutoEstoque()))
                 .desconto(item.getDesconto())
                 .tipoDesconto(item.getTipoDesconto())
                 .pedidoEntity(new PedidoEntity())
@@ -63,7 +63,7 @@ public class ItemDePedidoEntity {
                 .id(this.id)
                 .precoUnitario(this.precoUnitario)
                 .quantidade(this.quantidade)
-                .produto(this.produtoEntity.paraProduto())
+                .produtoEstoque(this.produtoEstoqueEntity.paraProduto())
                 .desconto(this.desconto)
                 .tipoDesconto(this.tipoDesconto)
                 .pedido(new Pedido())

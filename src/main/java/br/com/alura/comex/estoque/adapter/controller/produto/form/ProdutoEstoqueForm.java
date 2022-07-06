@@ -2,7 +2,7 @@ package br.com.alura.comex.estoque.adapter.controller.produto.form;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
-import br.com.alura.comex.estoque.entity.produto.Produto;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 
 @Getter @Setter
 @ToString
-public class ProdutoForm {
+public class ProdutoEstoqueForm {
 
     @NotNull
     @NotEmpty
@@ -43,9 +43,9 @@ public class ProdutoForm {
 //                .categoria(novaCategoria.get())
 //                .build();
 //    }
-    public Produto converterEmProduto(CategoriaRepositoryImpl categoriaRepository) {
+    public ProdutoEstoque converterEmProduto(CategoriaRepositoryImpl categoriaRepository) {
         Categoria novaCategoria = categoriaRepository.buscarCategoria(categoria);
-        return Produto.builder()
+        return ProdutoEstoque.builder()
                 .nome(nome)
                 .descricao(descricao)
                 .precoUnitario(precoUnitario)

@@ -29,8 +29,8 @@ public class ItemDePedidoDto {
         this.id = item.getId();
         this.precoUnitario = item.getPrecoUnitario();
         this.quantidade = item.getQuantidade();
-        this.produto = item.getProduto().getNome();
-        this.categoria = item.getProduto().getCategoria().getNome();
+        this.produto = item.getProdutoEstoque().getNome();
+        this.categoria = item.getProdutoEstoque().getCategoria().getNome();
         this.desconto = item.getDesconto();
         this.valorFinal = item.getValorTotalItem();
     }

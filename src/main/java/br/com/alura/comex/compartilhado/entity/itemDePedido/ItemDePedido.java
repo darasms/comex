@@ -2,7 +2,7 @@ package br.com.alura.comex.compartilhado.entity.itemDePedido;
 
 import br.com.alura.comex.compartilhado.entity.enuns.TipoDescontoItem;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
-import br.com.alura.comex.estoque.entity.produto.Produto;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -19,16 +19,16 @@ public class ItemDePedido {
 
     private Pedido pedido;
 
-    private Produto produto;
+    private ProdutoEstoque produtoEstoque;
 
     private BigDecimal desconto = BigDecimal.ZERO;
 
     private TipoDescontoItem tipoDesconto = TipoDescontoItem.NENHUM;
 
-    public ItemDePedido(int quantidadeProduto, Produto produto) {
+    public ItemDePedido(int quantidadeProduto, ProdutoEstoque produtoEstoque) {
         this.quantidade = quantidadeProduto;
-        this.produto = produto;
-        this.precoUnitario = produto.getPrecoUnitario();
+        this.produtoEstoque = produtoEstoque;
+        this.precoUnitario = produtoEstoque.getPrecoUnitario();
     }
 
     public BigDecimal getValorTotalItem() {

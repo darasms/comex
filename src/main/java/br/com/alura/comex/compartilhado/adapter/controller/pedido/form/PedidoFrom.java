@@ -2,7 +2,7 @@ package br.com.alura.comex.compartilhado.adapter.controller.pedido.form;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
 import br.com.alura.comex.compartilhado.entity.cliente.Cliente;
 import br.com.alura.comex.compartilhado.infra.cliente.ClienteRepositoryImpl;
-import br.com.alura.comex.estoque.infra.produto.ProdutoRepositoryImpl;
+import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
 import br.com.alura.comex.compartilhado.usecase.Descontos;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ public class PedidoFrom {
     @NotNull
     private List<ItemDePedidoForm> itens;
 
-    public Pedido converter(ClienteRepositoryImpl clienteRepository, ProdutoRepositoryImpl produtoRepository) {
+    public Pedido converter(ClienteRepositoryImpl clienteRepository, ProdutoEstoqueRepositoryImpl produtoRepository) {
          Cliente cliente = clienteRepository.buscarPorId(this.idCliente);
 
          Pedido pedido = new Pedido(cliente);

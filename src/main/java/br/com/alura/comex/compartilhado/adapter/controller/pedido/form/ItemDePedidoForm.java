@@ -1,8 +1,8 @@
 package br.com.alura.comex.compartilhado.adapter.controller.pedido.form;
 
 import br.com.alura.comex.compartilhado.entity.itemDePedido.ItemDePedido;
-import br.com.alura.comex.estoque.entity.produto.Produto;
-import br.com.alura.comex.estoque.infra.produto.ProdutoRepositoryImpl;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
+import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,21 +24,21 @@ public class ItemDePedidoForm {
     @Min(1)
     private int quantidadeProduto;
 
-    private Produto verificarProduto(ProdutoRepositoryImpl produtoRepository){
-        Produto produto = produtoRepository.buscarProdutoPorCodProduto(this.idProduto);
+    private ProdutoEstoque verificarProduto(ProdutoEstoqueRepositoryImpl produtoRepository){
+        ProdutoEstoque produtoEstoque = produtoRepository.buscarProdutoPorCodProduto(this.idProduto);
 
-        if (produto.getQuantidadeEstoque() < this.quantidadeProduto){
+        if (produtoEstoque.getQuantidadeEstoque() < this.quantidadeProduto){
             throw new RuntimeException("Sem produto em estoque");
         }
 
-        produto.setQuantidadeEstoque(
-                produto.getQuantidadeEstoque() - this.quantidadeProduto
+        produtoEstoque.setQuantidadeEstoque(
+                produtoEstoque.getQuantidadeEstoque() - this.quantidadeProduto
         );
 
-        return produto;
+        return produtoEstoque;
     }
 
-    public ItemDePedido converter(ProdutoRepositoryImpl produtoRepository){
+    public ItemDePedido converter(ProdutoEstoqueRepositoryImpl produtoRepository){
         return new ItemDePedido(this.quantidadeProduto, verificarProduto(produtoRepository));
     }
 

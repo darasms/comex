@@ -44,6 +44,7 @@ public class ProdutoLojaEntity {
 
     public static ProdutoLojaEntity converter(ProdutoLoja produto) {
         return ProdutoLojaEntity.builder()
+                .codigoProduto(produto.getCodigoProduto())
                 .nome(produto.getNome())
                 .descricao(produto.getDescricao())
                 .precoUnitario(produto.getPrecoUnitario())

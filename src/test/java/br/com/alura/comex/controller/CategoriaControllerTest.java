@@ -1,7 +1,7 @@
 package br.com.alura.comex.controller;
 
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
-import br.com.alura.comex.estoque.infra.produto.ProdutoEntity;
+import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueEntity;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaDAO;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -87,8 +87,8 @@ class CategoriaControllerTest {
 
         URI uri = new URI("/api/categorias/" + INFORMATICA.getId());
 
-         ProdutoEntity teclado = new ProdutoEntity("teclado", "Dell", new BigDecimal("25.4"), 3, INFORMATICA );
-         ProdutoEntity tela = new ProdutoEntity("tela", "Dell", new BigDecimal("45.00"), 10, INFORMATICA );
+         ProdutoEstoqueEntity teclado = new ProdutoEstoqueEntity("teclado", "Dell", new BigDecimal("25.4"), 3, INFORMATICA );
+         ProdutoEstoqueEntity tela = new ProdutoEstoqueEntity("tela", "Dell", new BigDecimal("45.00"), 10, INFORMATICA );
 
          entityManager.persist(teclado);
          entityManager.persist(tela);
@@ -101,7 +101,7 @@ class CategoriaControllerTest {
                 .andDo(log())
                 .andExpect(jsonPath("$.nome", equalTo(INFORMATICA.getNome())))
                 .andExpect(jsonPath("$.status", equalTo(INFORMATICA.getStatus().toString())))
-                .andExpect(jsonPath("$.produtos", equalTo(INFORMATICA.getProdutoEntities().stream().map(ProdutoEntity::getName).collect(Collectors.toList()))));
+                .andExpect(jsonPath("$.produtos", equalTo(INFORMATICA.getProdutoEntities().stream().map(ProdutoEstoqueEntity::getName).collect(Collectors.toList()))));
     }
 
     @Test

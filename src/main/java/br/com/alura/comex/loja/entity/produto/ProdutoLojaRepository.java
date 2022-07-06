@@ -1,6 +1,5 @@
 package br.com.alura.comex.loja.entity.produto;
 
-import br.com.alura.comex.estoque.entity.produto.Produto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

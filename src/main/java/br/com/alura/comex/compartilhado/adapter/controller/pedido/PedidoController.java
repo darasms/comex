@@ -7,7 +7,7 @@ import br.com.alura.comex.compartilhado.infra.pedido.PedidoRepositoryImpl;
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.DetalhesPedidoDto;
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.form.PedidoFrom;
 import br.com.alura.comex.compartilhado.infra.cliente.ClienteRepositoryImpl;
-import br.com.alura.comex.estoque.infra.produto.ProdutoRepositoryImpl;
+import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
@@ -33,7 +33,7 @@ public class PedidoController {
     private ClienteRepositoryImpl clienteRepository;
 
     @Autowired
-    private ProdutoRepositoryImpl produtoRepository;
+    private ProdutoEstoqueRepositoryImpl produtoRepository;
 
     @GetMapping
     public ResponseEntity<Page<PedidoDto>> listar(@PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "data") Pageable pageable) {

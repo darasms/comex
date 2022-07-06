@@ -3,7 +3,6 @@ package br.com.alura.comex.loja.adapter.controller.produto.form;
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
 import br.com.alura.comex.compartilhado.entity.produto.Dimensao;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
-import br.com.alura.comex.estoque.entity.produto.Produto;
 import br.com.alura.comex.loja.entity.produto.ProdutoLoja;
 import lombok.Getter;
 import lombok.Setter;

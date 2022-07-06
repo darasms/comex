@@ -1,6 +1,6 @@
 package br.com.alura.comex.estoque.infra.produto;
 
-import br.com.alura.comex.estoque.entity.produto.Produto;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
 import lombok.*;
 
@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @Table(name = "produtos")
-public class ProdutoEntity {
+public class ProdutoEstoqueEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigoProduto;
@@ -33,21 +33,21 @@ public class ProdutoEntity {
     private CategoriaEntity categoria;
 
 
-    public static ProdutoEntity converter(Produto produto) {
+    public static ProdutoEstoqueEntity converter(ProdutoEstoque produtoEstoque) {
 
-        return ProdutoEntity.builder()
-                .nome(produto.getNome())
-                .codigoProduto(produto.getCodigoProduto())
-                .descricao(produto.getDescricao())
-                .precoUnitario(produto.getPrecoUnitario())
-                .quantidadeEstoque(produto.getQuantidadeEstoque())
-                .categoria(CategoriaEntity.converter(produto.getCategoria()))
+        return ProdutoEstoqueEntity.builder()
+                .nome(produtoEstoque.getNome())
+                .codigoProduto(produtoEstoque.getCodigoProduto())
+                .descricao(produtoEstoque.getDescricao())
+                .precoUnitario(produtoEstoque.getPrecoUnitario())
+                .quantidadeEstoque(produtoEstoque.getQuantidadeEstoque())
+                .categoria(CategoriaEntity.converter(produtoEstoque.getCategoria()))
                 .build();
     }
 
-    public Produto paraProduto() {
+    public ProdutoEstoque paraProduto() {
 
-        return Produto.builder()
+        return ProdutoEstoque.builder()
                 .codigoProduto(this.codigoProduto)
                 .nome(this.nome)
                 .descricao(this.descricao)

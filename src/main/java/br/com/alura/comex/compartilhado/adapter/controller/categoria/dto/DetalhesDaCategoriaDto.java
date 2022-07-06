@@ -2,7 +2,7 @@ package br.com.alura.comex.compartilhado.adapter.controller.categoria.dto;
 
 import br.com.alura.comex.compartilhado.entity.enuns.StatusCategoria;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
-import br.com.alura.comex.estoque.infra.produto.ProdutoEntity;
+import br.com.alura.comex.estoque.infra.produto.ProdutoEstoqueEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ public class DetalhesDaCategoriaDto {
     public DetalhesDaCategoriaDto(CategoriaEntity categoria) {
         this.nome = categoria.getNome();
         this.status = categoria.getStatus();
-        this.produtos = categoria.getProdutoEntities().stream().map(ProdutoEntity::getNome).collect(Collectors.toList());
+        this.produtos = categoria.getProdutoEntities().stream().map(ProdutoEstoqueEntity::getNome).collect(Collectors.toList());
     }
 
     public String getNome() {

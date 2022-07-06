@@ -2,7 +2,7 @@ package br.com.alura.comex.compartilhado.adapter.controller.categoria.dto;
 
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
 import br.com.alura.comex.compartilhado.entity.enuns.StatusCategoria;
-import br.com.alura.comex.estoque.entity.produto.Produto;
+import br.com.alura.comex.estoque.entity.produto.ProdutoEstoque;
 import lombok.Getter;
 
 import java.util.List;
@@ -15,13 +15,13 @@ public class CategoriaDto {
     private String nome;
     private StatusCategoria status;
 
-    private List<Produto> produtoEntities;
+    private List<ProdutoEstoque> produtoEstoqueEntities;
 
     public CategoriaDto(Categoria categoria) {
         this.id = categoria.getId();
         this.nome = categoria.getNome();
         this.status = categoria.getStatus();
-        this.produtoEntities = categoria.getProdutos();
+        this.produtoEstoqueEntities = categoria.getProdutoEstoques();
     }
 
     public static List<CategoriaDto> converter(List<Categoria> categorias) {
