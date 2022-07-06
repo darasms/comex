@@ -27,7 +27,8 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
     @Override
     public Pedido buscarPedidoPorCodIdentificador(Long codigoIdentificador) {
-        PedidoEntity pedidoEntity = pedidoDAO.findById(codigoIdentificador).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        PedidoEntity pedidoEntity = pedidoDAO.findById(codigoIdentificador)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido com código %s não encontrado! ".formatted(codigoIdentificador)));
         return pedidoEntity.paraPedido();
     }
 

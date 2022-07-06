@@ -25,7 +25,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public Cliente buscarPorId(Long id) {
-        ClienteEntity clienteEntity = clienteDAO.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ClienteEntity clienteEntity = clienteDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente com id %s não encontrado! ".formatted(id)));
         return clienteEntity.paraCliente();
     }
 

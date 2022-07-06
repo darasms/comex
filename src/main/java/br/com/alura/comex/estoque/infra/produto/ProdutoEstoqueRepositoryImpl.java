@@ -34,7 +34,7 @@ public class ProdutoEstoqueRepositoryImpl implements ProdutoEstoqueRepository {
     public ProdutoEstoque buscarProdutoPorCodProduto(Long codigoProduto) {
 
         ProdutoEstoqueEntity produtoEstoqueEntity = produtoEstoqueDAO.findById(codigoProduto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto com código %s não encontrado no estoque".formatted(codigoProduto)));
 
         return produtoEstoqueEntity.paraProduto();
     }
@@ -49,7 +49,7 @@ public class ProdutoEstoqueRepositoryImpl implements ProdutoEstoqueRepository {
     public ProdutoEstoque atualizarProduto(Long codigoProduto, ProdutoEstoque produtoEstoque) {
 
         ProdutoEstoqueEntity produtoEstoqueEntity = produtoEstoqueDAO.findById(codigoProduto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado no estoque %s".formatted(produtoEstoque.getNome())));
 
         produtoEstoqueEntity.setNome(produtoEstoque.getNome());
         produtoEstoqueEntity.setDescricao(produtoEstoque.getDescricao());
@@ -64,7 +64,8 @@ public class ProdutoEstoqueRepositoryImpl implements ProdutoEstoqueRepository {
     @Override
     public void excluirProduto(Long codigoProduto) {
 
-        ProdutoEstoqueEntity produto = produtoEstoqueDAO.findById(codigoProduto).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        ProdutoEstoqueEntity produto = produtoEstoqueDAO.findById(codigoProduto)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado no estoque"));
 
         produtoEstoqueDAO.deleteById(produto.getCodigoProduto());
     }

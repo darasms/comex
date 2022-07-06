@@ -34,7 +34,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     public void deletarCategoria(Long id) {
 
         CategoriaEntity categoriaEntity = categoriaDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria com id %s não encontrada! ".formatted(id)));
 
         categoriaDAO.deleteById(categoriaEntity.getId());
 
@@ -44,7 +44,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     public Categoria buscarCategoria(Long id) {
 
         CategoriaEntity categoriaEntity = categoriaDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria com id %s não encontrada! ".formatted(id)));
 
         return Categoria.builder()
                 .id(categoriaEntity.getId())
@@ -58,7 +58,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     public Categoria atualizar(Long id, String nomeCategoria) {
 
         CategoriaEntity categoriaEntity = categoriaDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria  %s não encontrada! ".formatted(nomeCategoria)));
 
         categoriaEntity.setNome(nomeCategoria);
 
@@ -72,7 +72,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
         if (categoria.getStatus().equals(StatusCategoria.ATIVA)) {
             categoria.setStatus(StatusCategoria.INATIVA);
-        }else {
+        } else {
             categoria.setStatus(StatusCategoria.ATIVA);
         }
         return categoria.toCategoria();

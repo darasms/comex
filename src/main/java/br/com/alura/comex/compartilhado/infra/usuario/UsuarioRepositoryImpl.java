@@ -21,6 +21,8 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Usuario buscarUsuario(String email) {
-        return usuarioDAO.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)).paraUsuario();
+        return usuarioDAO.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email %s não cadastrado! ".formatted(email)))
+                .paraUsuario();
     }
 }

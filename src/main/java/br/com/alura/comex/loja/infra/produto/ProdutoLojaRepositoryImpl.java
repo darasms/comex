@@ -20,7 +20,7 @@ public class ProdutoLojaRepositoryImpl implements ProdutoLojaRepository {
     @Override
     public ProdutoLoja buscarProdutoPorCodProduto(Long codigoProduto) {
         ProdutoLojaEntity produtoEntity = produtoLojaDAO.findById(codigoProduto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto com código %s não encontrado na loja".formatted(codigoProduto)));
 
         return produtoEntity.paraProdutoLoja();
     }
@@ -34,7 +34,7 @@ public class ProdutoLojaRepositoryImpl implements ProdutoLojaRepository {
     @Override
     public ProdutoLoja atualizarProduto(Long codigoProduto, ProdutoLoja produto) {
         ProdutoLojaEntity produtoEntity = produtoLojaDAO.findById(codigoProduto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto %s não encontrado na loja".formatted(produto.getNome())));
 
         produtoEntity.setNome(produto.getNome());
         produtoEntity.setDescricao(produto.getDescricao());
@@ -50,7 +50,7 @@ public class ProdutoLojaRepositoryImpl implements ProdutoLojaRepository {
     public void excluirProduto(Long codigoProduto) {
 
         ProdutoLojaEntity produtoEntity = produtoLojaDAO.findById(codigoProduto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado na loja"));
 
         produtoLojaDAO.deleteById(produtoEntity.getCodigoProduto());
 

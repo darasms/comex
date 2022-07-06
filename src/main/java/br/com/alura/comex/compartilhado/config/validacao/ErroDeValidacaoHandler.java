@@ -2,6 +2,7 @@ package br.com.alura.comex.compartilhado.config.validacao;
 
 import br.com.alura.comex.compartilhado.config.validacao.dto.ErroDeFormularioDto;
 import br.com.alura.comex.compartilhado.config.validacao.dto.ErroRuntimeExceptionDto;
+import br.com.alura.comex.compartilhado.config.validacao.dto.ErroObjetoNaoEncontradoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +44,15 @@ public class ErroDeValidacaoHandler {
             return new ErroRuntimeExceptionDto(exception.getClass(), exception.getMessage());
     }
 
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResponseStatusException.class)
+    public ErroObjetoNaoEncontradoDto handle(ResponseStatusException exception) {
+        ;
+        return ErroObjetoNaoEncontradoDto.builder()
+                .status(exception.getStatus().toString())
+                .mensagem(exception.getReason())
+                .classe(exception.getClass().toString())
+                .build();
+    }
 
 }
