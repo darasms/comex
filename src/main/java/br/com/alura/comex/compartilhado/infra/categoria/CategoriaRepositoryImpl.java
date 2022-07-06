@@ -68,7 +68,8 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     @Override
     public Categoria atualizarStatus(Long id) {
 
-        CategoriaEntity categoria = categoriaDAO.getReferenceById(id);
+        CategoriaEntity categoria = categoriaDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria com id %s não encontrada! ".formatted(id)));
 
         if (categoria.getStatus().equals(StatusCategoria.ATIVA)) {
             categoria.setStatus(StatusCategoria.INATIVA);

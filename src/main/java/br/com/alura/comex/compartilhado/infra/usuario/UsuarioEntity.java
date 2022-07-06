@@ -26,8 +26,8 @@ public class UsuarioEntity implements UserDetails {
     @Column(nullable = false)
     private String senha;
 
-    @OneToOne()
-    private ClienteEntity clienteEntity;
+    @OneToOne( optional = false)
+    private ClienteEntity cliente;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
 

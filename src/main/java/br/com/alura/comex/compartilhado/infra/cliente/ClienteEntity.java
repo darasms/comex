@@ -5,8 +5,10 @@ import br.com.alura.comex.compartilhado.entity.cliente.CPF;
 import br.com.alura.comex.compartilhado.entity.cliente.Cliente;
 import br.com.alura.comex.compartilhado.entity.cliente.Endereco;
 import br.com.alura.comex.compartilhado.entity.cliente.Telefone;
+import br.com.alura.comex.compartilhado.entity.usuario.Usuario;
 import br.com.alura.comex.compartilhado.infra.cliente.validador.ValidadorProExpressaoRegular;
 import br.com.alura.comex.compartilhado.infra.pedido.PedidoEntity;
+import br.com.alura.comex.compartilhado.infra.usuario.UsuarioEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,11 +42,11 @@ public class ClienteEntity {
     @Embedded
     private EnderecoEntity endereco;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<PedidoEntity> pedidos = new ArrayList<>();
 
-//    @OneToOne(optional = false, mappedBy = "clienteEntity")
-//    private UsuarioEntity usuarioEntity;
+//    @OneToOne(optional = false)
+//    private UsuarioEntity usuario;
 
 
     public static ClienteEntity converter(Cliente cliente) {
@@ -93,14 +95,8 @@ public class ClienteEntity {
                         .complemento(this.endereco.getComplemento())
                         .build())
                 .pedidos(new ArrayList<>())
-//                .usuario(Usuario.builder()
-//                        .email(this.usuarioEntity.getEmail())
-//                        .senha(this.usuarioEntity.getSenha())
-//                        .build())
+                .usuario(new Usuario())
                 .build();
     }
 
-    public int quantidadeDePedidos(){
-        return pedidos.size();
-    }
 }
