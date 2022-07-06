@@ -1,11 +1,11 @@
 package br.com.alura.comex.compartilhado.adapter.controller.pedido;
 
-import br.com.alura.comex.compartilhado.adapter.dto.pedido.DetalhamentoPedidoDto;
-import br.com.alura.comex.compartilhado.adapter.dto.pedido.PedidoDto;
+import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.DetalhamentoPedidoDto;
+import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.PedidoDto;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
 import br.com.alura.comex.compartilhado.infra.pedido.PedidoRepositoryImpl;
-import br.com.alura.comex.compartilhado.adapter.dto.pedido.DetalhesPedidoDto;
-import br.com.alura.comex.compartilhado.adapter.form.PedidoFrom;
+import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.DetalhesPedidoDto;
+import br.com.alura.comex.compartilhado.adapter.controller.pedido.form.PedidoFrom;
 import br.com.alura.comex.compartilhado.infra.cliente.ClienteRepositoryImpl;
 import br.com.alura.comex.estoque.infra.produto.ProdutoRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;

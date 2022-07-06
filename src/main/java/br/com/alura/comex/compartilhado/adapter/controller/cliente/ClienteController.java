@@ -1,8 +1,8 @@
 package br.com.alura.comex.compartilhado.adapter.controller.cliente;
 
-import br.com.alura.comex.compartilhado.adapter.dto.cliente.ClienteDto;
-import br.com.alura.comex.compartilhado.adapter.dto.cliente.ResumoClienteDto;
-import br.com.alura.comex.compartilhado.adapter.form.ClienteForm;
+import br.com.alura.comex.compartilhado.adapter.controller.cliente.dto.ClienteDto;
+import br.com.alura.comex.compartilhado.adapter.controller.cliente.dto.ResumoClienteDto;
+import br.com.alura.comex.compartilhado.adapter.controller.cliente.form.ClienteForm;
 import br.com.alura.comex.compartilhado.entity.cliente.Cliente;
 import br.com.alura.comex.compartilhado.infra.cliente.ClienteRepositoryImpl;
 import lombok.RequiredArgsConstructor;

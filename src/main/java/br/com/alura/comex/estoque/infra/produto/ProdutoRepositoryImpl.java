@@ -38,11 +38,6 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
         return produtoEntity.paraProduto();
     }
 
-    public ProdutoEntity buscarProdutoCat(Long id) {
-        return produtoDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
     @Override
     public Produto cadastrarProduto(Produto produto) {
         ProdutoEntity produtoEntity = produtoDAO.save(ProdutoEntity.converter(produto));

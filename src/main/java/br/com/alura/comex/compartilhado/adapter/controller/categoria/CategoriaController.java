@@ -2,10 +2,10 @@ package br.com.alura.comex.compartilhado.adapter.controller.categoria;
 
 
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaEntity;
-import br.com.alura.comex.compartilhado.adapter.dto.categorias.CategoriaDto;
-import br.com.alura.comex.compartilhado.adapter.dto.categorias.DetalhesDaCategoriaDto;
-import br.com.alura.comex.compartilhado.adapter.form.AtualizacaoCategoriaForm;
-import br.com.alura.comex.compartilhado.adapter.form.CategoriaForm;
+import br.com.alura.comex.compartilhado.adapter.controller.categoria.dto.CategoriaDto;
+import br.com.alura.comex.compartilhado.adapter.controller.categoria.dto.DetalhesDaCategoriaDto;
+import br.com.alura.comex.compartilhado.adapter.controller.categoria.form.AtualizacaoCategoriaForm;
+import br.com.alura.comex.compartilhado.adapter.controller.categoria.form.CategoriaForm;
 import br.com.alura.comex.compartilhado.entity.categoria.Categoria;
 import br.com.alura.comex.compartilhado.infra.categoria.CategoriaRepositoryImpl;
 import br.com.alura.comex.compartilhado.infra.pedido.PedidoDAO;
