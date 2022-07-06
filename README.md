@@ -26,7 +26,9 @@
     - Endereco <br><br>
     <strong>Pedido (Aggregate Root):</strong> <br>
     - ItemDePedido <br>
-    - Produto
+    - Produto <br><br>
+    <strong>Produto (Aggregate Root):</strong> <br>
+    -Categoria <br>
 </div>
 
 
