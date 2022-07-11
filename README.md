@@ -21,11 +21,13 @@
 
 <p>Já que a escolha foi utilizar a arquitetura de microsserviços o ideal a se fazer é não compatilhar 
 recursos, para manter o baixo acoplamento entre os serviços. Pensando nisso, criaria um novo banco de dados
-que ficaria sobre a responsabilidade do novo microsservico.</p>
+que ficaria sobre a responsabilidade do novo microsservico. Dessa forma podemos criar interfaces
+mais estáveis e assim, fazer as implantações independentes.</p>
 <p>O tipo de acoplamento de estaríamos adicionando à nossa aplicação, utilizando o mesmo banco de dados, é o Acoplamento de dados em comum
 podendo até ser um acoplamneto de conteúdo, o que possui como um agravante o fato de uma eventual mudanca na estrutura do banco afetar mais que um 
 microsserviço, ou um microsserviço assumir responsabilidades que não estão no escopo do seu negócio
 e infringir um conceito do DDD, no caso, o contexto delimitado (bounded context).</p>
+
 
 </div>
 
@@ -33,7 +35,8 @@ e infringir um conceito do DDD, no caso, o contexto delimitado (bounded context)
     <h3>3. Você precisará de um API Gateway? Se sim, quais as responsabilidades dessa peça da sua arquitetura?</h3>
     <p>Eu poderia criar uma API gateway para a aplicação como um todo para atuar como entrada única para os microsserviços corretos
     quanto para segurança da minha aplicacao.</p>
-    <P>E, também uma api gateway para pagamentos para cuidar de redirecionamento das chamadas para o lugar correto.</P>
+    <P>E, também uma api gateway para pagamentos para cuidar de redirecionamento das chamadas para o lugar correto, Trabalhando assim, com o Edge Pattern já que 
+    meu cliente pode ter necessidades diferentes.(Tipos de pagamento)</P>
 </div>
 
 <div>
