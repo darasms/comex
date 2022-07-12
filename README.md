@@ -1,5 +1,9 @@
 # Comex
 
+<h2>Arquitetura atual da aplicação </h2>
+
+![img.png](src/main/resources/static/img.png)
+
 <h2>Implementação do módulo de Pagamentos</h2>
 
 <div>
@@ -44,6 +48,14 @@ e infringir um conceito do DDD, no caso, o contexto delimitado (bounded context)
     <p>Um time independente, pois desta forma ganhamos produtividade na equipe com os desenvolvimentos de novas features</p>
 </div>
 
+<h2>Arquitetura pós implantação ms de pagamento da aplicação </h2>
+
+![img_1.png](src/main/resources/static/img_1.png)
+
+
+<h2>Expansão do microsserviço de pagamento</h2>
+
+![img_2.png](src/main/resources/static/img_2.png)
 
 <h2>Documentação dos padrões DDD</h2>
 
