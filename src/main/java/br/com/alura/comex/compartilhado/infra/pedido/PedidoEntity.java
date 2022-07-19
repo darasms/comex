@@ -1,6 +1,7 @@
 package br.com.alura.comex.compartilhado.infra.pedido;
 
 
+import br.com.alura.comex.compartilhado.entity.enuns.StatusPedido;
 import br.com.alura.comex.compartilhado.entity.enuns.TipoDesconto;
 import br.com.alura.comex.compartilhado.entity.itemDePedido.ItemDePedido;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
@@ -43,6 +44,8 @@ public class PedidoEntity {
     @Enumerated(EnumType.STRING)
     private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPedido statusPedido = StatusPedido.REALIZADO;
 
     public PedidoEntity(ClienteEntity clienteEntity) {
         this.clienteEntity = clienteEntity;
@@ -56,6 +59,7 @@ public class PedidoEntity {
                 .clienteEntity(ClienteEntity.converter(pedido.getCliente()))
                 .itens(new ArrayList<>())
                 .tipoDesconto(pedido.getTipoDesconto())
+                .statusPedido(pedido.getStatusPedido())
                 .build();
 
         List<ItemDePedidoEntity> lista = pedido.getItens().stream().map(ItemDePedidoEntity::converter).toList();
@@ -98,6 +102,7 @@ public class PedidoEntity {
                 .cliente(this.clienteEntity.paraCliente())
                 .itens(new ArrayList<>())
                 .tipoDesconto(this.tipoDesconto)
+                .statusPedido(this.statusPedido)
                 .build();
 
         List<ItemDePedido> lista = this.itens.stream().map(ItemDePedidoEntity::paraItemDePedido).toList();

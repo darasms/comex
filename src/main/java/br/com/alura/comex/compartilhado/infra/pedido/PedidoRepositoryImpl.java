@@ -1,5 +1,6 @@
 package br.com.alura.comex.compartilhado.infra.pedido;
 
+import br.com.alura.comex.compartilhado.entity.enuns.StatusPedido;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
 import br.com.alura.comex.compartilhado.entity.categoria.RelatorioPedidosPorCategoriaProjecao;
 import br.com.alura.comex.compartilhado.entity.pedido.PedidoRepository;
@@ -41,5 +42,18 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     @Override
     public List<RelatorioPedidosPorCategoriaProjecao> buscarPedidosPorCategoria() {
         return pedidoDAO.findPedidosPorCategoria();
+    }
+
+    @Override
+    public Pedido atualizarStatus(Long id, StatusPedido statusPedido) {
+
+        PedidoEntity pedidoEntity = pedidoDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido de id %s não encontrado!".formatted(id)));
+
+        pedidoEntity.setStatusPedido(statusPedido);
+
+        pedidoDAO.save(pedidoEntity);
+
+        return pedidoEntity.paraPedido();
     }
 }

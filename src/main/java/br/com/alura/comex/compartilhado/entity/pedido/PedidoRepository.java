@@ -1,6 +1,7 @@
 package br.com.alura.comex.compartilhado.entity.pedido;
 
 import br.com.alura.comex.compartilhado.entity.categoria.RelatorioPedidosPorCategoriaProjecao;
+import br.com.alura.comex.compartilhado.entity.enuns.StatusPedido;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,5 +16,7 @@ public interface PedidoRepository {
     Pedido cadastrarPedido(Pedido pedido);
 
     List<RelatorioPedidosPorCategoriaProjecao> buscarPedidosPorCategoria();
+
+    Pedido atualizarStatus(Long id, StatusPedido statusPedido);
 
 }

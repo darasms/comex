@@ -5,6 +5,7 @@ import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.DetalhesPe
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.PedidoDto;
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.form.PedidoFrom;
 import br.com.alura.comex.compartilhado.entity.cliente.ClienteRepository;
+import br.com.alura.comex.compartilhado.entity.enuns.StatusPedido;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
 import br.com.alura.comex.compartilhado.entity.pedido.PedidoConfirmadoEvent;
 import br.com.alura.comex.compartilhado.entity.pedido.PedidoRepository;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.net.URI;
 
 @RestController
@@ -62,11 +64,18 @@ public class PedidoController {
 
         Pedido pedido = pedidoRepository.cadastrarPedido(form.converter(clienteRepository, produtoRepository));
 
-        pedidoConfirmadoEvent.enviarEventoPedidoConfirmado(pedido);
-
         URI uri = uriComponentsBuilder.path("/api/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DetalhesPedidoDto(pedido));
 
     }
+
+    @PutMapping("/status_confirmado/{id}")
+    @Transactional
+    public  ResponseEntity<?> atualizarStatusParaConfirmado(@PathVariable @NotNull Long id){
+        pedidoRepository.atualizarStatus(id, StatusPedido.CONFIRMADO);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

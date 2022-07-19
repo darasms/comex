@@ -1,5 +1,6 @@
 package br.com.alura.comex.compartilhado.entity.pedido;
 
+import br.com.alura.comex.compartilhado.entity.enuns.StatusPedido;
 import br.com.alura.comex.compartilhado.entity.itemDePedido.ItemDePedido;
 import br.com.alura.comex.compartilhado.entity.cliente.Cliente;
 import br.com.alura.comex.compartilhado.entity.enuns.TipoDesconto;
@@ -29,6 +30,8 @@ public class Pedido {
     private BigDecimal desconto = BigDecimal.ZERO;
 
     private TipoDesconto tipoDesconto = TipoDesconto.NENHUM;
+
+    private StatusPedido statusPedido = StatusPedido.REALIZADO;
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
