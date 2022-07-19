@@ -1,7 +1,8 @@
-package br.com.alura.comex.compartilhado.adapter.controller.pedido.dto;
+package br.com.alura.comex.compartilhado.infra.pedido.dto;
 
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -11,8 +12,10 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class DetalhesPedidoDto {
+@NoArgsConstructor
+public class PedidoConfirmadoDto {
 
+    private Long id;
     private LocalDate data;
 
     private BigDecimal valorTotal;
@@ -25,15 +28,17 @@ public class DetalhesPedidoDto {
 
     private String nomeCliente;
 
-    private List<ItemDePedidoDto> itens;
+    private List<ItemDePedidoConfirmadoDto> itens;
 
-    public DetalhesPedidoDto(Pedido pedido) {
+    public PedidoConfirmadoDto(Pedido pedido) {
+        this.id = pedido.getId();
         this.data = pedido.getData();
         this.valorTotal = pedido.getValorTotalPedido();
         this.desconto = pedido.getDesconto();
         this.quantidadeProdutos = pedido.getQuantidadeDeProdutos();
         this.idCliente = pedido.getCliente().getId();
         this.nomeCliente = pedido.getCliente().getNome();
-        this.itens = pedido.getItens().stream().map(ItemDePedidoDto::new).collect(Collectors.toList());
+        this.itens = pedido.getItens().stream().map(ItemDePedidoConfirmadoDto::new).collect(Collectors.toList());
+
     }
 }

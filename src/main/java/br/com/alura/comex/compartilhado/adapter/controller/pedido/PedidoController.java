@@ -6,6 +6,7 @@ import br.com.alura.comex.compartilhado.adapter.controller.pedido.dto.PedidoDto;
 import br.com.alura.comex.compartilhado.adapter.controller.pedido.form.PedidoFrom;
 import br.com.alura.comex.compartilhado.entity.cliente.ClienteRepository;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
+import br.com.alura.comex.compartilhado.entity.pedido.PedidoConfirmadoEvent;
 import br.com.alura.comex.compartilhado.entity.pedido.PedidoRepository;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class PedidoController {
     @Autowired
     private ProdutoEstoqueRepository produtoRepository;
 
+    @Autowired
+    private PedidoConfirmadoEvent pedidoConfirmadoEvent;
+
     @GetMapping
     public ResponseEntity<Page<PedidoDto>> listar(@PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "data") Pageable pageable) {
 
@@ -57,6 +61,8 @@ public class PedidoController {
     public ResponseEntity<DetalhesPedidoDto> cadastrar(@RequestBody @Valid PedidoFrom form, UriComponentsBuilder uriComponentsBuilder) {
 
         Pedido pedido = pedidoRepository.cadastrarPedido(form.converter(clienteRepository, produtoRepository));
+
+        pedidoConfirmadoEvent.enviarEventoPedidoConfirmado(pedido);
 
         URI uri = uriComponentsBuilder.path("/api/pedidos/{id}").buildAndExpand(pedido.getId()).toUri();
 
