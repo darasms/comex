@@ -10,22 +10,16 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ItemDePedidoConfirmadoDto {
+public class ItemDePedidoPagoDto {
     private Long id;
-
     private BigDecimal precoUnitario;
-
     private Integer quantidade;
-
     private String produto;
-
     private String categoria;
-
     private BigDecimal desconto;
-
     private BigDecimal valorFinal;
 
-    public ItemDePedidoConfirmadoDto(ItemDePedido item) {
+    public ItemDePedidoPagoDto(ItemDePedido item) {
         this.id = item.getId();
         this.precoUnitario = item.getPrecoUnitario();
         this.quantidade = item.getQuantidade();

@@ -7,7 +7,7 @@ import br.com.alura.comex.compartilhado.adapter.controller.pedido.form.PedidoFro
 import br.com.alura.comex.compartilhado.entity.cliente.ClienteRepository;
 import br.com.alura.comex.compartilhado.entity.enuns.StatusPedido;
 import br.com.alura.comex.compartilhado.entity.pedido.Pedido;
-import br.com.alura.comex.compartilhado.entity.pedido.PedidoConfirmadoEvent;
+import br.com.alura.comex.compartilhado.entity.pedido.PedidoPagoEvent;
 import br.com.alura.comex.compartilhado.entity.pedido.PedidoRepository;
 import br.com.alura.comex.estoque.entity.produto.ProdutoEstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class PedidoController {
     private ProdutoEstoqueRepository produtoRepository;
 
     @Autowired
-    private PedidoConfirmadoEvent pedidoConfirmadoEvent;
+    private PedidoPagoEvent pedidoPagoEvent;
 
     @GetMapping
     public ResponseEntity<Page<PedidoDto>> listar(@PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC, sort = "data") Pageable pageable) {
@@ -73,7 +73,8 @@ public class PedidoController {
     @PutMapping("/status_confirmado/{id}")
     @Transactional
     public  ResponseEntity<?> atualizarStatusParaConfirmado(@PathVariable @NotNull Long id){
-        pedidoRepository.atualizarStatus(id, StatusPedido.CONFIRMADO);
+        Pedido pedido = pedidoRepository.atualizarStatus(id, StatusPedido.CONFIRMADO);
+        pedidoPagoEvent.enviarEventoPedidoPago(pedido);
         return ResponseEntity.ok().build();
     }
 

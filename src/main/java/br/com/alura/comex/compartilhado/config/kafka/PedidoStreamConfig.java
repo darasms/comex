@@ -6,14 +6,14 @@ import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.MessageChannel;
 
-@EnableBinding(PedidoStreamConfig.PedidoConfirmadoSource.class)
+@EnableBinding(PedidoStreamConfig.PedidoPagoSource.class)
 @Configuration
 public class PedidoStreamConfig {
 
 
-    public interface PedidoConfirmadoSource {
+    public interface PedidoPagoSource {
 
         @Output
-        MessageChannel pedidosConfirmados();
+        MessageChannel pedidosPagos();
     }
 }
