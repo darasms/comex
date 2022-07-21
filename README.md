@@ -1,5 +1,13 @@
 # Comex
 
+<h2>Warning!</h2>
+
+<p>É necessário mudar a propriedade server.port do aplication properties</p>
+<p>ou rodar o servidor discovery e o api-gateway para acessar os microsserviços</p>
+<h4>Servidor Discovery: </h4><link>https://github.com/darasms/discovery-server</link>
+<h4>API-Gateway: </h4><link>https://github.com/darasms/api-gateway-alura</link>
+
+
 <h2>Primeira Versão da Arquitetura</h2>
 
 <h4>C4 - Context</h4>
